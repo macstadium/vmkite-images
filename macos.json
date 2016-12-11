@@ -1,0 +1,72 @@
+{
+  "builders": [
+    {
+      "boot_wait": "2s",
+      "disk_size": 40960,
+      "guest_os_type": "darwin12-64",
+      "iso_checksum_type": "none",
+      "iso_url": "{{user `iso_url`}}",
+      "shutdown_command": "echo '{{user `username`}}'|sudo -S shutdown -h now",
+      "skip_compaction": true,
+      "ssh_port": 22,
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "ssh_wait_timeout": "10000s",
+      "tools_upload_flavor": "darwin",
+      "type": "vmware-iso",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "2048",
+        "numvcpus": "1",
+        "firmware": "efi",
+        "keyboardAndMouseProfile": "macProfile",
+        "smc.present": "TRUE",
+        "hpet0.present": "TRUE",
+        "ich7m.present": "TRUE",
+        "ehci.present": "TRUE",
+        "usb.present": "TRUE"
+      }
+    }
+  ],
+  "min_packer_version": "0.12.0",
+  "provisioners": [
+    {
+      "type": "shell-local",
+      "command": "sleep {{user `provisioning_delay`}}"
+    },
+    {
+      "destination": "/private/tmp/set_kcpassword.py",
+      "source": "scripts/support/set_kcpassword.py",
+      "type": "file"
+    },
+    {
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "scripts/vmware.sh",
+        "scripts/xcode-cli-tools.sh",
+        "scripts/add-network-interface-detection.sh",
+        "scripts/autologin.sh",
+        "scripts/system-update.sh",
+        "scripts/shrink.sh"
+      ],
+      "environment_vars": [
+        "AUTOLOGIN={{user `autologin`}}",
+        "NOCM={{user `nocm`}}",
+        "INSTALL_XCODE_CLI_TOOLS={{user `install_xcode_cli_tools`}}",
+        "PASSWORD={{user `password`}}",
+        "UPDATE_SYSTEM={{user `update_system`}}",
+        "USERNAME={{user `username`}}"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "autologin": "true",
+    "install_xcode_cli_tools": "true",
+    "update_system": "true",
+    "iso_url": "",
+    "provisioning_delay": "0",
+    "username": "vmkite",
+    "password": "vmkite"
+  }
+}
