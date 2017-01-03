@@ -16,3 +16,6 @@ installers/OSX_InstallESD_10.11.3_15D21.dmg: /Applications/Install\ OS\ X\ El\ C
 
 installers/OSX_InstallESD_10.12.2_16C68.dmg: /Applications/Install\ macOS\ Sierra.app
 	prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
+
+clean:
+	-rm installers/

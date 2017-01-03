@@ -1,7 +1,7 @@
 
 steps:
   - name: ":package: :mac: 10.12.2"
-    command: sudo make macos-10.12.2
+    command: sudo make clean macos-10.12.2
     agents:
       queue: 'packer'
 
