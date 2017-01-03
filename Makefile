@@ -1,5 +1,5 @@
 
-build: installers/OSX_InstallESD_10.11.3_15D21.dmg
+macos-10.11.3: installers/OSX_InstallESD_10.11.3_15D21.dmg
 	time packer build \
 		-var iso_url=installers/OSX_InstallESD_10.11.3_15D21.dmg \
 		-var version=10.11.3 \
