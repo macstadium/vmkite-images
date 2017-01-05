@@ -24,15 +24,19 @@ macos-10.11.3: installers/OSX_InstallESD_10.11.3_15D21.dmg
 
 installers/OSX_InstallESD_10.11.3_15D21.dmg: /Applications/Install\ OS\ X\ El\ Capitan.app
 	mkdir -p installers/
-	sudo prepare_iso/prepare_iso.sh "/Applications/Install OS X El Capitan.app" installers
+	sudo SUDO_UID=$$UID SUDO_GID=$$GID \
+		prepare_iso/prepare_iso.sh "/Applications/Install OS X El Capitan.app" installers
 
 installers/OSX_InstallESD_10.12.1_16B2659.dmg: /Applications/Install\ macOS\ Sierra.app
 	mkdir -p installers/
-	sudo prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
+	sudo SUDO_UID=$$UID SUDO_GID=$$GID \
+		prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
 
 installers/OSX_InstallESD_10.12.2_16C68.dmg: /Applications/Install\ macOS\ Sierra.app
 	mkdir -p installers/
-	sudo prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
+	sudo SUDO_UID=$$UID SUDO_GID=$$GID \
+		prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
 
 clean:
+	-rm -rf output/
 	-rm -rf installers/
