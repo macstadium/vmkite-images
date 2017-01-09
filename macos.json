@@ -14,7 +14,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "darwin",
       "type": "vmware-iso",
-      "output_directory": "output/macos-{{user `version`}}",
+      "output_directory": "{{user `packer_output_dir`}}",
       "headless": "{{user `packer_headless`}}",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -73,6 +73,6 @@
     "password": "vagrant",
     "version": "",
     "packer_headless": "true",
-    "output_dir": "output/macos-{{user `version`}}"
+    "packer_output_dir": "output/macos-{{user `version`}}"
   }
 }
