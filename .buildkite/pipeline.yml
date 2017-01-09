@@ -8,7 +8,7 @@ steps:
   - wait
 
   - name: ":packer: :mac: 10.12"
-    command: .buildkite/build.sh
+    command: .buildkite/packer.sh
     agents:
       queue: 'packer'
 
