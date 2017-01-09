@@ -1,7 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "--- :mac: Building vmware image"
 sudo make clean
 make $@
 
-govc datastore.upload -ds "PURE1-1" ./output/macos-10.12.1 macos-10.12.1/
+echo "--- :mac: Uploading to vSphere"
+cd output
+find "$1" -type f ! -name '*.lck' -exec govc datastore.upload -ds "PURE1-1" {} {} \;
