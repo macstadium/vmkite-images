@@ -9,7 +9,7 @@ macos-10.12.2: installers/OSX_InstallESD_10.12.2_16C68.dmg
 		macos.json
 
 macos-10.12.1: installers/OSX_InstallESD_10.12.1_16B2659.dmg
-	time packer build \
+	time PACKER_LOG=1 packer build \
 		-var iso_url=installers/OSX_InstallESD_10.12.1_16B2659.dmg \
 		-var version=10.12.1 \
 		-var packer_headless=$(headless) \

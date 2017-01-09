@@ -63,21 +63,6 @@
       "type": "shell"
     }
   ],
-  "post-processors": [
-    {
-      "type": "vsphere",
-      "host": "10.92.157.10",
-      "username": "admin@ljd.cc",
-      "password": "Ms10653329!",
-      "datacenter": "MacStadium - Vegas",
-      "cluster": "XSERVE_CLUSTER",
-      "datastore": "PURE1-1",
-      "vm_name": "macos-{{user `version`}}",
-      "vm_network": "dvPortGroup-Private-1",
-      "vm_folder": "vmkite",
-      "insecure": "true"
-    }
-  ],
   "variables": {
     "autologin": "true",
     "install_xcode_cli_tools": "true",
