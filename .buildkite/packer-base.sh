@@ -11,15 +11,22 @@ build_hash() {
 
 output_cache_path="${cache_dir}/output/$(build_hash)-$(version)-$(installer_build)"
 
-echo "+++ Running :packer: build for :mac: $version ($installer_build)"
-packer build \
-	-var iso_url="$installer_path" \
-	-var version="$version" \
-	-var packer_headless=true \
-	-var output_dir="$output_cache_path" \
-	macos.json
+if [[ -d "$output_cache_path" ]] ; then
+	echo "Output is in cache already, skipping building"
+else
+	echo "--- Running packer for base $version ($installer_build)"
+	packer build \
+		-var iso_url="$installer_path" \
+		-var version="$version" \
+		-var packer_headless=true \
+		-var output_dir="$output_cache_path" \
+		macos.json
+fi
 
-vmx_path=$(ls -1 $output_cache_path/*.vmx)
+if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
+	echo "Failed to find any vmx files in $output_cache_path"
+	exit 1
+fi
+
 echo "+++ Built VMX $vmx_path"
-
 buildkite-agent meta-data set base_vmx_path "$vmx_path"
