@@ -1,13 +1,13 @@
 
 steps:
-  - name: "Prepare :mac: 10.12 installer"
+  - name: ":package: :mac: 10.12"
     command: .buildkite/prepare.sh "macOS Sierra"
     agents:
       queue: 'packer'
 
   - wait
 
-  - name: "Build :mac: 10.12 base"
+  - name: ":packer: :mac: 10.12"
     command: .buildkite/build.sh
     agents:
       queue: 'packer'
