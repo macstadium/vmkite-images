@@ -31,3 +31,4 @@ fi
 
 echo "+++ Built VMX $vmx_path"
 buildkite-agent meta-data set base_vmx_path "$vmx_path"
+
