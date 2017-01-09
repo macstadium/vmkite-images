@@ -1,7 +1,6 @@
 
 steps:
   - name: ":package: :mac: 10.12"
-    command: .buildkite/prepare-sierra.sh
-    artifact_paths: 'installers/*'
+    command: .buildkite/prepare.sh "macOS Sierra"
     agents:
       queue: 'packer'
