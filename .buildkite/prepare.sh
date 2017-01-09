@@ -26,9 +26,8 @@ installer_dir="$installer_cache_path"
 if [[ -d "$installer_cache_path" ]] ; then
 	echo "Installer is in cache already, skipping building"
 else
-	echo "--- :mac: Preparing installer for macOS Sierra"
-	sudo prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
-	installer_dir="$PWD/installers"
+	echo "--- Preparing installer for macOS Sierra"
+	sudo prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" "$installer_dir"
 fi
 
 buildkite-agent meta-data set installer_path $(ls -1 $installer_dir/OSX_InstallESD_*)
