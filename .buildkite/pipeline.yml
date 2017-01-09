@@ -20,6 +20,6 @@ steps:
       queue: 'packer'
 
   - name: ":rocket: :mac: 10.12 base"
-    command: .buildkite/upload.sh
+    command: .buildkite/upload-base.sh
     agents:
       queue: 'packer'

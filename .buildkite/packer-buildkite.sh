@@ -16,4 +16,4 @@ vmx_dir=output/buildkite-macos
 vm_image="macos-10.12-buildkite-$(date +'%Y%m%d-%H%M%S')"
 
 echo "+++ Uploading to $vm_image"
-find "$vmx_dir" -type f -exec govc datastore.upload -ds "PURE1-1" {} "$vm_image"/{} \;
+find "$vmx_dir" -type f -print -exec govc datastore.upload {} "$vm_image"/{} \;
