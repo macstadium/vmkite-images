@@ -10,7 +10,7 @@ build_hash() {
   find prepare_iso/ "$installer_path" -type f -print0 | xargs -0 shasum | awk '{print $1}' | sort | shasum | awk '{print $1}'
 }
 
-output_cache_path="${cache_dir}/output/$(build_hash)-${version}-${installer_build}"
+output_cache_path="${cache_dir}/output/$(build_hash)"
 
 if [[ -d "$output_cache_path" ]] ; then
 	echo "Output is in cache already, skipping building"
