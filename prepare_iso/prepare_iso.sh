@@ -68,10 +68,10 @@ trap cleanup EXIT INT TERM
 
 
 msg_status() {
-	echo "\033[0;32m-- $1\033[0m"
+	echo "--- $1"
 }
 msg_error() {
-	echo "\033[0;31m-- $1\033[0m"
+	echo "+++ :warning: $1"
 }
 
 render_template() {
