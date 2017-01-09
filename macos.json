@@ -81,7 +81,7 @@
   "variables": {
     "autologin": "true",
     "install_xcode_cli_tools": "true",
-    "update_system": "true",
+    "update_system": "false",
     "iso_url": "",
     "provisioning_delay": "0",
     "username": "vagrant",
