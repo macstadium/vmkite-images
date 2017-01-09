@@ -4,3 +4,12 @@ steps:
     command: .buildkite/prepare.sh "macOS Sierra"
     agents:
       queue: 'packer'
+
+  - wait
+
+  - name: "Build :mac: 10.12 base"
+    command: .buildkite/build.sh
+    agents:
+      queue: 'packer'
+
+

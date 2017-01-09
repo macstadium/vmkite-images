@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
+macos_release="$1"
 cache_dir="/usr/local/var/buildkite-agent/cache"
 installer_app="/Applications/Install macOS Sierra.app"
 
@@ -13,12 +14,9 @@ installer_app_hash() {
 }
 
 echo "--- Checking hash of ${installer_app}"
-
 installer_hash_parts=($(prepare_hash) $(installer_app_hash))
 installer_hash=$(echo ${installer_hash_parts[*]} | shasum | awk '{print $1}')
-
-echo "Installer app checksum os ${installer_hash_parts[0]} (verify at https://github.com/notpeter/apple-installer-checksums)"
-echo "Overall hash is ${installer_hash}"
+echo "Hash is ${installer_hash}"
 
 installer_cache_path="${cache_dir}/installers/${installer_hash}"
 installer_dir="$installer_cache_path"
@@ -26,8 +24,8 @@ installer_dir="$installer_cache_path"
 if [[ -d "$installer_cache_path" ]] ; then
 	echo "Installer is in cache already, skipping building"
 else
-	echo "--- Preparing installer for macOS Sierra"
-	sudo prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" "$installer_dir"
+	echo "--- Preparing installer for ${macos_release}"
+	sudo prepare_iso/prepare_iso.sh "/Applications/Install ${macos_release}.app" "$installer_dir"
 fi
 
-buildkite-agent meta-data set installer_path $(ls -1 $installer_dir/OSX_InstallESD_*)
+buildkite-agent meta-data set installer_path "$(ls -1 $installer_dir/OSX_InstallESD_*)"
