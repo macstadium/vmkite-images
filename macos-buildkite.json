@@ -1,0 +1,28 @@
+{
+  "builders": [
+    {
+      "type": "vmware-vmx",
+      "source_path": "{{user `vmx_path`}}",
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "shutdown_command": "echo '{{user `username`}}'|sudo -S shutdown -h now"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "scripts/buildkite/agent.sh"
+      ],
+      "environment_vars": [],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "vmx_path": "",
+    "username": "vagrant",
+    "password": "vagrant",
+    "packer_headless": "true",
+    "packer_output_dir": "output/buildkite-macos"
+  }
+}
