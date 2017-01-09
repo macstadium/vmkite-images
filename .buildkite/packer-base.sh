@@ -6,7 +6,8 @@ installer_path=$(buildkite-agent meta-data get installer_path)
 version=$(basename "$installer_path" | cut -d_ -f3)
 
 build_hash() {
-  find prepare_iso/ "$installer_path" -type f -print0 | xargs -0 shasum | awk '{print $1}' | sort | shasum | awk '{print $1}'
+	find scripts/macos "$installer_path" -type f -print0 \
+		| xargs -0 shasum | awk '{print $1}' | sort | shasum | awk '{print $1}'
 }
 
 output_cache_path="${cache_dir}/output/$(build_hash)"

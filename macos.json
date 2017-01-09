@@ -38,19 +38,19 @@
     },
     {
       "destination": "/private/tmp/set_kcpassword.py",
-      "source": "scripts/support/set_kcpassword.py",
+      "source": "scripts/macos/support/set_kcpassword.py",
       "type": "file"
     },
     {
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/vagrant.sh",
-        "scripts/vmware.sh",
-        "scripts/xcode-cli-tools.sh",
-        "scripts/add-network-interface-detection.sh",
-        "scripts/autologin.sh",
-        "scripts/system-update.sh",
-        "scripts/shrink.sh"
+        "scripts/macos/vagrant.sh",
+        "scripts/macos/vmware.sh",
+        "scripts/macos/xcode-cli-tools.sh",
+        "scripts/macos/add-network-interface-detection.sh",
+        "scripts/macos/autologin.sh",
+        "scripts/macos/system-update.sh",
+        "scripts/macos/shrink.sh"
       ],
       "environment_vars": [
         "AUTOLOGIN={{user `autologin`}}",

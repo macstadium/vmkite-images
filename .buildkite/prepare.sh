@@ -6,7 +6,8 @@ cache_dir="/usr/local/var/buildkite-agent/cache"
 installer_app="/Applications/Install macOS Sierra.app"
 
 prepare_hash() {
-  find prepare_iso/ -type f -print0 | xargs -0 shasum | awk '{print $1}' | sort | shasum | awk '{print $1}'
+	find prepare_iso/ -type f -print0 \
+		| xargs -0 shasum | awk '{print $1}' | sort | shasum | awk '{print $1}'
 }
 
 installer_app_hash() {
