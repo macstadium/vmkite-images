@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 base_vmx_path=$(buildkite-agent meta-data get base_vmx_path)
 

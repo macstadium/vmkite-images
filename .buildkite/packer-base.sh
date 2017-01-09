@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euxo pipefail
 
 cache_dir="/usr/local/var/buildkite-agent/cache"
 installer_path=$(buildkite-agent meta-data get installer_path)
