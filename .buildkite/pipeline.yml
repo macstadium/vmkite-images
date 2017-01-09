@@ -8,8 +8,20 @@ steps:
   - wait
 
   - name: ":packer: :mac: 10.12"
-    command: .buildkite/packer.sh
+    command: .buildkite/packer-base.sh
     agents:
       queue: 'packer'
 
+  - wait
 
+  - name: ":packer: :mac: 10.12 :buildkite:"
+    command: .buildkite/packer-buildkite.sh
+    agents:
+      queue: 'packer'
+
+  # - wait
+
+  # - name: ":rocket:"
+  #   command: .buildkite/upload.sh
+  #   agents:
+  #     queue: 'packer'

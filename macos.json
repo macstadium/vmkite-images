@@ -72,6 +72,7 @@
     "username": "vagrant",
     "password": "vagrant",
     "version": "",
-    "packer_headless": "true"
+    "packer_headless": "true",
+    "output_dir": "output/macos-{{user `version`}}"
   }
 }
