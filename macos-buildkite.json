@@ -16,7 +16,7 @@
       "type": "file"
     },
     {
-      "destination": "/tmp/vmkite/bin/vmkite-buildkite-agent.sh",
+      "destination": "/tmp/vmkite/vmkite-buildkite-agent.sh",
       "source": "scripts/buildkite/support/vmkite-buildkite-agent.sh",
       "type": "file"
     },
