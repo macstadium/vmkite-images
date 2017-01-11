@@ -11,12 +11,12 @@
   ],
   "provisioners": [
     {
-      "destination": "/Library/LaunchDaemons/com.macstadium.vmkite-buildkite-agent.plist",
+      "destination": "/tmp/vmkite/com.macstadium.vmkite-buildkite-agent.plist",
       "source": "scripts/buildkite/support/com.macstadium.vmkite-buildkite-agent.plist",
       "type": "file"
     },
     {
-      "destination": "/usr/local/bin/vmkite-buildkite-agent.sh",
+      "destination": "/tmp/vmkite/bin/vmkite-buildkite-agent.sh",
       "source": "scripts/buildkite/support/vmkite-buildkite-agent.sh",
       "type": "file"
     },

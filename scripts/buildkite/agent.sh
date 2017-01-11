@@ -19,6 +19,8 @@ install_launchd_daemon() {
   local script="vmkite-buildkite-agent.sh"
   local plist="com.macstadium.vmkite-buildkite-agent.plist"
   echo "Installing launchd service"
+  cp "/tmp/vmkite/$script" "/usr/local/bin/$script"
+  cp "/tmp/vmkite/$plist" "/Library/LaunchDaemons/$plist"
   sudo chmod 0755 "/usr/local/bin/$script"
   sudo launchctl load "/Library/LaunchDaemons/$plist"
 }
