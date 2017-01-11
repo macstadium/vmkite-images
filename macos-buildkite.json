@@ -11,6 +11,16 @@
   ],
   "provisioners": [
     {
+      "destination": "/Library/LaunchDaemons/com.macstadium.vmkite-buildkite-agent.plist",
+      "source": "scripts/buildkite/support/com.macstadium.vmkite-buildkite-agent.plist",
+      "type": "file"
+    },
+    {
+      "destination": "/usr/local/bin/vmkite-buildkite-agent.sh",
+      "source": "scripts/buildkite/support/vmkite-buildkite-agent.sh",
+      "type": "file"
+    },
+    {
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/buildkite/agent.sh"
