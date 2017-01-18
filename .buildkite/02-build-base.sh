@@ -13,6 +13,13 @@ build_hash() {
 output_cache_path="${cache_dir}/output/$(build_hash)"
 upload=1
 
+cleanup() {
+	echo "Cleaning up cache path $output_cache_path"
+	rm -rf "$output_cache_path"
+}
+
+trap cleanup error
+
 if [[ -d "$output_cache_path" ]] ; then
 	echo "Output is in cache already, skipping building"
 	upload=0
