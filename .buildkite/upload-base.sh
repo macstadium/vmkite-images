@@ -6,4 +6,4 @@ vmx_dir=$(dirname "$vmx_path")
 vm_image="vmkite-base-macOS-10.12-$(date +'%Y%m%d-%H%M%S')"
 
 echo "+++ Uploading to $vm_image"
-find "$vmx_dir" -type f -print -exec govc datastore.upload {} "$vm_image"/{} \;
+find "$vmx_dir" -type f -print -execdir govc datastore.upload {} "$vm_image"/{} \;
