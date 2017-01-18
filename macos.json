@@ -14,6 +14,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "darwin",
       "type": "vmware-iso",
+      "disk_type_id": "0",
       "output_directory": "{{user `packer_output_dir`}}",
       "headless": "{{user `packer_headless`}}",
       "vmx_data": {
