@@ -18,7 +18,7 @@ cleanup() {
 	rm -rf "$output_cache_path"
 }
 
-trap cleanup error
+trap cleanup ERROR
 
 if [[ -d "$output_cache_path" ]] ; then
 	echo "Output is in cache already, skipping building"
