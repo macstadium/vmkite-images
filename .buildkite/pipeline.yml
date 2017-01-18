@@ -14,10 +14,10 @@ steps:
 
   - wait
 
-  - name: ":rocket: Upload :mac: 10.12 base"
-    command: .buildkite/upload-base.sh
-    agents:
-      queue: 'packer'
+  # - name: ":rocket: Upload :mac: 10.12 base"
+  #   command: .buildkite/upload-base.sh
+  #   agents:
+  #     queue: 'packer'
 
   - name: ":packer: Build :buildkite: image from base"
     command: .buildkite/packer-buildkite.sh
