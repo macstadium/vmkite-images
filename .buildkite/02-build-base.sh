@@ -38,13 +38,13 @@ if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
 	exit 1
 fi
 
-vm_image="vmkite/buildkite-macOS-${version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
+# vm_image="vmkite/buildkite-macOS-${version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
 
-if [ $upload -eq 1 ] ; then
-	echo "+++ Uploading to $vm_image"
-	cd $(dirname $vmx_path)
-	govc datastore.upload "$(basename $vmx_path)" "$vm_image"
-fi
+# if [ $upload -eq 1 ] ; then
+# 	echo "+++ Uploading to $vm_image"
+# 	cd $(dirname $vmx_path)
+# 	govc datastore.upload "$(basename $vmx_path)" "$vm_image"
+# fi
 
 echo "+++ Built VMX $vmx_path"
 buildkite-agent meta-data set base_vmx_path "$vmx_path"

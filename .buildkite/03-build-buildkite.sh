@@ -13,13 +13,13 @@ packer build \
 	-var packer_headless=true \
 	macos-buildkite.json
 
-if ! vmx_path=$(ls -1 output/buildkite-macos/*.vmx) ; then
-	echo "Failed to find any vmx files in output/buildkite-macos"
+if ! vmdk_path=$(ls -1 output/buildkite-macos/*.vmdk) ; then
+	echo "Failed to find any vmdk files in output/buildkite-macos"
 	exit 1
 fi
 
-vm_image="vmkite/buildkite-macOS-${osx_version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
+upload_path="vmkite/buildkite-macOS-${osx_version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
 
-echo "+++ Uploading to $vm_image"
-cd $(dirname $vmx_path)
-govc datastore.upload "$(basename $vmx_path)" "$vm_image"
+echo "+++ Uploading ${vmdk_path} to ${upload_path}"
+cd output/buildkite-macos/
+govc datastore.upload "$(basename "$vmdk_path")" "$upload_path"
