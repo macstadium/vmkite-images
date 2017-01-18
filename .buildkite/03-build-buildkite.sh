@@ -2,6 +2,7 @@
 set -euo pipefail
 
 vmx_path=$(buildkite-agent meta-data get base_vmx_path)
+osx_version=$(buildkite-agent meta-data get base_osx_version)
 
 echo "+++ :packer: Building :buildkite: image from base"
 echo Path to VMX is "$vmx_path"
@@ -17,7 +18,7 @@ if ! vmx_path=$(ls -1 output/buildkite-macos/*.vmx) ; then
 	exit 1
 fi
 
-vm_image="vmkite/buildkite-macOS-10.12/build-$BUILDKITE_BUILD_NUMBER.vmdk"
+vm_image="vmkite/buildkite-macOS-${osx_version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
 
 echo "+++ Uploading to $vm_image"
 cd $(dirname $vmx_path)
