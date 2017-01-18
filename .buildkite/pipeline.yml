@@ -1,25 +1,25 @@
 
 steps:
-  - name: ":package: :mac: 10.12 installer"
+  - name: ":package: Prepare :mac: 10.12 installer"
     command: .buildkite/prepare.sh "macOS Sierra"
     agents:
       queue: 'packer'
 
   - wait
 
-  - name: ":packer: :mac: 10.12 base"
+  - name: ":packer: Build :mac: 10.12 base"
     command: .buildkite/packer-base.sh
     agents:
       queue: 'packer'
 
   - wait
 
-  - name: ":packer: :buildkite: image"
-    command: .buildkite/packer-buildkite.sh
+  - name: ":rocket: Upload :mac: 10.12 base"
+    command: .buildkite/upload-base.sh
     agents:
       queue: 'packer'
 
-  - name: ":rocket: :mac: 10.12 base"
-    command: .buildkite/upload-base.sh
+  - name: ":packer: Build :buildkite: image from base"
+    command: .buildkite/packer-buildkite.sh
     agents:
       queue: 'packer'
