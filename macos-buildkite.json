@@ -6,8 +6,7 @@
       "ssh_username": "{{user `username`}}",
       "ssh_password": "{{user `password`}}",
       "shutdown_command": "echo '{{user `username`}}'|sudo -S shutdown -h now",
-      "output_directory": "{{user `packer_output_dir`}}",
-      "disk_type_id": "0"
+      "output_directory": "{{user `packer_output_dir`}}"
     }
   ],
   "provisioners": [
