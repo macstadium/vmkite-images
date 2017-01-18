@@ -15,7 +15,7 @@ output_cache_path="${cache_dir}/output/$(build_hash)"
 if [[ -d "$output_cache_path" ]] ; then
 	echo "Output is in cache already, skipping building"
 else
-	echo "--- Running packer for base :mac: $version"
+	echo "--- :packer: Building base :mac: $version"
 	packer build \
 		-var iso_url="$installer_path" \
 		-var version="$version" \
