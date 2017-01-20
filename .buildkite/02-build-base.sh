@@ -18,6 +18,7 @@ cleanup() {
 }
 
 trap cleanup ERR
+upload=0
 
 if [[ -d "$output_cache_path" ]] ; then
 	echo "Output is in cache already, skipping building"
@@ -29,6 +30,7 @@ else
 		-var packer_headless=true \
 		-var packer_output_dir="$output_cache_path" \
 		macos.json
+	upload=1
 fi
 
 if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
@@ -36,13 +38,12 @@ if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
 	exit 1
 fi
 
-# vm_image="vmkite/buildkite-macOS-${version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
-
-# if [ $upload -eq 1 ] ; then
-# 	echo "+++ Uploading to $vm_image"
-# 	cd $(dirname $vmx_path)
-# 	govc datastore.upload "$(basename $vmx_path)" "$vm_image"
-# fi
+if [ $upload -eq 1 ] ; then
+	vm_image="vmkite/macOS-${version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
+	echo "+++ Uploading to $vm_image"
+	cd $(dirname $vmx_path)
+	govc datastore.upload "$(basename $vmx_path)" "$vm_image"
+fi
 
 echo "+++ Built VMX $vmx_path"
 buildkite-agent meta-data set base_vmx_path "$vmx_path"
