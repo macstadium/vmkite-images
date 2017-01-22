@@ -30,19 +30,16 @@ else
 		-var packer_headless=true \
 		-var packer_output_dir="$output_cache_path" \
 		macos.json
-	upload=1
+
+	vm_image="vmkite/macOS-${version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
+	echo "+++ Uploading to $vm_image"
+	cd "$output_cache_path"
+	govc datastore.upload "$(basename $vmx_path)" "$vm_image"
 fi
 
 if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
 	echo "Failed to find any vmx files in $output_cache_path"
 	exit 1
-fi
-
-if [ $upload -eq 1 ] ; then
-	vm_image="vmkite/macOS-${version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
-	echo "+++ Uploading to $vm_image"
-	cd $(dirname $vmx_path)
-	govc datastore.upload "$(basename $vmx_path)" "$vm_image"
 fi
 
 echo "+++ Built VMX $vmx_path"
