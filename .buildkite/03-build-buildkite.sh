@@ -11,15 +11,16 @@ test -d output && rm -rf output/
 packer build \
 	-var vmx_path="$vmx_path" \
 	-var packer_headless=true \
+	-var packer_output_dir=output/buildkite-macos \
 	macos-buildkite.json
 
-if ! vmdk_path=$(ls -1 output/buildkite-macos/*.vmdk) ; then
+if ! ls output/buildkite-macos/*.vmdk &> /dev/null ; then
 	echo "Failed to find any vmdk files in output/buildkite-macos"
 	exit 1
 fi
 
-upload_path="vmkite/buildkite-macOS-${osx_version}/build-$BUILDKITE_BUILD_NUMBER.vmdk"
+upload_path="vmkite/buildkite-macOS-${osx_version}/build-$BUILDKITE_BUILD_NUMBER"
 
-echo "+++ Uploading ${vmdk_path} to ${upload_path}"
-cd output/buildkite-macos/
-govc datastore.upload "$(basename "$vmdk_path")" "$upload_path"
+echo "+++ Uploading to $upload_path"
+find output/buildkite-macos -name '*.vmdk' -print -execdir \
+	govc datastore.upload {} "${upload_path}/{}" \;
