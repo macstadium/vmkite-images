@@ -50,8 +50,7 @@
         "scripts/macos/xcode-cli-tools.sh",
         "scripts/macos/add-network-interface-detection.sh",
         "scripts/macos/autologin.sh",
-        "scripts/macos/system-update.sh",
-        "scripts/macos/shrink.sh"
+        "scripts/macos/system-update.sh"
       ],
       "environment_vars": [
         "AUTOLOGIN={{user `autologin`}}",
