@@ -14,7 +14,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "darwin",
       "type": "vmware-iso",
-      "disk_type_id": "4",
+      "disk_type_id": "0",
       "output_directory": "{{user `packer_output_dir`}}",
       "headless": "{{user `packer_headless`}}",
       "vmx_data": {
@@ -63,6 +63,19 @@
       "type": "shell"
     }
   ],
+  "post-processors": [{
+    "type" : "vsphere",
+    "datacenter" : "MacStadium - Vegas",
+    "cluster" : "XSERVE_Cluster",
+    "datastore" : "PURE1-1",
+    "host" : "10.92.157.10",
+    "password" : "{{user `vsphere_password`}}",
+    "username" : "{{user `vsphere_username`}}",
+    "vm_folder": "vmkite/macOS-{{user `version`}}",
+    "vm_name": "build-{{user `build_number`}}",
+    "vm_network": "VM Network",
+    "insecure" : "true"
+  }],
   "variables": {
     "autologin": "true",
     "install_xcode_cli_tools": "true",
@@ -73,6 +86,9 @@
     "password": "vagrant",
     "version": "",
     "packer_headless": "true",
-    "packer_output_dir": "output/macos-{{user `version`}}"
+    "packer_output_dir": "output/macos-{{user `version`}}",
+    "vsphere_username": "",
+    "vsphere_password": "",
+    "build_number": "dev"
   }
 }

@@ -29,13 +29,10 @@ else
 		-var version="$version" \
 		-var packer_headless=true \
 		-var packer_output_dir="$output_cache_path" \
+		-var vsphere_username="$GOVC_USERNAME" \
+		-var vsphere_password="$GOVC_PASSWORD" \
+		-var build_number="$BUILDKITE_BUILD_NUMBER" \
 		macos.json
-
-	upload_path="vmkite/macOS-${version}/build-$BUILDKITE_BUILD_NUMBER"
-
-	echo "+++ Uploading to $upload_path"
-	find "$output_cache_path" -name '*.vmdk' -print -execdir \
-		govc datastore.upload {} "${upload_path}/{}" \;
 fi
 
 if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
