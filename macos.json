@@ -71,9 +71,10 @@
     "host" : "10.92.157.10",
     "password" : "{{user `vsphere_password`}}",
     "username" : "{{user `vsphere_username`}}",
-    "vm_folder": "vmkite/macOS-{{user `version`}}",
-    "vm_name": "build-{{user `build_number`}}",
-    "vm_network": "VM Network",
+    "vm_folder": "/",
+    "disk_mode": "thin",
+    "vm_name": "macOS-{{user `version`}}-vmkite-build-{{user `build_number`}}",
+    "vm_network": "dvPortGroup-Private-1",
     "insecure" : "true"
   }],
   "variables": {
