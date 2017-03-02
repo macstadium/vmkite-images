@@ -8,7 +8,7 @@ echo "+++ :packer: Building :buildkite: image from base"
 echo Path to VMX is "$vmx_path"
 
 test -d output && rm -rf output/
-packer build \
+PACKER_LOG=1 packer build \
 	-var vmx_path="$vmx_path" \
 	-var packer_headless=true \
 	-var packer_output_dir=output/buildkite-macos \
