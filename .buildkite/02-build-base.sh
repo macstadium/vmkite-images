@@ -40,6 +40,12 @@ if ! vmx_path=$(ls -1 $output_cache_path/*.vmx) ; then
 	exit 1
 fi
 
+vm_image="vmkite/macOS-${version}/base-$BUILDKITE_BUILD_NUMBER.vmdk"
+
+echo "+++ Uploading vmdk to $vm_image"
+cd "$output_cache_path"
+govc datastore.upload disk.vmdk "$vm_image"
+
 echo "+++ Built VMX $vmx_path"
 buildkite-agent meta-data set base_vmx_path "$vmx_path"
 buildkite-agent meta-data set base_osx_version "$version"

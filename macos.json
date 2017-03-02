@@ -76,7 +76,10 @@
     "disk_mode": "thin",
     "vm_name": "macOS-{{user `version`}}-base-{{user `build_number`}}",
     "vm_network": "dvPortGroup-Private-1",
-    "insecure" : true
+    "insecure" : true,
+    "options": [
+      "--X:logLevel=verbose"
+    ]
   }],
   "variables": {
     "autologin": "true",
