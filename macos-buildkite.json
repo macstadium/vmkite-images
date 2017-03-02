@@ -29,10 +29,29 @@
       "type": "shell"
     }
   ],
+  "post-processors": [{
+    "type" : "vsphere",
+    "keep_input_artifact" : "true",
+    "datacenter" : "MacStadium - Vegas",
+    "cluster" : "XSERVE_Cluster",
+    "datastore" : "PURE1-1",
+    "host" : "10.92.157.10",
+    "password" : "{{user `vsphere_password`}}",
+    "username" : "{{user `vsphere_username`}}",
+    "vm_folder": "/",
+    "disk_mode": "thin",
+    "vm_name": "macOS-{{user `osx_version`}}-buildkite-{{user `build_number`}}",
+    "vm_network": "dvPortGroup-Private-1",
+    "insecure" : "true"
+  }],
   "variables": {
+    "osx_version": "",
+    "build_number": "dev",
     "vmx_path": "",
     "username": "vagrant",
     "password": "vagrant",
+    "vsphere_username": "",
+    "vsphere_password": "",
     "packer_headless": "true",
     "packer_output_dir": "output/buildkite-macos"
   }
