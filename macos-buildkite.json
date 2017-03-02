@@ -31,7 +31,7 @@
   ],
   "post-processors": [{
     "type" : "vsphere",
-    "keep_input_artifact" : "true",
+    "keep_input_artifact" : true,
     "datacenter" : "MacStadium - Vegas",
     "cluster" : "XSERVE_Cluster",
     "datastore" : "PURE1-1",
@@ -42,7 +42,7 @@
     "disk_mode": "thin",
     "vm_name": "macOS-{{user `osx_version`}}-buildkite-{{user `build_number`}}",
     "vm_network": "dvPortGroup-Private-1",
-    "insecure" : "true"
+    "insecure" : true
   }],
   "variables": {
     "osx_version": "",
