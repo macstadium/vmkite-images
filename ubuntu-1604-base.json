@@ -62,7 +62,7 @@
     }
   ],
   "variables": {
-    "esxi_host": "",
+    "esxi_host": "10.92.157.10",
     "esxi_datastore": "primary",
     "esxi_username": "",
     "esxi_password": ""

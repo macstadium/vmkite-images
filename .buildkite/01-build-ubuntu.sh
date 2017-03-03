@@ -7,5 +7,5 @@ packer build \
 	-var vsphere_username="$GOVC_USERNAME" \
 	-var vsphere_password="$GOVC_PASSWORD" \
 	-var build_number="$BUILDKITE_BUILD_NUMBER" \
-	-var remote_host="10.92.157.10" \
+	-var esxi_host="10.92.157.10" \
 	ubuntu-1604-base.json
