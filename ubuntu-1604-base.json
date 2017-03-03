@@ -60,5 +60,11 @@
 
       "execute_command": "echo 'nullgrid' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'"
     }
-  ]
+  ],
+  "variables": {
+    "esxi_host": "",
+    "esxi_datastore": "primary",
+    "esxi_username": "",
+    "esxi_password": ""
+  }
 }
