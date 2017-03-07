@@ -16,7 +16,7 @@
         "grub-installer/bootdev=/dev/sda ",
         "initrd=/install/initrd.gz -- <enter>"
       ],
-      "disk_type_id": "thin",
+      "disk_type_id": "0",
       "floppy_files": [
         "preseed/ubuntu.cfg"
       ],
