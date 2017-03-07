@@ -3,30 +3,30 @@
     {
       "boot_wait": "2s",
       "disk_size": 40960,
+      "disk_type_id": "0",
       "guest_os_type": "darwin12-64",
+      "headless": "{{user `packer_headless`}}",
       "iso_checksum_type": "none",
       "iso_url": "{{user `iso_url`}}",
+      "output_directory": "{{user `packer_output_dir`}}",
       "shutdown_command": "echo '{{user `username`}}'|sudo -S shutdown -h now",
       "skip_compaction": true,
+      "ssh_password": "{{user `password`}}",
       "ssh_port": 22,
       "ssh_username": "{{user `username`}}",
-      "ssh_password": "{{user `password`}}",
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "darwin",
       "type": "vmware-iso",
-      "disk_type_id": "0",
-      "output_directory": "{{user `packer_output_dir`}}",
-      "headless": "{{user `packer_headless`}}",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
-        "memsize": "2048",
-        "numvcpus": "1",
+        "ehci.present": "TRUE",
         "firmware": "efi",
-        "keyboardAndMouseProfile": "macProfile",
-        "smc.present": "TRUE",
         "hpet0.present": "TRUE",
         "ich7m.present": "TRUE",
-        "ehci.present": "TRUE",
+        "keyboardAndMouseProfile": "macProfile",
+        "memsize": "2048",
+        "numvcpus": "1",
+        "smc.present": "TRUE",
         "usb.present": "TRUE"
       }
     }
@@ -34,8 +34,8 @@
   "min_packer_version": "0.12.0",
   "provisioners": [
     {
-      "type": "shell-local",
-      "command": "sleep {{user `provisioning_delay`}}"
+      "command": "sleep {{user `provisioning_delay`}}",
+      "type": "shell-local"
     },
     {
       "destination": "/private/tmp/set_kcpassword.py",
@@ -43,6 +43,14 @@
       "type": "file"
     },
     {
+      "environment_vars": [
+        "AUTOLOGIN={{user `autologin`}}",
+        "NOCM={{user `nocm`}}",
+        "INSTALL_XCODE_CLI_TOOLS={{user `install_xcode_cli_tools`}}",
+        "PASSWORD={{user `password`}}",
+        "UPDATE_SYSTEM={{user `update_system`}}",
+        "USERNAME={{user `username`}}"
+      ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/macos/vagrant.sh",
@@ -52,30 +60,22 @@
         "scripts/macos/autologin.sh",
         "scripts/macos/system-update.sh"
       ],
-      "environment_vars": [
-        "AUTOLOGIN={{user `autologin`}}",
-        "NOCM={{user `nocm`}}",
-        "INSTALL_XCODE_CLI_TOOLS={{user `install_xcode_cli_tools`}}",
-        "PASSWORD={{user `password`}}",
-        "UPDATE_SYSTEM={{user `update_system`}}",
-        "USERNAME={{user `username`}}"
-      ],
       "type": "shell"
     }
   ],
   "variables": {
     "autologin": "true",
+    "build_number": "dev",
     "install_xcode_cli_tools": "true",
-    "update_system": "false",
     "iso_url": "",
-    "provisioning_delay": "0",
-    "username": "vagrant",
-    "password": "vagrant",
-    "version": "",
     "packer_headless": "true",
     "packer_output_dir": "output/macos-{{user `version`}}",
-    "vsphere_username": "",
+    "password": "vagrant",
+    "provisioning_delay": "0",
+    "update_system": "false",
+    "username": "vagrant",
+    "version": "",
     "vsphere_password": "",
-    "build_number": "dev"
+    "vsphere_username": ""
   }
 }
