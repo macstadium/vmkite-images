@@ -1,11 +1,8 @@
-#!/bin/bash
+#!/bin/sh -eux
 
-set -e
-set -x
-
-if [ "$PACKER_BUILDER_TYPE" != "vmware-iso" ]; then
-  exit 0
-fi
-
-sudo apt-get -y install open-vm-tools
-sudo mkdir -p /mnt/hgfs
+case "$PACKER_BUILDER_TYPE" in
+vmware-iso|vmware-vmx)
+    apt-get install -y open-vm-tools;
+    mkdir /mnt/hgfs;
+    echo "platform specific vmware.sh executed";
+esac
