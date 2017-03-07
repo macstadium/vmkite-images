@@ -2,3 +2,4 @@ installers/
 packer_cache/
 output-vmware-iso/
 output/
+packer-ubuntu*
