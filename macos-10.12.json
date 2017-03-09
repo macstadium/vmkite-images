@@ -1,0 +1,80 @@
+{
+  "builders": [
+    {
+      "boot_wait": "2s",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_os_type": "darwin12-64",
+      "headless": "{{ user `headless` }}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "output_directory": "output/{{user `template`}}",
+      "shutdown_command": "echo 'vagrant'| sudo -S shutdown -h now",
+      "skip_compaction": true,
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "tools_upload_flavor": "darwin",
+      "tools_upload_path": "/tmp/vmtools.iso",
+      "type": "vmware-iso",
+      "vm_name": "{{ user `template` }}",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "ehci.present": "TRUE",
+        "firmware": "efi",
+        "hpet0.present": "TRUE",
+        "ich7m.present": "TRUE",
+        "keyboardAndMouseProfile": "macProfile",
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
+        "smc.present": "TRUE",
+        "usb.present": "TRUE"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "destination": "/private/tmp/set_kcpassword.py",
+      "source": "scripts/macos/support/set_kcpassword.py",
+      "type": "file"
+    },
+    {
+      "environment_vars": [
+        "HOME_DIR=/Users/vagrant",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+      "execute_command": "echo 'vagrant'| {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "scripts/macos/vagrant.sh",
+        "scripts/macos/vmware.sh",
+        "scripts/macos/xcode-cli-tools.sh",
+        "scripts/macos/add-network-interface-detection.sh",
+        "scripts/macos/autologin.sh",
+        "scripts/macos/system-update.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "_README": "You must provide a prepared Mac disk image (from https://github.com/timsutton/osx-vm-templates) and checksum value for this template to work. For more details, consult this project's README.md",
+    "box_basename": "macos-10.12",
+    "build_timestamp": "{{isotime \"20060102150405\"}}",
+    "cpus": "1",
+    "disk_size": "40960",
+    "headless": "",
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "iso_checksum": "__unset_iso_checksum__",
+    "iso_checksum_type": "sha256",
+    "iso_url": "<insert yours here>",
+    "memory": "4096",
+    "metadata": "floppy/dummy_metadata.json",
+    "name": "macos-10.12",
+    "no_proxy": "{{env `no_proxy`}}",
+    "template": "macos-10.12",
+    "version": "2.1.TIMESTAMP"
+  }
+}

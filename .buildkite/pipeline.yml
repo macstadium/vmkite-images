@@ -1,4 +1,3 @@
-
 steps:
 
   - name: ":package: :ubuntu: 16.04"
@@ -6,23 +5,8 @@ steps:
     agents:
       queue: 'packer'
 
-  - wait
+  - name: ":package: :mac: 10.12"
+    command: .buildkite/macos.sh "macOS Sierra"
+    agents:
+      queue: 'packer'
 
-  # - name: ":package: Prepare :mac: 10.12 installer"
-  #   command: .buildkite/01-prepare.sh "macOS Sierra"
-  #   agents:
-  #     queue: 'packer'
-
-  # - wait
-
-  # - name: ":packer: Build :mac: 10.12 base"
-  #   command: .buildkite/02-build-base.sh
-  #   agents:
-  #     queue: 'packer'
-
-  # - wait
-
-  # - name: ":packer: Build :buildkite: image from base"
-  #   command: .buildkite/03-build-buildkite.sh
-  #   agents:
-  #     queue: 'packer'
