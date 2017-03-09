@@ -1,8 +1,8 @@
 
 steps:
 
-  - name: ":package: Build :ubuntu: 16.04 base"
-    command: .buildkite/01-build-ubuntu.sh
+  - name: ":package: :ubuntu: 16.04"
+    command: .buildkite/ubuntu.sh
     agents:
       queue: 'packer'
 
