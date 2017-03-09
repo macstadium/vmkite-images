@@ -1,41 +1,13 @@
 
 headless := true
 
-macos-10.12.2: installers/OSX_InstallESD_10.12.2_16C68.dmg
+macos-10.12:
 	time packer build \
-		-var iso_url=installers/OSX_InstallESD_10.12.2_16C68.dmg \
+		-var iso_url=installers/OSX_InstallESD_10.12.3_16D32.dmg \
+		-var iso_checksum=4b0d2b79ee351bcc28cff597d7a3c13c3ebf10fb0cf10133e53ff980a3920cc3 \
 		-var version=10.12.2 \
-		-var packer_headless=$(headless) \
-		macos.json
-
-macos-10.12.1: installers/OSX_InstallESD_10.12.1_16B2659.dmg
-	time packer build \
-		-var iso_url=installers/OSX_InstallESD_10.12.1_16B2659.dmg \
-		-var version=10.12.1 \
-		-var packer_headless=$(headless) \
-		macos.json
-
-macos-10.11.3: installers/OSX_InstallESD_10.11.3_15D21.dmg
-	time packer build \
-		-var iso_url=installers/OSX_InstallESD_10.11.3_15D21.dmg \
-		-var version=10.11.3 \
-		-var packer_headless=$(headless) \
-		macos.json
-
-installers/OSX_InstallESD_10.11.3_15D21.dmg: /Applications/Install\ OS\ X\ El\ Capitan.app
-	mkdir -p installers/
-	sudo SUDO_UID=$$UID SUDO_GID=$$GID \
-		prepare_iso/prepare_iso.sh "/Applications/Install OS X El Capitan.app" installers
-
-installers/OSX_InstallESD_10.12.1_16B2659.dmg: /Applications/Install\ macOS\ Sierra.app
-	mkdir -p installers/
-	sudo SUDO_UID=$$UID SUDO_GID=$$GID \
-		prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
-
-installers/OSX_InstallESD_10.12.2_16C68.dmg: /Applications/Install\ macOS\ Sierra.app
-	mkdir -p installers/
-	sudo SUDO_UID=$$UID SUDO_GID=$$GID \
-		prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app" installers
+		-var headless=$(headless) \
+		macos-10.12.json
 
 clean:
 	-rm -rf output/

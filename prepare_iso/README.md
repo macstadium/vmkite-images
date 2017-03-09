@@ -9,7 +9,7 @@ Currently supporter macOS versions are: El Capitan (10.11) and macOS Sierra (10.
 Run the `prepare_iso.sh` script with two arguments: the path to an `Install OS X.app` or the `InstallESD.dmg` contained within, and an output directory. Root privileges are required in order to write a new DMG with the correct file ownerships. For example:
 
 ```bash
-sudo prepare_iso/prepare_iso.sh "/Applications/Install OS X Mountain Lion.app" output
+sudo prepare_iso/prepare_iso.sh "/Applications/Install macOS Sierra.app/" installers
 ```
 
 `prepare_iso.sh` accepts command line switches to modify the details of the admin user installed by the script.
