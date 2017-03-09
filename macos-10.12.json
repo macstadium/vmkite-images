@@ -41,18 +41,14 @@
     },
     {
       "environment_vars": [
-        "HOME_DIR=/Users/vagrant",
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}",
-        "AUTOLOGIN=1",
-        "NOCM={{user `nocm`}}",
+        "AUTOLOGIN={{user `autologin`}}",
         "INSTALL_XCODE_CLI_TOOLS=1",
+        "HOME_DIR=/Users/vagrant",
+        "USERNAME=vagrant",
         "PASSWORD=vagrant",
-        "UPDATE_SYSTEM=1",
-        "USERNAME=vagrant"
+        "UPDATE_SYSTEM=1"
       ],
-      "execute_command": "echo 'vagrant'| {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/macos/vagrant.sh",
         "scripts/macos/vmware.sh",
