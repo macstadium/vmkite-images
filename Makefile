@@ -9,6 +9,16 @@ macos-10.12:
 		-var headless=$(headless) \
 		macos-10.12.json
 
+ubuntu-16.04:
+	time packer build \
+		-var headless=$(headless) \
+		ubuntu-16.04-amd64.json
+
+windows-nano:
+	time packer build \
+		-var headless=$(headless) \
+		windows-nano-tp3.json
+
 clean:
 	-rm -rf output/
 	-rm -rf installers/

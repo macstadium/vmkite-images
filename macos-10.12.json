@@ -44,7 +44,13 @@
         "HOME_DIR=/Users/vagrant",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
+        "no_proxy={{user `no_proxy`}}",
+        "AUTOLOGIN=1",
+        "NOCM={{user `nocm`}}",
+        "INSTALL_XCODE_CLI_TOOLS=1",
+        "PASSWORD=vagrant",
+        "UPDATE_SYSTEM=1",
+        "USERNAME=vagrant"
       ],
       "execute_command": "echo 'vagrant'| {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
@@ -59,7 +65,6 @@
     }
   ],
   "variables": {
-    "_README": "You must provide a prepared Mac disk image (from https://github.com/timsutton/osx-vm-templates) and checksum value for this template to work. For more details, consult this project's README.md",
     "box_basename": "macos-10.12",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "1",
@@ -71,7 +76,6 @@
     "iso_checksum_type": "sha256",
     "iso_url": "<insert yours here>",
     "memory": "4096",
-    "metadata": "floppy/dummy_metadata.json",
     "name": "macos-10.12",
     "no_proxy": "{{env `no_proxy`}}",
     "template": "macos-10.12",
