@@ -1,4 +1,7 @@
 
+ESXI_HOST ?= 10.92.157.11
+ESXI_USERNAME ?= root
+
 headless := true
 packer_args := -force
 
@@ -8,11 +11,19 @@ macos-10.12:
 		-var iso_checksum=4b0d2b79ee351bcc28cff597d7a3c13c3ebf10fb0cf10133e53ff980a3920cc3 \
 		-var version=10.12.2 \
 		-var headless=$(headless) \
+		-var esxi_host='$(ESXI_HOST)' \
+		-var esxi_username='$(ESXI_USERNAME)' \
+		-var esxi_password='$(ESXI_PASSWORD)' \
+		-var esxi_datastore='$(ESXI_DATASTORE)' \
 		macos-10.12.json
 
 ubuntu-16.04:
 	time packer build $(packer_args) \
 		-var headless=$(headless) \
+		-var esxi_host='$(ESXI_HOST)' \
+		-var esxi_username='$(ESXI_USERNAME)' \
+		-var esxi_password='$(ESXI_PASSWORD)' \
+		-var esxi_datastore='$(ESXI_DATASTORE)' \
 		ubuntu-16.04-amd64.json
 
 clean:
