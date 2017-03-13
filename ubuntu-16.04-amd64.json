@@ -42,6 +42,7 @@
       "remote_username": "{{ user `esxi_username`}}",
       "remote_password": "{{ user `esxi_password`}}",
       "remote_type": "esx5",
+      "keep_registered": true,
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_username": "vagrant",
@@ -53,7 +54,8 @@
         "cpuid.coresPerSocket": "1",
         "ethernet0.pciSlotNumber": "32",
         "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}"
+        "numvcpus": "{{ user `cpus` }}",
+        "ethernet0.networkName": "{{ user `esxi_vm_network` }}"
       }
     }
   ],
@@ -101,7 +103,8 @@
     "esxi_host": "",
     "esxi_username": "",
     "esxi_password": "",
-    "esxi_datastore": ""
+    "esxi_datastore": "",
+    "esxi_vm_network": "dvPortGroup-Private-1"
   }
 }
 
