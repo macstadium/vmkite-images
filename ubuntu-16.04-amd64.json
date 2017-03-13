@@ -1,34 +1,27 @@
 {
   "builders": [
     {
+      "floppy_files": [
+        "http/ubuntu-16.04/preseed.cfg"
+      ],
       "boot_command": [
         "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-        "/install/vmlinuz<wait>",
-        " auto<wait>",
-        " console-setup/ask_detect=false<wait>",
-        " console-setup/layoutcode=us<wait>",
-        " console-setup/modelcode=pc105<wait>",
-        " debconf/frontend=noninteractive<wait>",
-        " debian-installer=en_US.UTF-8<wait>",
-        " fb=false<wait>",
-        " initrd=/install/initrd.gz<wait>",
-        " kbd-chooser/method=us<wait>",
-        " keyboard-configuration/layout=USA<wait>",
-        " keyboard-configuration/variant=USA<wait>",
-        " locale=en_US.UTF-8<wait>",
-        " netcfg/get_domain=vm<wait>",
-        " netcfg/get_hostname=vagrant<wait>",
-        " grub-installer/bootdev=/dev/sda<wait>",
-        " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `preseed_path`}}<wait>",
-        " -- <wait>",
-        "<enter><wait>"
+        "/install/vmlinuz noapic ",
+        "preseed/file=/floppy/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "grub-installer/bootdev=/dev/sda ",
+        "initrd=/install/initrd.gz -- <enter>"
       ],
       "boot_wait": "10s",
       "disk_size": "{{user `disk_size`}}",
+      "disk_type_id": "thin",
       "guest_os_type": "ubuntu-64",
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
@@ -42,7 +35,7 @@
       "remote_username": "{{ user `esxi_username`}}",
       "remote_password": "{{ user `esxi_password`}}",
       "remote_type": "esx5",
-      "keep_registered": false,
+      "keep_registered": true,
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_username": "vagrant",
@@ -52,13 +45,9 @@
       "vm_name": "{{ user `template` }}",
       "vnc_bind_address": "0.0.0.0",
       "vmx_data": {
-        "cpuid.coresPerSocket": "1",
-        "ethernet0.pciSlotNumber": "32",
         "memsize": "{{ user `memory` }}",
         "numvcpus": "{{ user `cpus` }}",
-        "ethernet0.networkName": "{{ user `esxi_vm_network` }}",
-        "ethernet0.startConnected": "true",
-        "ethernet0.present": "true"
+        "ethernet0.networkName": "{{ user `esxi_vm_network` }}"
       }
     }
   ],
