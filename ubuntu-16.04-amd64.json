@@ -56,7 +56,9 @@
         "ethernet0.pciSlotNumber": "32",
         "memsize": "{{ user `memory` }}",
         "numvcpus": "{{ user `cpus` }}",
-        "ethernet0.networkName": "{{ user `esxi_vm_network` }}"
+        "ethernet0.networkName": "{{ user `esxi_vm_network` }}",
+        "ethernet0.startConnected": "true",
+        "ethernet0.present": "true"
       }
     }
   ],
