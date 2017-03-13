@@ -11,9 +11,9 @@
       "output_directory": "output/{{user `template`}}",
       "shutdown_command": "echo 'vagrant'| sudo -S shutdown -h now",
       "skip_compaction": true,
-      "ssh_password": "vagrant",
+      "ssh_password": "vmkite",
       "ssh_port": 22,
-      "ssh_username": "vagrant",
+      "ssh_username": "vmkite",
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "darwin",
       "tools_upload_path": "/tmp/vmtools.iso",
@@ -61,20 +61,20 @@
     }
   ],
   "variables": {
-    "box_basename": "macos-10.12",
+    "box_basename": "macos-{{ user `version` }}",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "1",
     "disk_size": "40960",
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "iso_checksum": "d5fd77df525e5e8acf0ed6df52cf39e3f608067124f496a35d07cf99009d03b8",
-    "iso_checksum_type": "sha256",
-    "iso_url": "https://s3.amazonaws.com/vmkite-osx-images/OSX_InstallESD_10.12.3_16D32.dmg",
+    "iso_checksum": "",
+    "iso_checksum_type": "",
+    "iso_url": "",
     "memory": "4096",
     "name": "macos-10.12",
     "no_proxy": "{{env `no_proxy`}}",
     "template": "macos-10.12",
-    "version": "10.12.3"
+    "version": ""
   }
 }
