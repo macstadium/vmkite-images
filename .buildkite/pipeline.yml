@@ -10,12 +10,12 @@ steps:
     agents:
       queue: 'packer'
 
-  - name: ":package: :mac: 10.11"
-    command: make macos-10.11
-    agents:
-      queue: 'packer'
+  # - name: ":package: :mac: 10.11"
+  #   command: make macos-10.11
+  #   agents:
+  #     queue: 'packer'
 
-  - name: ":package: :mac: 10.10"
-    command: make macos-10.10
-    agents:
-      queue: 'packer'
+  # - name: ":package: :mac: 10.10"
+  #   command: make macos-10.10
+  #   agents:
+  #     queue: 'packer'

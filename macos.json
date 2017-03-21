@@ -19,6 +19,7 @@
       "tools_upload_path": "/tmp/vmtools.iso",
       "type": "vmware-iso",
       "vm_name": "{{ user `template` }}",
+      "vnc_bind_address": "0.0.0.0",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "ehci.present": "TRUE",
