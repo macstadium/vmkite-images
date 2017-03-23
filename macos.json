@@ -51,7 +51,7 @@
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/macos/vagrant.sh",
+        "scripts/macos/computer-name.sh",
         "scripts/macos/vmware.sh",
         "scripts/macos/xcode-cli-tools.sh",
         "scripts/macos/add-network-interface-detection.sh",
