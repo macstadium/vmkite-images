@@ -1,6 +1,6 @@
 
 headless := true
-packer_args := -force
+packer_args := -force -debug
 
 macos-10.12:
 	time packer build $(packer_args) \
