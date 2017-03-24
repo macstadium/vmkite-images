@@ -72,7 +72,7 @@
     "username" : "{{user `vsphere_username`}}",
     "vm_folder": "/",
     "disk_mode": "thin",
-    "vm_name": "macOS-{{user `osx_version`}}-buildkite-{{user `build_number`}}",
+    "vm_name": "{{user `box_basename`}}-{{user `build_number`}}",
     "vm_network": "dvPortGroup-Private-1",
     "insecure" : true,
     "options": [
@@ -80,8 +80,8 @@
     ]
   }],
   "variables": {
-    "box_basename": "macos-{{ user `version` }}",
-    "build_timestamp": "{{isotime \"20060102150405\"}}",
+    "box_basename": "vmkite-macos-{{ user `version` }}",
+    "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "cpus": "1",
     "disk_size": "40960",
     "headless": "",
