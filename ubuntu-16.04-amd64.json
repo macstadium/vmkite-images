@@ -75,6 +75,24 @@
       "type": "shell"
     }
   ],
+  "post-processors": [{
+    "type" : "vsphere",
+    "keep_input_artifact" : true,
+    "datacenter" : "MacStadium - Vegas",
+    "cluster" : "XSERVE_Cluster",
+    "datastore" : "PURE1-1",
+    "host" : "10.92.157.10",
+    "password" : "{{user `vsphere_password`}}",
+    "username" : "{{user `vsphere_username`}}",
+    "vm_folder": "/",
+    "disk_mode": "thin",
+    "vm_name": "macOS-{{user `osx_version`}}-buildkite-{{user `build_number`}}",
+    "vm_network": "dvPortGroup-Private-1",
+    "insecure" : true,
+    "options": [
+      "--X:logLevel=verbose"
+    ]
+  }],
   "variables": {
     "box_basename": "ubuntu-16.04",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
@@ -93,7 +111,9 @@
     "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "ubuntu-16.04/preseed.cfg",
     "template": "ubuntu-16.04-amd64",
-    "version": ""
+    "version": "",
+    "vsphere_username": "{{env `GOVC_USERNAME`}}",
+    "vsphere_password": "{{env `GOVC_PASSWORD`}}"
   }
 }
 
