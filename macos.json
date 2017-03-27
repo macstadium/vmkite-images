@@ -42,6 +42,16 @@
       "type": "file"
     },
     {
+      "destination": "/tmp/vmkite/com.macstadium.vmkite-buildkite-agent.plist",
+      "source": "scripts/macos/support/com.macstadium.vmkite-buildkite-agent.plist",
+      "type": "file"
+    },
+    {
+      "destination": "/tmp/vmkite/vmkite-buildkite-agent.sh",
+      "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
+      "type": "file"
+    },
+    {
       "environment_vars": [
         "AUTOLOGIN={{user `autologin`}}",
         "INSTALL_XCODE_CLI_TOOLS=1",
@@ -57,7 +67,8 @@
         "scripts/macos/xcode-cli-tools.sh",
         "scripts/macos/add-network-interface-detection.sh",
         "scripts/macos/autologin.sh",
-        "scripts/macos/system-update.sh"
+        "scripts/macos/system-update.sh",
+        "scripts/macos/buildkite.sh"
       ],
       "type": "shell"
     }
