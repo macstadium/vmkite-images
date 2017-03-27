@@ -40,7 +40,7 @@
     "username" : "{{user `vsphere_username`}}",
     "vm_folder": "/",
     "disk_mode": "thin",
-    "vm_name": "macOS-{{user `osx_version`}}-buildkite-{{user `build_number`}}",
+    "vm_name": "macOS-{{user `osx_version`}}-buildkite-r{{user `build_number`}}",
     "vm_network": "dvPortGroup-Private-1",
     "insecure" : true,
     "options": [
@@ -48,7 +48,6 @@
     ]
   }],
   "variables": {
-    "osx_version": "",
     "build_number": "dev",
     "vmx_path": "",
     "username": "vagrant",
