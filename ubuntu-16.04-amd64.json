@@ -55,6 +55,11 @@
   ],
   "provisioners": [
     {
+      "destination": "/usr/lib/systemd/system/buildkite-agent.service",
+      "source": "scripts/ubuntu/support/systemd/buidkite-agent.service",
+      "type": "file"
+    },
+    {
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
