@@ -69,6 +69,7 @@
         "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/vagrant.sh",
         "scripts/ubuntu/vmware.sh",
+        "scripts/ubuntu/buildkite.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ],

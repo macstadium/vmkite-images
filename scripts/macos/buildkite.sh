@@ -4,7 +4,7 @@ set -e
 set -o pipefail
 set -u
 
-BUILDKITE_RELEASE="https://github.com/buildkite/agent/releases/download/v3.0-beta.16/buildkite-agent-darwin-amd64-3.0-beta.16.tar.gz"
+BUILDKITE_RELEASE="https://github.com/buildkite/agent/releases/download/v3.0-beta.19/buildkite-agent-darwin-amd64-3.0-beta.19.tar.gz"
 
 install_buildkite() {
   echo "Installing buildkite-agent"
@@ -24,3 +24,6 @@ install_launchd_daemon() {
   sudo chmod 0755 "/usr/local/bin/$script"
   sudo launchctl load "/Library/LaunchDaemons/$plist"
 }
+
+install_buildkite
+install_launchd_daemon
