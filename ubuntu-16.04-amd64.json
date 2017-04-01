@@ -55,8 +55,8 @@
   ],
   "provisioners": [
     {
-      "destination": "/usr/lib/systemd/system/buildkite-agent.service",
-      "source": "scripts/ubuntu/support/systemd/buidkite-agent.service",
+      "destination": "/usr/lib/systemd/system/vmkite.service",
+      "source": "scripts/ubuntu/support/systemd/vmkite.service",
       "type": "file"
     },
     {
@@ -74,7 +74,7 @@
         "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/vagrant.sh",
         "scripts/ubuntu/vmware.sh",
-        "scripts/ubuntu/buildkite.sh",
+        "scripts/ubuntu/vmkite.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
