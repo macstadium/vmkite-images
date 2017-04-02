@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -o pipefail
 set -u
 
 BUILDKITE_VERSION=3.0-beta.19
