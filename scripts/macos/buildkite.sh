@@ -7,7 +7,7 @@ BUILDKITE_VERSION=3.0-beta.19
 
 install_buildkite() {
   echo "Installing buildkite-agent"
-  curl -Lfs -o buildkite.tar.gz "https://github.com/buildkite/agent/releases/download/v${BUILDKITE_VERSION}/buildkite-agent-linux-v${BUILDKITE_VERSION}.tar.gz"
+  curl -Lfs -o buildkite.tar.gz "https://github.com/buildkite/agent/releases/download/v${BUILDKITE_VERSION}/buildkite-agent-darwin-amd64-${BUILDKITE_VERSION}.tar.gz"
   mkdir -p "$HOME/buildkite-agent"
   tar -xzf buildkite.tar.gz -C "$HOME/buildkite-agent"
   sudo mkdir -p /usr/local/bin
