@@ -21,8 +21,13 @@ install_vmkite() {
   echo "Installing vmkite"
   sudo curl -Lfs -o /usr/local/bin/vmkite "https://github.com/buildkite/agent/releases/download/v${VMKITE_VERSION}/vmkite_linux_amd64"
   sudo chmod +x /usr/local/bin/vmkite
-  sudo systemctl enable vmkite
+}
+
+install_vmkite_service() {
+	sudo mv /tmp/vmkite.service /lib/systemd/system/vmkite.service
+	sudo systemctl enable buildkite-agent
 }
 
 install_buildkite
 install_vmkite
+install_vmkite_service
