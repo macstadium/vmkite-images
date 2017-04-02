@@ -29,6 +29,7 @@
       ],
       "boot_wait": "10s",
       "disk_size": "{{user `disk_size`}}",
+      "disk_type_id": "0",
       "guest_os_type": "ubuntu-64",
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
@@ -96,7 +97,7 @@
     "username" : "{{user `vsphere_username`}}",
     "vm_folder": "/",
     "disk_mode": "thin",
-    "vm_name": "{{user `box_basename`}}-{{user `build_number`}}",
+    "vm_name": "{{user `box_basename`}}-r{{user `build_number`}}",
     "vm_network": "dvPortGroup-Private-1",
     "insecure" : true,
     "options": [
