@@ -55,8 +55,13 @@
   ],
   "provisioners": [
     {
-      "destination": "/tmp/vmkite.service",
-      "source": "scripts/ubuntu/support/systemd/vmkite.service",
+      "destination": "/tmp/vmkite/vmkite-buildkite-agent.service",
+      "source": "scripts/ubuntu/support/vmkite-buildkite-agent.service",
+      "type": "file"
+    },
+    {
+      "destination": "/tmp/vmkite/vmkite-buildkite-agent.sh",
+      "source": "scripts/ubuntu/support/vmkite-buildkite-agent.sh",
       "type": "file"
     },
     {

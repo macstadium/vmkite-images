@@ -5,7 +5,6 @@ set -o pipefail
 set -u
 
 BUILDKITE_VERSION=3.0-beta.19
-VMKITE_VERSION=1.0.0
 
 install_buildkite() {
   echo "Installing buildkite-agent"
@@ -17,17 +16,11 @@ install_buildkite() {
   sudo ln -snf "$HOME/buildkite-agent/buildkite-agent" /usr/local/bin/
 }
 
-install_vmkite() {
-  echo "Installing vmkite"
-  sudo curl -Lfs -o /usr/local/bin/vmkite "https://github.com/buildkite/agent/releases/download/v${VMKITE_VERSION}/vmkite_linux_amd64"
-  sudo chmod +x /usr/local/bin/vmkite
-}
-
-install_vmkite_service() {
-	sudo mv /tmp/vmkite.service /lib/systemd/system/vmkite.service
-	sudo systemctl enable buildkite-agent
+install_service() {
+  sudo mv /tmp/vmkite/vmkite-buildkite-agent.sh /usr/local/bin/vmkite-buildkite-agent
+  sudo mv /tmp/vmkite/vmkite-buildkite-agent.service /lib/systemd/system/vmkite-buildkite-agent.service
+  sudo systemctl enable vmkite-buildkite-agent
 }
 
 install_buildkite
-install_vmkite
-install_vmkite_service
+install_service
