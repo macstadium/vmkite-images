@@ -1,17 +1,20 @@
 #!/bin/sh -eux
 
-ubuntu_version="`lsb_release -r | awk '{print $2}'`";
-major_version="`echo $ubuntu_version | awk -F. '{print $1}'`";
+# Make sure udev does not block our network - http://6.ptmc.org/?p=164
+echo "==> Cleaning up udev rules"
+rm -rf /dev/.udev/
+rm /lib/udev/rules.d/75-persistent-net-generator.rules
 
-if [ "$major_version" -le "15" ] && [ "$ubuntu_version" != "15.10" ]; then
-  echo "Disabling automatic udev rules for network interfaces in Ubuntu"
-  # Disable automatic udev rules for network interfaces in Ubuntu,
-  # source: http://6.ptmc.org/164/
-  rm -f /etc/udev/rules.d/70-persistent-net.rules;
-  mkdir -p /etc/udev/rules.d/70-persistent-net.rules;
-  rm -f /lib/udev/rules.d/75-persistent-net-generator.rules;
-  rm -rf /dev/.udev/ /var/lib/dhcp3/* /var/lib/dhcp/*;
+UBUNTU_VERSION=$(lsb_release -sr)
+if [ "${UBUNTU_VERSION}" = 16.04 ] || [ "${UBUNTU_VERSION}" = 16.10 ] ; then
+    # from https://github.com/cbednarski/packer-ubuntu/blob/master/scripts-1604/vm_cleanup.sh#L9-L15
+    # When booting with Vagrant / VMware the PCI slot is changed from 33 to 32.
+    # Instead of eth0 the interface is now called ens33 to mach the PCI slot,
+    # so we need to change the networking scripts to enable the correct
+    # interface.
+    #
+    # NOTE: After the machine is rebooted Packer will not be able to reconnect
+    # (Vagrant will be able to) so make sure this is done in your final
+    # provisioner.
+    sed -i "s/ens33/ens32/g" /etc/network/interfaces
 fi
-
-# Adding a 2 sec delay to the interface up, to make the dhclient happy
-echo "pre-up sleep 2" >>/etc/network/interfaces;
