@@ -1,7 +1,7 @@
 
 headless := true
 packer_args := -force
-packer_log := 1
+packer_log := 0
 
 macos-10.12:
 	time env PACKER_LOG=$(packer_log) packer build $(packer_args) \
