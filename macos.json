@@ -10,7 +10,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
       "output_directory": "output/{{user `template`}}",
-      "shutdown_command": "echo 'vagrant'| sudo -S shutdown -h now",
+      "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
       "skip_compaction": true,
       "ssh_password": "vmkite",
       "ssh_port": 22,
@@ -55,9 +55,9 @@
       "environment_vars": [
         "AUTOLOGIN={{user `autologin`}}",
         "INSTALL_XCODE_CLI_TOOLS=1",
-        "HOME_DIR=/Users/vagrant",
-        "USERNAME=vagrant",
-        "PASSWORD=vagrant",
+        "HOME_DIR=/Users/vmkite",
+        "USERNAME=vmkite",
+        "PASSWORD=vmkite",
         "UPDATE_SYSTEM=1"
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
