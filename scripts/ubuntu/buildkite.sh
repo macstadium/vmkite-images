@@ -16,6 +16,7 @@ install_buildkite() {
 }
 
 install_service() {
+  ls -al /tmp/vmkite
   sudo mv /tmp/vmkite/vmkite-buildkite-agent.sh /usr/local/bin/vmkite-buildkite-agent
   sudo mv /tmp/vmkite/vmkite-buildkite-agent.service /lib/systemd/system/vmkite-buildkite-agent.service
   sudo systemctl enable vmkite-buildkite-agent
