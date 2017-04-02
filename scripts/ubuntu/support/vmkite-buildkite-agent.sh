@@ -8,7 +8,7 @@ set -u
 guestinfo() {
   local key="guestinfo.$1"
   local value
-  if value=$(/usr/bin/vmware-rpctool --cmd "info-get $key") ; then
+  if value=$(/usr/bin/vmware-rpctool "info-get $key") ; then
     echo "$value"
   else
     echo >&2 "Missing $key"
