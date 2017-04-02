@@ -1,7 +1,5 @@
 #!/bin/bash
-
-set -e
-set -u
+set -eux
 
 BUILDKITE_VERSION=3.0-beta.19
 

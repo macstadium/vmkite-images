@@ -84,7 +84,7 @@
     "username" : "{{user `vsphere_username`}}",
     "vm_folder": "/",
     "disk_mode": "thin",
-    "vm_name": "vmkite-macos-{{ user `version` }}-r{{user `build_number`}}",
+    "vm_name": "vmkite-base-macos-{{ user `version` }}-r{{user `build_number`}}",
     "vm_network": "dvPortGroup-Private-1",
     "insecure" : true,
     "options": [
