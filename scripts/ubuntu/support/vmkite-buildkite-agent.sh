@@ -4,12 +4,11 @@ set -e
 set -o pipefail
 set -u
 
-VMWARE_TOOLS=/etc/vmware-tools
 
 guestinfo() {
   local key="guestinfo.$1"
   local value
-  if value=$(${VMWARE_TOOLS}/vmware-tools-daemon --cmd "info-get $key") ; then
+  if value=$(/usr/bin/vmware-rpctool --cmd "info-get $key") ; then
     echo "$value"
   else
     echo >&2 "Missing $key"
@@ -27,6 +26,7 @@ echo "--- Starting buildkite-agent"
 export BUILDKITE_AGENT_TOKEN="$token"
 export BUILDKITE_AGENT_NAME="$name"
 export BUILDKITE_AGENT_META_DATA="vmkite-vmdk=$vmdk"
+export BUILDKITE_BUILD_PATH="/home/vmkite/buildkite-builds"
 
 su vmkite -c "/usr/local/bin/buildkite-agent start --disconnect-after-job"
 echo "--- Buildkite exited with $?, shutting down machine"
