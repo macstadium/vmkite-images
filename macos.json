@@ -58,7 +58,7 @@
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
         "PASSWORD=vmkite",
-        "UPDATE_SYSTEM=1"
+        "UPDATE_SYSTEM=0"
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
