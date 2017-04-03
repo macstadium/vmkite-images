@@ -1,10 +1,5 @@
 #!/bin/sh -eux
 
-# Make sure udev does not block our network - http://6.ptmc.org/?p=164
-echo "==> Cleaning up udev rules"
-rm -rf /dev/.udev/
-rm /lib/udev/rules.d/75-persistent-net-generator.rules
-
 UBUNTU_VERSION=$(lsb_release -sr)
 if [ "${UBUNTU_VERSION}" = 16.04 ] || [ "${UBUNTU_VERSION}" = 16.10 ] ; then
     # from https://github.com/cbednarski/packer-ubuntu/blob/master/scripts-1604/vm_cleanup.sh#L9-L15
@@ -18,3 +13,6 @@ if [ "${UBUNTU_VERSION}" = 16.04 ] || [ "${UBUNTU_VERSION}" = 16.10 ] ; then
     # provisioner.
     sed -i "s/ens33/ens32/g" /etc/network/interfaces
 fi
+
+# Add delay to prevent "vagrant reload" from failing
+echo "pre-up sleep 2" >> /etc/network/interfaces
