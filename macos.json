@@ -42,12 +42,12 @@
       "type": "file"
     },
     {
-      "destination": "/tmp/vmkite/com.macstadium.vmkite-buildkite-agent.plist",
+      "destination": "/Users/vmkite/com.macstadium.vmkite-buildkite-agent.plist",
       "source": "scripts/macos/support/com.macstadium.vmkite-buildkite-agent.plist",
       "type": "file"
     },
     {
-      "destination": "/tmp/vmkite/vmkite-buildkite-agent.sh",
+      "destination": "/Users/vmkite/vmkite-buildkite-agent.sh",
       "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
       "type": "file"
     },
@@ -66,9 +66,9 @@
         "scripts/macos/vmware.sh",
         "scripts/macos/xcode-cli-tools.sh",
         "scripts/macos/add-network-interface-detection.sh",
+        "scripts/macos/buildkite.sh",
         "scripts/macos/autologin.sh",
-        "scripts/macos/system-update.sh",
-        "scripts/macos/buildkite.sh"
+        "scripts/macos/system-update.sh"
       ],
       "type": "shell"
     }

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eux
 
+PROVISION_DIR="$HOME"
 BUILDKITE_VERSION=3.0-beta.19
 
 install_buildkite() {
@@ -17,8 +18,8 @@ install_launchd_daemon() {
   local script="vmkite-buildkite-agent.sh"
   local plist="com.macstadium.vmkite-buildkite-agent.plist"
   echo "Installing launchd service"
-  cp "/tmp/vmkite/$script" "/usr/local/bin/$script"
-  cp "/tmp/vmkite/$plist" "/Library/LaunchDaemons/$plist"
+  cp "${PROVISION_DIR}/$script" "/usr/local/bin/$script"
+  cp "${PROVISION_DIR}/$plist" "/Library/LaunchDaemons/$plist"
   sudo chmod 0755 "/usr/local/bin/$script"
   sudo launchctl load "/Library/LaunchDaemons/$plist"
 }
