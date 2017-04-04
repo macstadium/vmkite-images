@@ -9,7 +9,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "output_directory": "output/{{user `template`}}",
+      "output_directory": "output/macos-{{user `version`}}",
       "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
       "skip_compaction": true,
       "ssh_password": "vmkite",
@@ -19,7 +19,7 @@
       "tools_upload_flavor": "darwin",
       "tools_upload_path": "/tmp/vmtools.iso",
       "type": "vmware-iso",
-      "vm_name": "{{ user `template` }}",
+      "vm_name": "macos-{{user `version`}}",
       "vnc_bind_address": "0.0.0.0",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -103,7 +103,6 @@
     "iso_url": "",
     "memory": "4096",
     "no_proxy": "{{env `no_proxy`}}",
-    "template": "macos-{{ user `version` }}",
     "vsphere_username": "{{env `GOVC_USERNAME`}}",
     "vsphere_password": "{{env `GOVC_PASSWORD`}}"
   }
