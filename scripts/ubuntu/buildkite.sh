@@ -14,7 +14,6 @@ install_buildkite() {
 }
 
 install_service() {
-  ls -al "$HOME"
   sudo mv "$HOME/vmkite-buildkite-agent.sh" /usr/local/bin/vmkite-buildkite-agent
   sudo mv "$HOME/vmkite-buildkite-agent.service" /lib/systemd/system/vmkite-buildkite-agent.service
   sudo chmod +x /usr/local/bin/vmkite-buildkite-agent

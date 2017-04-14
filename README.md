@@ -61,6 +61,15 @@ A vmkite user is created and used, with a password of `vmkite`.
 make ubuntu-16.04
 ```
 
+### VMKite 
+
+This provides a ubuntu image to run [vmkite][vmkite], which listens for builds from buildkite.com and spawns the above images.
+
+```
+make vmkite-agent
+```
+
+
 References
 ----------
 

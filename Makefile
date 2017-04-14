@@ -35,6 +35,11 @@ ubuntu-16.04:
 		-var headless=$(headless) \
 		ubuntu-16.04-amd64.json
 
+vmkite:
+	time env PACKER_LOG=$(packer_log) packer build $(packer_args) \
+		-var headless=$(headless) \
+		vmkite.json
+
 clean:
 	-rm -rf output/
 	-rm -rf installers/
