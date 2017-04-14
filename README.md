@@ -69,6 +69,18 @@ This provides a ubuntu image to run [vmkite][vmkite], which listens for builds f
 make vmkite-agent
 ```
 
+This image also reads the following params from VMWare's guestinfo for configuration:
+
+ * `vmkite-buildkite-agent-token`
+ * `vmkite-buildkite-api-token`
+ * `vmkite-buildkite-org`
+ * `vmkite-source-datastore` (default PURE1-1)
+ * `vmkite-target-datastore` (default PURE1-1)
+ * `vmkite-cluster-path` (default '/MacStadium - Vegas/host/XSERVE_Cluster')
+ * `vmkite-vm-memory` (default 4096)
+ * `vmkite-vm-network-label` (default dvPortGroup-Private-1)
+ * `vmkite-vm-num-cpus` (default 2)
+ * `vmkite-vm-path` (default '/MacStadium - Vegas/vm')
 
 References
 ----------
