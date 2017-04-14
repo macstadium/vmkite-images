@@ -3,45 +3,62 @@ VMKite Images
 
 A set of packer templates and scripts for building base images for use with [vmkite][vmkite].
 
+These base images will boot a buildkite-agent process on boot with specific metadata that matches a job spawned by [vmkite][vmkite].
+
 Building Locally
 ----------------
 
 Currently these are developed on macOS with VMWare Fusion Pro 8.5+. Get this environment setup, along with packer installed via Homebrew:
 
+```
+brew cask install vmware-fusion
+brew install packer
+```
+
+Configuring Bas Images
+----------------------
+
+All of the images provided read configuration from VMWare. The following keys are read currently:
+
+| Key                          | Description                             |
+|------------------------------|-----------------------------------------|
+| vmkite-vmdk                  | The vmdk file this VM was lauched with  |
+| vmkite-name                  | The name for the buildkite agent        |
+| vmkite-buildkite-agent-token | The agent token for buildkite           |
+
+These keys are currently passed to the buildkite-agent which starts up on image boot.
+
+Supported Images
+----------------
+
+### macOS 
+
+The macOS images are for testing darwin and ios. They include:
+
+* XCode Commandline Tools
+* Buildkite Agent (v3)
+* SSH
+
+A vmkite user is created and used, with a password of `vmkite`.
+
+
 ```bash
 make macos-10.12
 make macos-10.11
 make macos-10.10
-make ubuntu-16.04
 ```
 
-Uploading to vSphere Datastore
-------------------------------
+### Linux
 
-Use `ovftool` to upload the created vmx to the datastore:
+Currently Ubuntu images are provided, with the following extras installed:
 
-```bash
-VMX_PATH=output/ubuntu-16.04-amd64/ubuntu-16.04-amd64.vmx
-VM_NAME=vmkite-my-test-vm
-VSPHERE_DATASTORE=PURE_1_1
-VSPHERE_NETWORK=MY_NETWORK
-VSPHERE_USERNAME=admin%40example.org
-VSPHERE_PASSWORD=llamas
-VSPHERE_HOST=10.92.x.x
-VSPHERE_DATACENTER="MacStadium - Vegas"
-VSPHERE_CLUSTER="XSERVE_Cluster"
+* Buildkite Agent (v3)
+* SSH
 
-ovftool \
-  --acceptAllEulas \
-  --name="$VM_NAME" \
-  --datastore="$VSPHERE_DATASTORE" \
-  --noSSLVerify=true \
-  --diskMode=thin \
-  --vmFolder=/ \
-  --network="$VSPHERE_NETWORK" \ 
-  --X:logLevel=verbose \
-  "$VMX_PATH" \
-  "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
+A vmkite user is created and used, with a password of `vmkite`.
+
+```
+make ubuntu-16.04
 ```
 
 References
