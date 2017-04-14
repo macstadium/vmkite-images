@@ -4,7 +4,7 @@ ConditionPathExists=/usr/local/bin/vmkite
 
 [Service]
 Type=forking
-ExecStart=/usr/local/bin/vmkite
+ExecStart=/usr/local/bin/vmkite-wrapper run
 TimeoutSec=0
 StandardOutput=tty
 RemainAfterExit=yes

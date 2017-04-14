@@ -13,6 +13,8 @@ install_vmkite() {
 }
 
 install_service() {
+  sudo mv "$HOME/vmkite-wrapper.sh" /usr/local/bin/vmkite-wrapper
+  sudo chmod +x /usr/local/bin/vmkite-wrapper
   sudo mv "$HOME/vmkite.service" /lib/systemd/system/vmkite.service
   sudo systemctl enable vmkite
 }

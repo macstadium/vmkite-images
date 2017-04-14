@@ -56,6 +56,11 @@
   ],
   "provisioners": [
     {
+      "destination": "/home/vmkite/vmkite-wrapper.sh",
+      "source": "scripts/ubuntu/support/vmkite-wrapper.sh",
+      "type": "file"
+    },
+    {
       "destination": "/home/vmkite/vmkite.service",
       "source": "scripts/ubuntu/support/vmkite.service",
       "type": "file"
