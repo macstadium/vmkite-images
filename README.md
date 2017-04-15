@@ -15,10 +15,10 @@ brew cask install vmware-fusion
 brew install packer
 ```
 
-Configuring Bas Images
-----------------------
+Configuring Base Images
+-----------------------
 
-All of the images provided read configuration from VMWare. The following keys are read currently:
+All of the images provided read configuration from VMWare via the guestinfo keys. The following keys are read currently in the form of `guestinfo.{key}`:
 
 | Key                          | Description                             |
 |------------------------------|-----------------------------------------|
@@ -69,18 +69,18 @@ This provides a ubuntu image to run [vmkite][vmkite], which listens for builds f
 make vmkite-agent
 ```
 
-This image also reads the following params from VMWare's guestinfo for configuration:
+This image also reads the following params from VMWare's `guestinfo` for configuration:
 
- * `vmkite-buildkite-agent-token`
- * `vmkite-buildkite-api-token`
- * `vmkite-buildkite-org`
- * `vmkite-source-datastore` (default PURE1-1)
- * `vmkite-target-datastore` (default PURE1-1)
- * `vmkite-cluster-path` (default '/MacStadium - Vegas/host/XSERVE_Cluster')
- * `vmkite-vm-memory` (default 4096)
- * `vmkite-vm-network-label` (default dvPortGroup-Private-1)
- * `vmkite-vm-num-cpus` (default 2)
- * `vmkite-vm-path` (default '/MacStadium - Vegas/vm')
+ * `guestinfo.vmkite-buildkite-agent-token`
+ * `guestinfo.vmkite-buildkite-api-token`
+ * `guestinfo.vmkite-buildkite-org`
+ * `guestinfo.vmkite-source-datastore` (default PURE1-1)
+ * `guestinfo.vmkite-target-datastore` (default PURE1-1)
+ * `guestinfo.vmkite-cluster-path` (default '/MacStadium - Vegas/host/XSERVE_Cluster')
+ * `guestinfo.vmkite-vm-memory` (default 4096)
+ * `guestinfo.vmkite-vm-network-label` (default dvPortGroup-Private-1)
+ * `guestinfo.vmkite-vm-num-cpus` (default 2)
+ * `guestinfo.vmkite-vm-path` (default '/MacStadium - Vegas/vm')
 
 References
 ----------
