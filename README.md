@@ -81,6 +81,10 @@ This image also reads the following params from VMWare's `guestinfo` for configu
  * `guestinfo.vmkite-vm-network-label` (default dvPortGroup-Private-1)
  * `guestinfo.vmkite-vm-num-cpus` (default 2)
  * `guestinfo.vmkite-vm-path` (default '/MacStadium - Vegas/vm')
+ * `guestinfo.vmkite-vsphere-host`
+ * `guestinfo.vmkite-vsphere-user`
+ * `guestinfo.vmkite-vsphere-pass`
+ * `guestinfo.vmkite-vsphere-insecure` (default 'true')
 
 References
 ----------

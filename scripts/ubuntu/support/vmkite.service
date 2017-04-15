@@ -6,7 +6,6 @@ ConditionPathExists=/usr/local/bin/vmkite
 Type=forking
 ExecStart=/usr/local/bin/vmkite-wrapper run
 TimeoutSec=0
-StandardOutput=tty
 RemainAfterExit=yes
 SysVStartPriority=99
 

@@ -7,7 +7,7 @@ set -u
 guestinfo() {
   local key="guestinfo.$1"
   local value
-  if value=$(/usr/bin/vmware-rpctool "info-get $key") ; then
+  if value=$(/usr/bin/vmware-rpctool "info-get $key" 2>/dev/null) ; then
     echo "$value"
   elif [ -n "${2:-}" ] ; then
     echo "$2"
@@ -30,7 +30,15 @@ VMKITE_VM_NETWORK_LABEL="$(guestinfo vmkite-vm-network-label 'dvPortGroup-Privat
 VMKITE_VM_NUM_CORES_PER_SOCKET=1
 VMKITE_VM_NUM_CPUS="$(guestinfo vmkite-vm-num-cpus 2)"
 VMKITE_VM_PATH="$(guestinfo vmkite-vm-path '/MacStadium - Vegas/vm')"
+VMKITE_VSPHERE_HOST="$(guestinfo vmkite-vsphere-host)"
+VMKITE_VSPHERE_INSECURE="$(guestinfo vmkite-vsphere-insecure 'true')"
+VMKITE_VSPHERE_PASS="$(guestinfo vmkite-vsphere-pass)"
+VMKITE_VSPHERE_USER="$(guestinfo vmkite-vsphere-user)"
 
+export VMKITE_VSPHERE_HOST
+export VMKITE_VSPHERE_INSECURE
+export VMKITE_VSPHERE_PASS
+export VMKITE_VSPHERE_USER
 export VMKITE_BUILDKITE_AGENT_TOKEN
 export VMKITE_BUILDKITE_API_TOKEN
 export VMKITE_BUILDKITE_ORG

@@ -6,7 +6,6 @@ ConditionPathExists=/usr/local/bin/vmkite-buildkite-agent
 Type=forking
 ExecStart=/usr/local/bin/vmkite-buildkite-agent
 TimeoutSec=0
-StandardOutput=tty
 RemainAfterExit=yes
 SysVStartPriority=99
 
