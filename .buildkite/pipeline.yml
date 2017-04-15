@@ -2,16 +2,19 @@ steps:
 
   - wait
   # - name: ":package: vmkite"
+  #   artifact_paths: "output/vmkite-manifest.json"
   #   command: make vmkite
   #   agents:
   #     queue: 'packer'
 
   - name: ":package: :ubuntu: 16.04"
     command: make ubuntu-16.04
+    artifact_paths: "output/ubuntu-manifest.json"
     agents:
       queue: 'packer'
 
   # - name: ":package: :mac: 10.12"
+  #   artifact_paths: "output/mac-manifest.json"
   #   command: make macos-10.12
   #   agents:
   #     queue: 'packer'
