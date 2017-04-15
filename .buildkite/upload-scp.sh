@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+ls -al output/
+
 scp -v -r -P \
   "${VMKITE_SCP_PORT}" \
   "${BUILD_ARTIFACT}" \

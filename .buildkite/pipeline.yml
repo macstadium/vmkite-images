@@ -18,11 +18,11 @@ steps:
 
   - wait
   - name: ":rocket: upload to scp"
-    command: scripts/upload-scp.sh
+    command: .buildkite/upload-scp.sh
     agents:
       queue: 'packer'
 
   - name: ":rocket: upload to vsphere"
-    command: scripts/upload-ovftool.sh
+    command: .buildkite/upload-ovftool.sh
     agents:
       queue: 'packer'
