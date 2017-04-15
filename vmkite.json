@@ -79,6 +79,7 @@
         "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/vmware.sh",
         "scripts/ubuntu/vmkite.sh",
+        "scripts/ubuntu/network.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
