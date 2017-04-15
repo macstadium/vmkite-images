@@ -1,20 +1,20 @@
 steps:
 
   - wait
-  - name: ":package: vmkite"
-    command: make vmkite
-    agents:
-      queue: 'packer'
+  # - name: ":package: vmkite"
+  #   command: make vmkite
+  #   agents:
+  #     queue: 'packer'
 
   - name: ":package: :ubuntu: 16.04"
     command: make ubuntu-16.04
     agents:
       queue: 'packer'
 
-  - name: ":package: :mac: 10.12"
-    command: make macos-10.12
-    agents:
-      queue: 'packer'
+  # - name: ":package: :mac: 10.12"
+  #   command: make macos-10.12
+  #   agents:
+  #     queue: 'packer'
 
   - wait
   - name: ":rocket: upload to scp"
