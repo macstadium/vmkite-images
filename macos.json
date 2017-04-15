@@ -75,28 +75,10 @@
   ],
   "post-processors": [
     {
-      "output": "output/manifest.json",
+      "output": "output/macos-manifest.json",
       "strip_path": true,
       "type": "manifest"
     },
-    {
-      "type" : "vsphere",
-      "keep_input_artifact" : true,
-      "datacenter" : "MacStadium - Vegas",
-      "cluster" : "XSERVE_Cluster",
-      "datastore" : "PURE1-1",
-      "host" : "10.92.157.10",
-      "password" : "{{user `vsphere_password`}}",
-      "username" : "{{user `vsphere_username`}}",
-      "vm_folder": "/",
-      "disk_mode": "thin",
-      "vm_name": "vmkite-base-macos-{{ user `version` }}-r{{user `build_number`}}",
-      "vm_network": "dvPortGroup-Private-1",
-      "insecure" : true,
-      "options": [
-        "--X:logLevel=verbose"
-      ]
-    }
   ],
   "variables": {
     "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",

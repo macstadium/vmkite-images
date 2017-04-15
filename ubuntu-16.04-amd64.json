@@ -88,40 +88,10 @@
   ],
   "post-processors": [
     {
-      "output": "output/manifest.json",
+      "output": "output/ubuntu-manifest.json",
       "strip_path": true,
       "type": "manifest"
     },
-    {
-      "type" : "vsphere",
-      "keep_input_artifact" : true,
-      "datacenter" : "MacStadium - Vegas",
-      "cluster" : "XSERVE_Cluster",
-      "datastore" : "PURE1-1",
-      "host" : "10.92.157.10",
-      "password" : "{{user `vsphere_password`}}",
-      "username" : "{{user `vsphere_username`}}",
-      "vm_folder": "/",
-      "disk_mode": "thin",
-      "vm_name": "vmkite-base-ubuntu-{{ user `version` }}-r{{user `build_number`}}",
-      "vm_network": "dvPortGroup-Private-1",
-      "insecure" : true,
-      "options": [
-        "--X:logLevel=verbose"
-      ]
-    },
-    {
-      "environment_vars": [
-        "BUILD_ARTIFACT=output/{{user `template`}}",
-        "VMKITE_SCP_HOST={{user `scp_upload_host`}}",
-        "VMKITE_SCP_PORT={{user `scp_upload_port`}}",
-        "VMKITE_SCP_USER={{user `scp_upload_user`}}",
-        "VMKITE_SCP_PASSWORD={{user `scp_upload_password`}}"
-      ],
-      "execute_command": "chmod +x {{ .Script }}; sudo {{ .Vars }} {{ .Script }}",
-      "script": "scripts/upload.sh",
-      "type": "shell-local"
-    }
   ],
   "variables": {
     "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
