@@ -90,6 +90,7 @@
     {
       "output": "output/vmkite-manifest.json",
       "strip_path": true,
+      "keep_input_artifact": true,
       "type": "manifest"
     }
   ],
