@@ -14,3 +14,15 @@ steps:
     command: make macos-10.12
     agents:
       queue: 'packer'
+
+  - wait
+
+  - name: ":rocket: upload to scp"
+    command: scripts/upload-scp.sh
+    agents:
+      queue: 'packer'
+
+  - name: ":rocket: upload to vsphere"
+    command: scripts/upload-ovftool.sh
+    agents:
+      queue: 'packer'
