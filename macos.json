@@ -78,7 +78,7 @@
       "output": "output/macos-manifest.json",
       "strip_path": true,
       "type": "manifest"
-    },
+    }
   ],
   "variables": {
     "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
