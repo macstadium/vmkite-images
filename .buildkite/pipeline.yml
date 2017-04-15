@@ -1,5 +1,6 @@
 steps:
 
+  - wait
   - name: ":package: vmkite"
     command: make vmkite
     agents:
@@ -16,7 +17,6 @@ steps:
       queue: 'packer'
 
   - wait
-
   - name: ":rocket: upload to scp"
     command: scripts/upload-scp.sh
     agents:
