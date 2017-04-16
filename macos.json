@@ -73,14 +73,6 @@
       "type": "shell"
     }
   ],
-  "post-processors": [
-    {
-      "output": "output/macos-manifest.json",
-      "strip_path": true,
-      "keep_input_artifact": true,
-      "type": "manifest"
-    }
-  ],
   "variables": {
     "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "cpus": "1",
