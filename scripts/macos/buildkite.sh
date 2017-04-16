@@ -4,9 +4,15 @@ set -eux
 PROVISION_DIR="$HOME"
 BUILDKITE_VERSION=3.0-beta.19
 
+download() {
+  local file="$1"
+  local url="$2"
+  curl -Lfs --retry 10 -o "${file}" "${url}"
+}
+
 install_buildkite() {
   echo "Installing buildkite-agent"
-  curl -Lfs -o buildkite.tar.gz "https://github.com/buildkite/agent/releases/download/v${BUILDKITE_VERSION}/buildkite-agent-darwin-amd64-${BUILDKITE_VERSION}.tar.gz"
+  download buildkite.tar.gz "https://github.com/buildkite/agent/releases/download/v${BUILDKITE_VERSION}/buildkite-agent-darwin-amd64-${BUILDKITE_VERSION}.tar.gz"
   mkdir -p "$HOME/buildkite-agent"
   tar -xzf buildkite.tar.gz -C "$HOME/buildkite-agent"
   sudo mkdir -p /usr/local/bin
