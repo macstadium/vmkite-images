@@ -36,7 +36,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `mirror`}}/{{user `mirror_directory`}}/{{user `iso_name`}}",
-      "output_directory": "output/{{user `template`}}",
+      "output_directory": "{{user `output_directory`}}",
       "shutdown_command": "echo 'vmkite' | sudo -S shutdown -P now",
       "ssh_password": "vmkite",
       "ssh_port": 22,
@@ -44,7 +44,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
-      "vm_name": "{{ user `template` }}",
+      "vm_name": "{{ user `name` }}",
       "vnc_bind_address": "0.0.0.0",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -102,7 +102,6 @@
     "name": "vmkite",
     "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "ubuntu-16.04/preseed.cfg",
-    "template": "vmkite",
     "version": "",
     "vsphere_username": "{{env `GOVC_USERNAME`}}",
     "vsphere_password": "{{env `GOVC_PASSWORD`}}"

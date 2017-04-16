@@ -13,6 +13,6 @@ upload_vmdk() {
     "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}:${remote_path}"
 }
 
-find ./output -name "disk.vmdk" | while read -r disk ; do
+find "$OUTPUT_DIR" -name "disk.vmdk" | while read -r disk ; do
   upload_vmdk "$disk"
 done

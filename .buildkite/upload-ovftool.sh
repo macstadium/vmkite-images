@@ -21,6 +21,6 @@ upload_vmx() {
     "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 }
 
-find ./output -name "*.vmx" | while read -r vmx ; do
+find "$OUTPUT_DIR" -name "*.vmx" | while read -r vmx ; do
   upload_vmx "$vmx"
 done

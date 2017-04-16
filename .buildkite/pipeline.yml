@@ -1,18 +1,21 @@
+env:
+  OUTPUT_DIR: "/tmp/output/${BUILDKITE_BUILD_ID}"
+
 steps:
 
   - wait
   - name: ":package: vmkite"
-    command: make vmkite
+    command: .buildkite/build.sh vmkite
     agents:
       queue: 'packer'
 
   - name: ":package: :ubuntu: 16.04"
-    command: make ubuntu-16.04
+    command: .buildkite/build.sh ubuntu-16.04
     agents:
       queue: 'packer'
 
   - name: ":package: :mac: 10.12"
-    command: make macos-10.12
+    command: .buildkite/build.sh macos-10.12
     agents:
       queue: 'packer'
 
