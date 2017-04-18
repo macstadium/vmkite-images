@@ -20,7 +20,7 @@ vmkite*)
   filehash=$(hash_files scripts/common scripts/ubuntu vmkite.json)
   ;;
 ubuntu*)
-  filehash=$(hash_files scripts/common scripts/ubuntu ubuntu.json)
+  filehash=$(hash_files scripts/common scripts/ubuntu ubuntu-16.04-amd64.json)
   ;;
 *)
   filehash=""
