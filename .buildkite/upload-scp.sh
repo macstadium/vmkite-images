@@ -7,10 +7,8 @@ upload_vmdk() {
   local remote_path="${VMKITE_SCP_PATH}/${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}.vmdk"
 
   echo "--- Uploading $disk to $remote_path"
-  scp -v -r -P \
-    "${VMKITE_SCP_PORT}" \
-    "${disk}" \
-    "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}:${remote_path}"
+  sftp -P "${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}" -- \
+    put -r "${disk}" "${remote_path}"
 }
 
 find "$OUTPUT_DIR" -name "disk.vmdk" | while read -r disk ; do
