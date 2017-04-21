@@ -6,7 +6,7 @@ upload_vmx() {
   local base_name=$(basename "$(dirname "$vmx_path")")
   local vm_name="${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}"
 
-  echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+  echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
   ovftool \
     --acceptAllEulas \
     --name="$vm_name" \

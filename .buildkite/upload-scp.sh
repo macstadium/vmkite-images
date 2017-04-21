@@ -6,8 +6,8 @@ upload_vmdk() {
   local base_name=$(basename "$(dirname "$disk")")
   local remote_path="${VMKITE_SCP_PATH}/${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}.vmdk"
 
-  echo "--- Uploading $disk to $remote_path"
-  sftp -b <(put -r "${disk}" "${remote_path}") \
+  echo "+++ Uploading $disk to $remote_path"
+  sftp -b <(echo put -r "${disk}" "${remote_path}") \
     -P"${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
 }
 
