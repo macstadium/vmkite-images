@@ -84,10 +84,6 @@
     "iso_checksum_type": "",
     "iso_url": "",
     "memory": "4096",
-    "no_proxy": "{{env `no_proxy`}}",
-    "vsphere_username": "{{env `GOVC_USERNAME`}}",
-    "vsphere_password": "{{env `GOVC_PASSWORD`}}",
-    "vsphere_username": "{{env `GOVC_USERNAME`}}",
-    "vsphere_password": "{{env `GOVC_PASSWORD`}}"
+    "no_proxy": "{{env `no_proxy`}}"
   }
 }

@@ -102,9 +102,7 @@
     "name": "vmkite",
     "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "ubuntu-16.04/preseed.cfg",
-    "version": "",
-    "vsphere_username": "{{env `GOVC_USERNAME`}}",
-    "vsphere_password": "{{env `GOVC_PASSWORD`}}"
+    "version": ""
   }
 }
 

@@ -102,13 +102,7 @@
     "name": "ubuntu-16.04-amd64",
     "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "ubuntu-16.04/preseed.cfg",
-    "version": "16.04.2",
-    "vsphere_username": "{{env `GOVC_USERNAME`}}",
-    "vsphere_password": "{{env `GOVC_PASSWORD`}}",
-    "scp_upload_host": "{{env `VMKITE_SCP_HOST`}}",
-    "scp_upload_port": "{{env `VMKITE_SCP_PORT`}}",
-    "scp_upload_user": "{{env `VMKITE_SCP_USER`}}",
-    "scp_upload_password": "{{env `VMKITE_SCP_PASSWORD`}}"
+    "version": "16.04.2"
   }
 }
 
