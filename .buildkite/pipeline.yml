@@ -14,10 +14,10 @@ steps:
     agents:
       queue: 'packer'
 
-  # - name: ":package: :mac: 10.12"
-  #   command: .buildkite/build.sh macos-10.12
-  #   agents:
-  #     queue: 'packer'
+  - name: ":package: :mac: 10.12"
+    command: .buildkite/build.sh macos-10.12
+    agents:
+      queue: 'packer'
 
   - wait
   - name: ":rocket: upload to scp"
