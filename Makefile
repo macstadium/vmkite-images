@@ -1,7 +1,7 @@
 
-headless := false
+headless := true
 packer_args := -force
-packer_log := 1
+packer_log := 0
 output_directory := "output"
 
 macos-10.12:
