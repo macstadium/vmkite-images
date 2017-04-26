@@ -15,7 +15,7 @@ steps:
 
   - wait
   - name: ":package: vmkite"
-    command: .buildkite/build.sh vmkite
+    command: .buildkite/build.sh vmkite ubuntu-16.04
     agents:
       queue: 'packer'
 

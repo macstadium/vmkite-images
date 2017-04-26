@@ -63,26 +63,39 @@ sftp_command() {
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
-export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_BUILD_ID}
+export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
 export PACKER_CACHE_DIR=$HOME/.packer_cache
 
 image="$1"
+sourceimage="${2:-}"
+sourcevmx=
 hashfile="$(get_hash_path "$image")"
 
 if [[ -e $hashfile ]] ; then
-  outputdir=$(readlink "$hashfile")
-  echo "Image is already built at $hashfile"
+  echo "Image is already built at $(readlink "$hashfile")"
   exit 0
 fi
 
-echo "+++ Building $image"
-make "$@" "output_directory=$outputdir"
+if [[ -n "$sourceimage" ]] ; then
+  echo "--- Finding source image for $sourceimage"
+  if [[ -e "$HASHES_DIR/$sourceimage/latest" ]] ; then
+    sourcevmx=$(readlink "$HASHES_DIR/$sourceimage/latest")
+    echo "Found $sourcevmx"
+  else
+    echo "+++ Failed to find source vmx for $sourceimage"
+    exit 1
+  fi
+fi
 
-echo "+++ Uploading $outputdir to sftp"
-upload_vm_to_sftp "$outputdir"
+echo "+++ Building $image"
+make "$@" "output_directory=$OUTPUT_DIR source_path=$sourcevmx"
+
+echo "+++ Uploading $OUTPUT_DIR to sftp"
+upload_vm_to_sftp "$OUTPUT_DIR"
 
 if [[ -n "$hashfile" ]] ; then
-  echo "--- Linking $outputdir to $hashfile"
+  echo "--- Linking $OUTPUT_DIR to $hashfile"
   mkdir -p "$(dirname "$hashfile")"
-  ln -sf "$outputdir" "$hashfile"
+  ln -sf "$OUTPUT_DIR" "$hashfile"
+  ln -sf "$OUTPUT_DIR" "$(dirname hashfile)/latest"
 fi
