@@ -1,24 +1,42 @@
 
 headless := true
 packer_args := -force
-packer_log := 0
 output_directory := "output"
 
-macos-base:
-	time env PACKER_LOG=$(packer_log) packer build $(packer_args) \
-		-var headless=$(headless) \
-		-var iso_url=https://s3.amazonaws.com/vmkite-osx-images/OSX_InstallESD_10.12.3_16D32.dmg \
-		-var iso_checksum=d5fd77df525e5e8acf0ed6df52cf39e3f608067124f496a35d07cf99009d03b8 \
-		-var iso_checksum_type=sha256 \
-		-var output_directory="$(output_directory)/macos-base" \
-		-var version=10.12.3 \
-		macos.json
+# Base images - Minimal installs
+# ------------------------------
 
-ubuntu-base:
-	time env PACKER_LOG=$(packer_log) packer build $(packer_args) \
+macos-10.12:
+	time env packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var output_directory="$(output_directory)/ubuntu-base" \
-		ubuntu-16.04-amd64.json
+		-var output_directory="$(output_directory)/macos-10.12" \
+		macos-10.12.json
+
+ubuntu-16.04:
+	time env packer build $(packer_args) \
+		-var headless=$(headless) \
+		-var output_directory="$(output_directory)/ubuntu-16.04" \
+		ubuntu-16.04.json
+
+# Buildkite images - Base images with buildkite and build tools
+# -------------------------------------------------------------
+
+macos-buildkite-10.12:
+	time env packer build $(packer_args) \
+		-var headless=$(headless) \
+		-var source_path="$(output_directory)/macos-10.12/macos-10.12.vmx" \
+		-var output_directory="$(output_directory)"
+		macos-buildkite.json
+
+ubuntu-buildkite-16.04:
+	time env packer build $(packer_args) \
+		-var headless=$(headless) \
+		-var source_path="$(output_directory)/ubuntu-16.04/ubuntu-16.04.vmx" \
+		-var output_directory="$(output_directory)"
+		macos-buildkite.json
+
+# Other images
+# -------------------------------------------------------------
 
 vmkite:
 	time env PACKER_LOG=$(packer_log) packer build $(packer_args) \
