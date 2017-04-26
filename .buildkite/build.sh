@@ -32,9 +32,13 @@ upload_vm_to_sftp() {
   local source_dir="$1"
   local upload_dir="$(find_vm_name "$source_dir")"
 
-  echo "$upload_dir"
+  if ! sftp_command cd "$VMKITE_SCP_PATH/$upload_dir" ; then
+    sftp_command mkdir "$VMKITE_SCP_PATH/$upload_dir"
+  fi
 
-  sftp_command ls "$VMKITE_SCP_PATH"
+  find "$source_dir" -type f -print0 | while IFS= read -r -d $'\0' f; do
+    sftp_command put "$f"
+  done
 
   # cd ${VMKITE_SCP_PATH}
   #    lcd $outputdir
