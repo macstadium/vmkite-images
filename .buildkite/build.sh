@@ -46,11 +46,10 @@ if [[ ! -e "$outputdir" ]] ; then
   fi
 fi
 
-ls -al "${outputdir}"
+base_name=$(find "$outputdir" -iname '*.vmx' -exec basename {} \; | head -n1 | sed 's/\.vmx//')
+upload_path="${VMKITE_SCP_PATH}/${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}"
 
-# upload_path="${VMKITE_SCP_PATH}/${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}"
-
-#   echo "+++ Uploading $disk to $remote_path"
-#   sftp -b <(echo put -r "${disk}/" "${remote_path}") \
-#     -P"${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
-# }
+cd "$outputdir"
+echo "+++ Uploading $outputdir to $upload_path"
+# sftp -b <(printf "put -r "${disk}/" "${remote_path}") \
+#   -P"${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
