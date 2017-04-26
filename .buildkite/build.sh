@@ -4,7 +4,7 @@ set -euo pipefail
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_BUILD_ID}
-export PACKER_CACHE_DIR=$BUILD_DIR/.packer
+export PACKER_CACHE_DIR=$HOME/.packer_cache
 
 hash_files() {
   find "$@" -type f -print0 \
