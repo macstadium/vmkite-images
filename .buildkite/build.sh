@@ -28,16 +28,31 @@ find_vm_name() {
   find "$1" -iname '*.vmx' -exec basename {} \; | head -n1 | sed 's/\.vmx//'
 }
 
-upload_to_sftp() {
-  local sourcedir="$1"
-  upload_path="$(find_vm_name "$sourcedir")"
+upload_vm_to_sftp() {
+  local source_dir="$1"
+  local upload_dir="$(find_vm_name "$source_dir")"
 
-  sftp -b <(echo "cd ${VMKITE_SCP_PATH}
-     lcd $outputdir
-     mkdir $upload_path
-     cd $upload_path
-     put -r .") \
-    -P"${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
+  echo "$upload_dir"
+
+  sftp_command ls "$VMKITE_SCP_PATH"
+
+  # cd ${VMKITE_SCP_PATH}
+  #    lcd $outputdir
+  #    mkdir $upload_path
+  #    cd $upload_path
+  #    put
+
+  # local sourcefile="$1"
+  # local destdir="$2"
+
+  # upload_path="$(find_vm_name "$sourcedir")"
+
+}
+
+sftp_command() {
+  sftp -b <(echo "$*") \
+    -P"${VMKITE_SCP_PORT}" \
+    "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
 }
 
 image="$1"
@@ -59,7 +74,7 @@ if [[ ! -e "$outputdir" ]] ; then
 fi
 
 echo "+++ Uploading $outputdir to sftp"
-upload_to_sftp "$outputdir"
+upload_vm_to_sftp "$outputdir"
 
 if [[ -n "${filehash}" ]] ; then
   echo "--- Linking hash ${filehash} to ${outputdir}"
