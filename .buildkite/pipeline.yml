@@ -13,8 +13,9 @@ steps:
     agents:
       queue: 'packer'
 
-  # - name: ":package: vmkite"
-  #   command: .buildkite/build.sh vmkite
-  #   agents:
-  #     queue: 'packer'
+  - wait
+  - name: ":package: vmkite"
+    command: .buildkite/build.sh vmkite
+    agents:
+      queue: 'packer'
 

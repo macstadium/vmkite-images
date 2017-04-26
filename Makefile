@@ -41,6 +41,7 @@ ubuntu-buildkite-16.04:
 vmkite:
 	time env PACKER_LOG=$(packer_log) packer build $(packer_args) \
 		-var headless=$(headless) \
+		-var source_path="$(output_directory)/ubuntu-16.04.vmx" \
 		-var output_directory="$(output_directory)/vmkite" \
 		vmkite.json
 

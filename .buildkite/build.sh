@@ -24,13 +24,26 @@ get_hash_for_image() {
   esac
 }
 
+get_hash_path() {
+  local image="$1"
+  local filehash
+
+  if ! filehash="$(get_hash_for_image "$image")" || [[ -z "$filehash" ]] ; then
+    return
+  fi
+
+  echo "$HASHES_DIR/$image/${filehash}"
+}
+
 find_vm_name() {
   find "$1" -iname '*.vmx' -exec basename {} \; | head -n1 | sed 's/\.vmx//'
 }
 
 upload_vm_to_sftp() {
   local source_dir="$1"
-  local upload_dir="$(find_vm_name "$source_dir")"
+  local upload_dir
+
+  upload_dir="$(find_vm_name "$source_dir")"
 
   if ! sftp_command cd "$VMKITE_SCP_PATH/$upload_dir" ; then
     sftp_command mkdir "$VMKITE_SCP_PATH/$upload_dir"
@@ -54,27 +67,22 @@ export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_BUILD_ID}
 export PACKER_CACHE_DIR=$HOME/.packer_cache
 
 image="$1"
-filehash="$(get_hash_for_image "$image")"
-outputdir=$OUTPUT_DIR
+hashfile="$(get_hash_path "$image")"
+
+if [[ -e $hashfile ]] ; then
+  outputdir=$(readlink "$hashfile")
+  echo "Image is already built at $hashfile"
+  exit 0
+fi
 
 echo "+++ Building $image"
-if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
-  outputdir=$(readlink "$HASHES_DIR/${filehash}")
-  echo "Image is already built with hash of $filehash, points to $outputdir"
-else
-  outputdir=$OUTPUT_DIR
-fi
-
-if [[ ! -e "$outputdir" ]] ; then
-  echo "No build found at $HASHES_DIR/${filehash}"
-  make "$@" "output_directory=$outputdir"
-fi
+make "$@" "output_directory=$outputdir"
 
 echo "+++ Uploading $outputdir to sftp"
 upload_vm_to_sftp "$outputdir"
 
-if [[ -n "${filehash}" ]] ; then
-  echo "--- Linking hash ${filehash} to ${outputdir}"
-  mkdir -p "$HASHES_DIR"
-  ln -sf "${HASHES_DIR}/${filehash}" "${outputdir}"
+if [[ -n "$hashfile" ]] ; then
+  echo "--- Linking $outputdir to $hashfile"
+  mkdir -p "$(dirname "$hashfile")"
+  ln -sf "$outputdir" "$hashfile"
 fi
