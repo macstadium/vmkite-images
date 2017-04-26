@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-HASHES_DIR=/tmp/output-hashes
+HASHES_DIR=/tmp/output-hashes/${BUILDKITE_BRANCH}
 
 hash_files() {
   find "$@" -type f -print0 \
