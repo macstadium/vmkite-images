@@ -3,11 +3,11 @@
     {
       "type": "vmware-vmx",
       "source_path": "{{user `source_path`}}",
-      "ssh_username": "root",
-      "ssh_password": "root",
+      "ssh_username": "vmkite",
+      "ssh_password": "vmkite",
       "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
       "headless": "{{ user `headless` }}",
-      "vm_name": "macos-buildkite-{{user `version`}}",
+      "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "0.0.0.0"
     }
   ],
@@ -36,8 +36,8 @@
     }
   ],
   "variables": {
-    "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "headless": "",
     "source_path": "",
+    "vm_name": "macos-buildkite-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
   }
 }

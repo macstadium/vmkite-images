@@ -76,14 +76,13 @@
     }
   ],
   "variables": {
-    "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "cpus": "1",
     "disk_size": "20960",
+    "memory": "1024",
     "headless": "",
     "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
     "iso_checksum_type": "sha256",
     "iso_name": "ubuntu-16.04.2-server-amd64.iso",
-    "memory": "1024",
     "mirror": "http://releases.ubuntu.com",
     "mirror_directory": "16.04",
     "name": "ubuntu-16.04-amd64",

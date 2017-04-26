@@ -19,3 +19,13 @@ steps:
     agents:
       queue: 'packer'
 
+  - name: ":package: :mac: :buildkite: 10.12"
+    command: .buildkite/build.sh macos-buildkite macos-10.12
+    agents:
+      queue: 'packer'
+
+  - name: ":package: :ubuntu: :buildkite: 16.04"
+    command: .buildkite/build.sh ubuntu-buildkite ubuntu-16.04
+    agents:
+      queue: 'packer'
+
