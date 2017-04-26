@@ -37,7 +37,8 @@ upload_vm_to_sftp() {
   fi
 
   find "$source_dir" -type f -print0 | while IFS= read -r -d $'\0' f; do
-    sftp_command put "$f"
+    remote_path="$VMKITE_SCP_PATH/$upload_dir/$(basename "$f")"
+    sftp_command put "$f" "$remote_path"
   done
 
   # cd ${VMKITE_SCP_PATH}
