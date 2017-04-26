@@ -35,15 +35,15 @@ get_hash_path() {
   echo "$HASHES_DIR/$image/${filehash}"
 }
 
-find_vm_name() {
-  find "$1" -iname '*.vmx' -exec basename {} \; | head -n1 | sed 's/\.vmx//'
+find_vmx_file() {
+  find "$1" -iname '*.vmx' | head -n1
 }
 
 upload_vm_to_sftp() {
   local source_dir="$1"
   local upload_dir
 
-  upload_dir="$(find_vm_name "$source_dir")"
+  upload_dir="$(basename $(find_vmx_file "$source_dir") | sed 's/\.vmx//')"
 
   if ! sftp_command cd "$VMKITE_SCP_PATH/$upload_dir" ; then
     sftp_command mkdir "$VMKITE_SCP_PATH/$upload_dir"
@@ -79,7 +79,7 @@ fi
 if [[ -n "$sourceimage" ]] ; then
   echo "--- Finding source image for $sourceimage"
   if [[ -e "$HASHES_DIR/$sourceimage/latest" ]] ; then
-    sourcevmx=$(readlink "$HASHES_DIR/$sourceimage/latest")
+    sourcevmx=$(find_vmx_file "$(readlink "$HASHES_DIR/$sourceimage/latest")")
     echo "Found $sourcevmx"
   else
     echo "+++ Failed to find source vmx for $sourceimage"
