@@ -1,8 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-HASHES_DIR=/tmp/output-hashes/${BUILDKITE_BRANCH}
-OUTPUT_DIR=${OUTPUT_DIR:-/tmp/output}
+export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
+export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
+export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_BUILD_ID}
+export PACKER_CACHE_DIR=$BUILD_DIR/.packer
 
 hash_files() {
   find "$@" -type f -print0 \
