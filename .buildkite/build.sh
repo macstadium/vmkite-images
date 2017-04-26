@@ -30,7 +30,7 @@ outputdir=$OUTPUT_DIR
 
 if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
   outputdir=$(readlink "$HASHES_DIR/${filehash}")
-  echo "Image is already built with hash of $filehash, points to $target"
+  echo "Image is already built with hash of $filehash, points to $outputdir"
 else
   outputdir=$OUTPUT_DIR
 fi
