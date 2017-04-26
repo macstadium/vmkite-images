@@ -8,7 +8,8 @@
       "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
       "headless": "{{ user `headless` }}",
       "vm_name": "vmkite-{{user `build_number`}}",
-      "vnc_bind_address": "0.0.0.0"
+      "vnc_bind_address": "0.0.0.0",
+      "output_directory": "{{user `output_directory`}}"
     }
   ],
   "provisioners": [
@@ -38,7 +39,8 @@
   "variables": {
     "headless": "",
     "source_path": "",
-    "vm_name": "ubuntu-buildkite-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}"
+    "vm_name": "ubuntu-buildkite-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
+    "output_directory": "output"
   }
 }
 

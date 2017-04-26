@@ -8,7 +8,8 @@
       "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
       "headless": "{{ user `headless` }}",
       "vm_name": "{{user `vm_name`}}",
-      "vnc_bind_address": "0.0.0.0"
+      "vnc_bind_address": "0.0.0.0",
+      "output_directory": "{{user `output_directory`}}"
     }
   ],
   "provisioners": [
@@ -39,5 +40,6 @@
     "headless": "",
     "source_path": "",
     "vm_name": "macos-buildkite-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
+    "output_directory": "output"
   }
 }
