@@ -48,12 +48,16 @@ sftp_command() {
     "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
 }
 
+export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
+export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
+export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_BUILD_ID}
+export PACKER_CACHE_DIR=$HOME/.packer_cache
+
 image="$1"
 filehash="$(get_hash_for_image "$image")"
 outputdir=$OUTPUT_DIR
 
 echo "+++ Building $image"
-
 if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
   outputdir=$(readlink "$HASHES_DIR/${filehash}")
   echo "Image is already built with hash of $filehash, points to $outputdir"

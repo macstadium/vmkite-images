@@ -56,16 +56,6 @@
   ],
   "provisioners": [
     {
-      "destination": "/home/vmkite/vmkite-buildkite-agent.service",
-      "source": "scripts/ubuntu/support/vmkite-buildkite-agent.service",
-      "type": "file"
-    },
-    {
-      "destination": "/home/vmkite/vmkite-buildkite-agent.sh",
-      "source": "scripts/ubuntu/support/vmkite-buildkite-agent.sh",
-      "type": "file"
-    },
-    {
       "environment_vars": [
         "HOME_DIR=/home/vmkite",
         "http_proxy={{user `http_proxy`}}",
@@ -78,7 +68,6 @@
         "scripts/common/sshd.sh",
         "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/vmware.sh",
-        "scripts/ubuntu/buildkite.sh",
         "scripts/ubuntu/network.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
@@ -89,10 +78,8 @@
   "variables": {
     "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "cpus": "1",
-    "disk_size": "40960",
+    "disk_size": "20960",
     "headless": "",
-    "http_proxy": "{{env `http_proxy`}}",
-    "https_proxy": "{{env `https_proxy`}}",
     "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
     "iso_checksum_type": "sha256",
     "iso_name": "ubuntu-16.04.2-server-amd64.iso",
@@ -100,9 +87,10 @@
     "mirror": "http://releases.ubuntu.com",
     "mirror_directory": "16.04",
     "name": "ubuntu-16.04-amd64",
-    "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "ubuntu-16.04/preseed.cfg",
-    "version": "16.04.2"
+    "version": "16.04.2",
+    "vm_name": "ubuntu-base-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
+    "output_directory": "output"
   }
 }
 
