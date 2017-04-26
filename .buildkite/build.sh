@@ -25,11 +25,14 @@ vmkite)
   ;;
 esac
 
+
+
 if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
   target=$(readlink "$HASHES_DIR/${filehash}")
   echo "Build already exists at ${target}"
   ln -sf "$target" "${OUTPUT_DIR}"
 else
+  echo "No build found at $HASHES_DIR/${filehash}, building"
   make "$@" "output_directory=$OUTPUT_DIR"
   if [[ -n "${filehash}" ]] ; then
     echo "Linking hash of ${filehash} to ${OUTPUT_DIR}"
