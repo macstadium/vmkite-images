@@ -24,7 +24,7 @@
     },
     {
       "environment_vars": [
-        "HOME_DIR=/home/vmkite",
+        "HOME_DIR=/home/vmkite"
       ],
       "execute_command": "echo 'vmkite' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
@@ -36,6 +36,6 @@
   "variables": {
     "build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "headless": "",
-    "source_path": "",
+    "source_path": ""
   }
 }

@@ -2,6 +2,7 @@
 headless := true
 packer_args := -force
 output_directory := "output"
+source_path := false
 
 # Base images - Minimal installs
 # ------------------------------
@@ -24,14 +25,14 @@ ubuntu-16.04:
 macos-buildkite-10.12:
 	packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var source_path="$(output_directory)/macos-10.12.vmx" \
+		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)"
 		macos-buildkite.json
 
 ubuntu-buildkite-16.04:
 	packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var source_path="$(output_directory)/ubuntu-16.04.vmx" \
+		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)"
 		macos-buildkite.json
 
@@ -41,8 +42,8 @@ ubuntu-buildkite-16.04:
 vmkite:
 	PACKER_LOG=$(packer_log) packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var source_path="$(output_directory)/ubuntu-16.04.vmx" \
-		-var output_directory="$(output_directory)/vmkite" \
+		-var source_path="$(source_path)" \
+		-var output_directory="$(output_directory)" \
 		vmkite.json
 
 clean:
