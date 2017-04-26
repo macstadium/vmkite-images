@@ -10,41 +10,43 @@ hash_files() {
     | awk '{print $1}'
 }
 
-case "${1:-}" in
-macos-10.12)
-  filehash=$(hash_files scripts/common scripts/macos macos-10.12.json)
-  ;;
-ubuntu-16.04)
-  filehash=$(hash_files scripts/common scripts/ubuntu ubuntu-16.04.json)
-  ;;
-vmkite)
-  filehash=$(hash_files scripts/common scripts/ubuntu vmkite.json)
-  ;;
-*)
-  filehash=""
-  ;;
-esac
+get_hash_for_image() {
+  case "$1" in
+  macos-10.12)
+    hash_files scripts/common scripts/macos macos-10.12.json
+    ;;
+  ubuntu-16.04)
+    hash_files scripts/common scripts/ubuntu ubuntu-16.04.json
+    ;;
+  vmkite)
+    hash_files scripts/common scripts/ubuntu vmkite.json
+    ;;
+  esac
+}
 
-
+image="$1"
+filehash="$(get_hash_for_image "$image")"
+outputdir=$OUTPUT_DIR
 
 if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
-  target=$(readlink "$HASHES_DIR/${filehash}")
-  echo "Build already exists at ${target}"
-  ln -sf "$target" "${OUTPUT_DIR}"
+  outputdir=$(readlink "$HASHES_DIR/${filehash}")
+  echo "Image is already built with hash of $filehash, points to $target"
 else
+  outputdir=$OUTPUT_DIR
+fi
+
+if [[ -e "$outputdir" ]] ; then
   echo "No build found at $HASHES_DIR/${filehash}, building"
-  make "$@" "output_directory=$OUTPUT_DIR"
+  make "$@" "output_directory=$outputdir"
+
   if [[ -n "${filehash}" ]] ; then
-    echo "Linking hash of ${filehash} to ${OUTPUT_DIR}"
+    echo "Linking hash of ${filehash} to ${outputdir}"
     mkdir -p "$HASHES_DIR"
-    ln -sf "${HASHES_DIR}/${filehash}" "${OUTPUT_DIR}"
+    ln -sf "${HASHES_DIR}/${filehash}" "${outputdir}"
   fi
 fi
 
-ls -al ${OUTPUT_DIR}
-
-# vm_name=""
-
+ls -al "${outputdir}"
 
 # upload_path="${VMKITE_SCP_PATH}/${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}"
 

@@ -9,13 +9,13 @@ output_directory := "output"
 macos-10.12:
 	time env packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var output_directory="$(output_directory)/macos-10.12" \
+		-var output_directory="$(output_directory)" \
 		macos-10.12.json
 
 ubuntu-16.04:
 	time env packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var output_directory="$(output_directory)/ubuntu-16.04" \
+		-var output_directory="$(output_directory)" \
 		ubuntu-16.04.json
 
 # Buildkite images - Base images with buildkite and build tools
@@ -24,14 +24,14 @@ ubuntu-16.04:
 macos-buildkite-10.12:
 	time env packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var source_path="$(output_directory)/macos-10.12/macos-10.12.vmx" \
+		-var source_path="$(output_directory)/macos-10.12.vmx" \
 		-var output_directory="$(output_directory)"
 		macos-buildkite.json
 
 ubuntu-buildkite-16.04:
 	time env packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var source_path="$(output_directory)/ubuntu-16.04/ubuntu-16.04.vmx" \
+		-var source_path="$(output_directory)/ubuntu-16.04.vmx" \
 		-var output_directory="$(output_directory)"
 		macos-buildkite.json
 
