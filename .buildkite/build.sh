@@ -88,7 +88,9 @@ if [[ -n "$sourceimage" ]] ; then
 fi
 
 echo "+++ Building $image"
-make "$@" "output_directory=$OUTPUT_DIR source_path=$sourcevmx"
+make "$@" \
+  "output_directory=$OUTPUT_DIR" \
+  "source_path=$sourcevmx"
 
 echo "+++ Uploading $OUTPUT_DIR to sftp"
 upload_vm_to_sftp "$OUTPUT_DIR"
