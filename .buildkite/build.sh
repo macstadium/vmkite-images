@@ -13,14 +13,14 @@ hash_files() {
 }
 
 case "${1:-}" in
-macos*)
+macos-base)
   filehash=$(hash_files scripts/common scripts/macos macos.json)
   ;;
-vmkite*)
-  filehash=$(hash_files scripts/common scripts/ubuntu vmkite.json)
+ubuntu-base)
+  filehash=$(hash_files scripts/common scripts/ubuntu ubuntu.json)
   ;;
-ubuntu*)
-  filehash=$(hash_files scripts/common scripts/ubuntu ubuntu-16.04-amd64.json)
+vmkite)
+  filehash=$(hash_files scripts/common scripts/ubuntu vmkite.json)
   ;;
 *)
   filehash=""
@@ -36,6 +36,6 @@ make "$@" "output_directory=$OUTPUT_DIR"
 
 if [[ -n "${filehash}" ]] ; then
   echo "Writing hash of ${filehash}"
-  mkdir -p $HASHES_DIR
+  mkdir -p "$HASHES_DIR"
   touch "${HASHES_DIR}/${filehash}"
 fi
