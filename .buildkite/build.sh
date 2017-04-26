@@ -35,7 +35,7 @@ else
   outputdir=$OUTPUT_DIR
 fi
 
-if [[ -e "$outputdir" ]] ; then
+if [[ ! -e "$outputdir" ]] ; then
   echo "No build found at $HASHES_DIR/${filehash}, building"
   make "$@" "output_directory=$outputdir"
 
