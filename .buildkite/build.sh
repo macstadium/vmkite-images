@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euxo pipefail
+set -euo pipefail
 
 hash_files() {
   find "$@" -type f -print0 \
@@ -40,18 +40,6 @@ upload_vm_to_sftp() {
     remote_path="$VMKITE_SCP_PATH/$upload_dir/$(basename "$f")"
     sftp_command put "$f" "$remote_path"
   done
-
-  # cd ${VMKITE_SCP_PATH}
-  #    lcd $outputdir
-  #    mkdir $upload_path
-  #    cd $upload_path
-  #    put
-
-  # local sourcefile="$1"
-  # local destdir="$2"
-
-  # upload_path="$(find_vm_name "$sourcedir")"
-
 }
 
 sftp_command() {
