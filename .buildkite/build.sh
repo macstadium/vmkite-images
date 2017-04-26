@@ -53,7 +53,7 @@ upload_path="${VMKITE_SCP_PATH}/${vm_name}"
 sftp_script=$(cat <<KITTENS
 mkdir $upload_path
 cd $upload_path
-put -ra .
+put -r .
 KITTENS
 )
 
