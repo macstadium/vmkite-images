@@ -28,14 +28,24 @@ esac
 if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
   target=$(readlink "$HASHES_DIR/${filehash}")
   echo "Build already exists at ${target}"
-  exit 0
+  ln -sf "$target" "${OUTPUT_DIR}"
+else
+  make "$@" "output_directory=$OUTPUT_DIR"
+  if [[ -n "${filehash}" ]] ; then
+    echo "Linking hash of ${filehash} to ${OUTPUT_DIR}"
+    mkdir -p "$HASHES_DIR"
+    ln -sf "${HASHES_DIR}/${filehash}" "${OUTPUT_DIR}"
+  fi
 fi
 
-#make "$@" "output_directory=$OUTPUT_DIR"
+ls -al ${OUTPUT_DIR}
 
-# if [[ -n "${filehash}" ]] ; then
-#   echo "Writing hash of ${filehash}"
-#   mkdir -p "$HASHES_DIR"
-#   touch "${HASHES_DIR}/${filehash}"
-# fi
+# vm_name=""
 
+
+# upload_path="${VMKITE_SCP_PATH}/${base_name}-r${BUILDKITE_BUILD_NUMBER:-0}"
+
+#   echo "+++ Uploading $disk to $remote_path"
+#   sftp -b <(echo put -r "${disk}/" "${remote_path}") \
+#     -P"${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
+# }
