@@ -88,7 +88,7 @@ if [[ -n "$sourceimage" ]] ; then
 fi
 
 echo "+++ Building $image"
-make "$@" \
+make "$image" \
   "output_directory=$OUTPUT_DIR" \
   "source_path=$sourcevmx"
 

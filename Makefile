@@ -40,7 +40,7 @@ ubuntu-buildkite-16.04:
 # -------------------------------------------------------------
 
 vmkite:
-	PACKER_LOG=$(packer_log) packer build $(packer_args) \
+	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
