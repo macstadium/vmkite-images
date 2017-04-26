@@ -30,9 +30,13 @@ find_vm_name() {
 
 upload_to_sftp() {
   local sourcedir="$1"
-  upload_path="${VMKITE_SCP_PATH}/$(find_vm_name "$sourcedir")"
+  upload_path="$(find_vm_name "$sourcedir")"
 
-  sftp -b <(echo "lcd $outputdir; mkdir $upload_path; cd $upload_path; put -r .") \
+  sftp -b <(echo "cd ${VMKITE_SCP_PATH}
+     lcd $outputdir
+     mkdir $upload_path
+     cd $upload_path
+     put -r .") \
     -P"${VMKITE_SCP_PORT}" "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
 }
 
