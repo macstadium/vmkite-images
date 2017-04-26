@@ -19,15 +19,15 @@ steps:
     agents:
       queue: 'packer'
 
-  - wait
-  - name: ":rocket: upload to scp"
-    command: .buildkite/upload-scp.sh
-    branches: master
-    agents:
-      queue: 'packer'
+  # - wait
+  # - name: ":rocket: upload to sftp"
+  #   command: .buildkite/upload-sftp.sh
+  #   branches: master
+  #   agents:
+  #     queue: 'packer'
 
-  - name: ":rocket: upload to vsphere"
-    command: .buildkite/upload-ovftool.sh
-    branches: master
-    agents:
-      queue: 'packer'
+  # - name: ":rocket: upload to vsphere"
+  #   command: .buildkite/upload-ovftool.sh
+  #   branches: master
+  #   agents:
+  #     queue: 'packer'

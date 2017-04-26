@@ -26,14 +26,16 @@ vmkite)
 esac
 
 if [[ -n $filehash ]] && [[ -e "$HASHES_DIR/${filehash}" ]] ; then
-  echo "Skipping image build, already exists"
+  target=$(readlink "$HASHES_DIR/${filehash}")
+  echo "Build already exists at ${target}"
   exit 0
 fi
 
-make "$@" "output_directory=$OUTPUT_DIR"
+#make "$@" "output_directory=$OUTPUT_DIR"
 
-if [[ -n "${filehash}" ]] ; then
-  echo "Writing hash of ${filehash}"
-  mkdir -p "$HASHES_DIR"
-  touch "${HASHES_DIR}/${filehash}"
-fi
+# if [[ -n "${filehash}" ]] ; then
+#   echo "Writing hash of ${filehash}"
+#   mkdir -p "$HASHES_DIR"
+#   touch "${HASHES_DIR}/${filehash}"
+# fi
+
