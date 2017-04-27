@@ -81,22 +81,24 @@ sourcehash=
 
 if [[ -n "$sourceimage" ]] ; then
   echo "--- Finding source image for $sourceimage"
-  if [[ -e "$HASHES_DIR/$sourceimage/latest" ]] ; then
-    sourcevmx=$(find_vmx_file "$(readlink "$HASHES_DIR/$sourceimage/latest")")
-    sourcehash=$(hash_files "$sourcevmx")
-    echo "Found $sourcevmx"
-  else
+  if ! sourcevmx=$(buildkite-agent metadata get "vmx-${sourceimage}" ) ; then
     echo "+++ Failed to find source vmx for $sourceimage"
-    exit 1
   fi
+  sourcehash=$(hash_files "$sourcevmx")
+  echo "Found $sourcevmx, $sourcehash"
 fi
 
+echo "--- Checking if image has been built already"
 hashfile="$(get_hash_path "$image" "$sourcehash")"
 
 if [[ -e $hashfile ]] ; then
-  echo "Image is already built at $(find_vmx_file "$(readlink "$hashfile")")"
+  vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
+  buildkite-agent metadata set "vmx-${sourceimage}" "$vmxfile"
+  echo "Image is already built at $vmxfile"
   exit 0
 fi
+
+exit 0
 
 echo "+++ Building $image"
 make "$image" \
@@ -110,5 +112,4 @@ if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
   mkdir -p "$(dirname "$hashfile")"
   ln -sf "$OUTPUT_DIR" "$hashfile"
-  ln -sf "$OUTPUT_DIR" "$(dirname $hashfile)/latest"
 fi
