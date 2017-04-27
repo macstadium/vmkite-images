@@ -1,38 +1,34 @@
 #!/bin/bash
-set -euo pipefail
+set -euxo pipefail
+
+hash_strings() {
+  sort \
+    | sha1sum \
+    | awk '{print $1}'
+}
 
 hash_files() {
   find "$@" -type f -print0 \
     | xargs -0 sha1sum \
     | awk '{print $1}' \
-    | sort \
-    | sha1sum \
-    | awk '{print $1}'
+    | hash_strings
 }
 
-get_hash_for_image() {
-  case "$1" in
-  macos-10.12)
-    hash_files scripts/common scripts/macos macos-10.12.json
-    ;;
-  ubuntu-16.04)
-    hash_files scripts/common scripts/ubuntu ubuntu-16.04.json
-    ;;
-  vmkite)
-    hash_files scripts/common scripts/ubuntu vmkite.json
-    ;;
-  esac
+files_from_packer_template() {
+  jq -r '.provisioners[] | .source, .scripts[]? | select(. != null)' "$1".json \
+    | xargs -n1 find
 }
 
 get_hash_path() {
   local image="$1"
+  local sourcehash="$2"
   local filehash
+  local imagehash
 
-  if ! filehash="$(get_hash_for_image "$image")" || [[ -z "$filehash" ]] ; then
-    return
-  fi
+  filehash="$(files_from_packer_template "$image")"
+  imagehash="$(echo "$filehash $sourcehash" | hash_strings)"
 
-  echo "$HASHES_DIR/$image/${filehash}"
+  echo "$HASHES_DIR/$image/${imagehash}"
 }
 
 find_vmx_file() {
@@ -51,12 +47,18 @@ upload_vm_to_sftp() {
 
   find "$source_dir" -type f -print0 | while IFS= read -r -d $'\0' f; do
     remote_path="$VMKITE_SCP_PATH/$upload_dir/$(basename "$f")"
-    sftp_command put "$f" "$remote_path"
+    sftp_put "$f" "$remote_path"
   done
 }
 
 sftp_command() {
   sftp -b <(echo "$*") \
+    -P"${VMKITE_SCP_PORT}" \
+    "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
+}
+
+sftp_put() {
+  sftp -b <(echo -e "progress\nput $*") \
     -P"${VMKITE_SCP_PORT}" \
     "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
 }
@@ -69,22 +71,25 @@ export PACKER_CACHE_DIR=$HOME/.packer_cache
 image="$1"
 sourceimage="${2:-}"
 sourcevmx=
-hashfile="$(get_hash_path "$image")"
-
-if [[ -e $hashfile ]] ; then
-  echo "Image is already built at $(find_vmx_file "$(readlink "$hashfile")")"
-  exit 0
-fi
+sourcehash=
 
 if [[ -n "$sourceimage" ]] ; then
   echo "--- Finding source image for $sourceimage"
   if [[ -e "$HASHES_DIR/$sourceimage/latest" ]] ; then
     sourcevmx=$(find_vmx_file "$(readlink "$HASHES_DIR/$sourceimage/latest")")
+    sourcehash=$(hash_files "$sourcevmx")
     echo "Found $sourcevmx"
   else
     echo "+++ Failed to find source vmx for $sourceimage"
     exit 1
   fi
+fi
+
+hashfile="$(get_hash_path "$image" "$sourcehash")"
+
+if [[ -e $hashfile ]] ; then
+  echo "Image is already built at $(find_vmx_file "$(readlink "$hashfile")")"
+  exit 0
 fi
 
 echo "+++ Building $image"
