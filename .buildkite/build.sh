@@ -81,7 +81,7 @@ sourcehash=
 
 if [[ -n "$sourceimage" ]] ; then
   echo "--- Finding source image for $sourceimage"
-  if ! sourcevmx=$(buildkite-agent metadata get "vmx-${sourceimage}" ) ; then
+  if ! sourcevmx=$(buildkite-agent meta-data get "vmx-${sourceimage}" ) ; then
     echo "+++ Failed to find source vmx for $sourceimage"
   fi
   sourcehash=$(hash_files "$sourcevmx")
@@ -93,7 +93,7 @@ hashfile="$(get_hash_path "$image" "$sourcehash")"
 
 if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
-  buildkite-agent metadata set "vmx-${sourceimage}" "$vmxfile"
+  buildkite-agent meta-data set "vmx-${sourceimage}" "$vmxfile"
   echo "Image is already built at $vmxfile"
   exit 0
 fi
