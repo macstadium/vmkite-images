@@ -93,7 +93,7 @@ hashfile="$(get_hash_path "$image" "$sourcehash")"
 
 if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
-  buildkite-agent meta-data set "vmx-${sourceimage}" "$vmxfile"
+  buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
   echo "Image is already built at $vmxfile"
   exit 0
 fi
