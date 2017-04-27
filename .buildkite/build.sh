@@ -98,8 +98,6 @@ if [[ -e $hashfile ]] ; then
   exit 0
 fi
 
-exit 0
-
 echo "+++ Building $image"
 make "$image" \
   "output_directory=$OUTPUT_DIR" \
