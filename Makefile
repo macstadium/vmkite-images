@@ -34,7 +34,7 @@ ubuntu-buildkite-16.04:
 		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
-		macos-buildkite-16.04.json
+		ubuntu-buildkite-16.04.json
 
 # Other images
 # -------------------------------------------------------------
