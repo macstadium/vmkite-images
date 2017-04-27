@@ -64,6 +64,28 @@ sftp_put() {
     "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
 }
 
+make_ramdisk() {
+  local size="$1"
+  local mount_point="$2"
+  local sectors="$((size*1024*1024/512))"
+  local device
+
+  device=$(hdid -nomount ram://${sectors})
+  newfs_hfs -v 'ram disk' "$device"
+  mkdir -p "$device"
+  mount -o noatime -t hfs "$device" "$mount_point"
+
+  trap "remove_ramdisk $mount_point $device" EXIT
+}
+
+remove_ramdisk() {
+  local mount_point="$1"
+  local device="$2"
+
+  umount "${mount_point}"
+  diskutil eject "${device}"
+}
+
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
@@ -92,6 +114,10 @@ if [[ -e $hashfile ]] ; then
   echo "Image is already built at $(find_vmx_file "$(readlink "$hashfile")")"
   exit 0
 fi
+
+echo "--- Creating a 20GB ramdisk for build"
+make_ramdisk "${RAMDISK_SIZE_MB:-20000}" \
+  "${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}"
 
 echo "+++ Building $image"
 make "$image" \
