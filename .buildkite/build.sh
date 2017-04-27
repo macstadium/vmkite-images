@@ -117,7 +117,8 @@ if [[ -e $hashfile ]] ; then
 fi
 
 echo "--- Creating a ramdisk for build :rocket:"
-if make_ramdisk "${RAMDISK_SIZE_MB:-20000}" "${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}" ; then
+if make_ramdisk "${RAMDISK_SIZE_MB:-20000}" \
+  "${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}" ; then
   output_dir="${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}"
 fi
 
@@ -125,6 +126,9 @@ echo "+++ Building $image"
 make "$image" \
   "output_directory=$output_dir" \
   "source_path=$sourcevmx"
+
+echo "+++ Image built!"
+ls -al "$output_dir"
 
 echo "+++ Uploading $output_dir to sftp"
 upload_vm_to_sftp "$output_dir"
