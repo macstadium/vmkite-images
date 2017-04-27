@@ -107,9 +107,8 @@ if [[ -e $hashfile ]] ; then
 fi
 
 echo "--- Creating a ramdisk for build :rocket:"
-if make_ramdisk "${RAMDISK_SIZE_MB:-20000}" \
-  "${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}" ; then
-  output_dir="${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}"
+if make_ramdisk "${RAMDISK_SIZE_MB:-20000}" "build-${BUILDKITE_JOB_ID}" ; then
+  output_dir="/Volumes/build-${BUILDKITE_JOB_ID}"
 fi
 
 echo "+++ Building $image"
