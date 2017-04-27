@@ -109,27 +109,34 @@ if [[ -n "$sourceimage" ]] ; then
 fi
 
 hashfile="$(get_hash_path "$image" "$sourcehash")"
+output_dir=$OUTPUT_DIR
 
 if [[ -e $hashfile ]] ; then
   echo "Image is already built at $(find_vmx_file "$(readlink "$hashfile")")"
   exit 0
 fi
 
-echo "--- Creating a 20GB ramdisk for build"
-make_ramdisk "${RAMDISK_SIZE_MB:-20000}" \
-  "${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}"
+echo "--- Creating a ramdisk for build :rocket:"
+if make_ramdisk "${RAMDISK_SIZE_MB:-20000}" "${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}" ; then
+  output_dir="${BUILD_DIR}/ramdisks/${BUILDKITE_JOB_ID}"
+fi
 
 echo "+++ Building $image"
 make "$image" \
-  "output_directory=$OUTPUT_DIR" \
+  "output_directory=$output_dir" \
   "source_path=$sourcevmx"
 
-echo "+++ Uploading $OUTPUT_DIR to sftp"
-upload_vm_to_sftp "$OUTPUT_DIR"
+echo "+++ Uploading $output_dir to sftp"
+upload_vm_to_sftp "$output_dir"
+
+if [[ "$output_dir" != "$OUTPUT_DIR" ]] ; then
+  echo "--- Copying $output_dir to $OUTPUT_DIR"
+  cp -a "$output_dir" "$OUTPUT_DIR"
+fi
 
 if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
   mkdir -p "$(dirname "$hashfile")"
   ln -sf "$OUTPUT_DIR" "$hashfile"
-  ln -sf "$OUTPUT_DIR" "$(dirname hashfile)/latest"
+  ln -sf "$OUTPUT_DIR" "$(dirname "$hashfile")/latest"
 fi
