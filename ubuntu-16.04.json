@@ -44,7 +44,7 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
-      "vm_name": "{{ user `name` }}",
+      "vm_name": "{{ user `vm_name` }}",
       "vnc_bind_address": "0.0.0.0",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -85,7 +85,6 @@
     "iso_name": "ubuntu-16.04.2-server-amd64.iso",
     "mirror": "http://releases.ubuntu.com",
     "mirror_directory": "16.04",
-    "name": "ubuntu-16.04-amd64",
     "preseed_path": "ubuntu-16.04/preseed.cfg",
     "version": "16.04.2",
     "vm_name": "ubuntu-base-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
