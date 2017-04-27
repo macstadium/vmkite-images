@@ -10,6 +10,8 @@ steps:
 
   - name: ":package: :mac: 10.12"
     command: .buildkite/build.sh macos-10.12
+    concurrency: 1
+    concurrency_group: "macos"
     agents:
       queue: 'packer'
 
@@ -21,6 +23,8 @@ steps:
 
   - name: ":package: :mac: :buildkite: 10.12"
     command: .buildkite/build.sh macos-buildkite-10.12 macos-10.12
+    concurrency: 1
+    concurrency_group: "macos"
     agents:
       queue: 'packer'
 
