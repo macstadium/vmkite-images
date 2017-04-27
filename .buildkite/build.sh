@@ -66,25 +66,14 @@ sftp_put() {
 
 make_ramdisk() {
   local size="$1"
-  local mount_point="$2"
+  local label="$2"
   local sectors="$((size*1024*1024/512))"
   local device
 
   device=$(sudo hdid -nomount ram://${sectors})
-  sudo newfs_hfs -v 'ram disk' "$device"
-  sudo mkdir -p "$device"
-  sudo mount -o noatime -t hfs "$device" "$mount_point"
+  diskutil erasevolume HFS+ "$label" "$device"
 
-  trap "remove_ramdisk $mount_point $device" EXIT
-}
-
-remove_ramdisk() {
-  local mount_point="$1"
-  local device="$2"
-
-  echo "--- Unmounting ${mount_point}"
-  sudo umount "${mount_point}"
-  sudo diskutil eject "${device}"
+  trap "hdiutil detach $device" EXIT
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
