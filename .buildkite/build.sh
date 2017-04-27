@@ -43,7 +43,7 @@ upload_vm_to_sftp() {
   local source_dir="$1"
   local upload_dir
 
-  upload_dir="$(basename $(find_vmx_file "$source_dir") | sed 's/\.vmx//')"
+  upload_dir="$(basename "$(find_vmx_file "$source_dir")" | sed 's/\.vmx//')"
 
   if ! sftp_command cd "$VMKITE_SCP_PATH/$upload_dir" ; then
     sftp_command mkdir "$VMKITE_SCP_PATH/$upload_dir"
@@ -72,7 +72,7 @@ sourcevmx=
 hashfile="$(get_hash_path "$image")"
 
 if [[ -e $hashfile ]] ; then
-  echo "Image is already built at $(readlink "$hashfile")"
+  echo "Image is already built at $(find_vmx_file "$(readlink "$hashfile")")"
   exit 0
 fi
 
