@@ -27,14 +27,14 @@ macos-buildkite-10.12:
 		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
-		macos-buildkite.json
+		macos-buildkite-10.12.json
 
 ubuntu-buildkite-16.04:
 	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
-		macos-buildkite.json
+		macos-buildkite-16.04.json
 
 # Other images
 # -------------------------------------------------------------
