@@ -105,5 +105,5 @@ if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
   mkdir -p "$(dirname "$hashfile")"
   ln -sf "$OUTPUT_DIR" "$hashfile"
-  ln -sf "$OUTPUT_DIR" "$(dirname hashfile)/latest"
+  ln -sf "$OUTPUT_DIR" "$(dirname $hashfile)/latest"
 fi
