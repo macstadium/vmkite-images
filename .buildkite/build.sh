@@ -31,7 +31,7 @@ get_hash_path() {
   echo "--- Finding files to hash" >&2;
   printf "%s\n" "${files[@]}"  >&2;
 
-  filehash="$(files_from_packer_template "$image")"
+  filehash="$(hash_files "${files[@]}")"
   imagehash="$(echo "$filehash $sourcehash" | hash_strings)"
 
   echo "$HASHES_DIR/$image/${imagehash}"
@@ -41,32 +41,23 @@ find_vmx_file() {
   find "$1" -iname '*.vmx' | head -n1
 }
 
-upload_vm_to_sftp() {
-  local source_dir="$1"
-  local upload_dir
+upload_vmx() {
+  local vmx_path="$1"
+  local vm_name=$(basename "$(dirname "$vmx_path")")
 
-  upload_dir="$(basename "$(find_vmx_file "$source_dir")" | sed 's/\.vmx//')"
-
-  if ! sftp_command cd "$VMKITE_SCP_PATH/$upload_dir" ; then
-    sftp_command mkdir "$VMKITE_SCP_PATH/$upload_dir"
-  fi
-
-  find "$source_dir" -type f -print0 | while IFS= read -r -d $'\0' f; do
-    remote_path="$VMKITE_SCP_PATH/$upload_dir/$(basename "$f")"
-    sftp_put "$f" "$remote_path"
-  done
-}
-
-sftp_command() {
-  sftp -b <(echo "$*") \
-    -P"${VMKITE_SCP_PORT}" \
-    "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
-}
-
-sftp_put() {
-  sftp -b <(echo -e "progress\nput $*") \
-    -P"${VMKITE_SCP_PORT}" \
-    "${VMKITE_SCP_USER}@${VMKITE_SCP_HOST}"
+  echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+  ovftool \
+    --acceptAllEulas \
+    --name="$vm_name" \
+    --datastore="$VSPHERE_DATASTORE" \
+    --noSSLVerify=true \
+    --diskMode=thin \
+    --vmFolder=/ \
+    --network="$VSPHERE_NETWORK" \
+    --X:logLevel=verbose \
+    --overwrite \
+    "$vmx_path" \
+    "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
@@ -103,8 +94,10 @@ make "$image" \
   "output_directory=$OUTPUT_DIR" \
   "source_path=$sourcevmx"
 
-echo "+++ Uploading $OUTPUT_DIR to sftp"
-upload_vm_to_sftp "$OUTPUT_DIR"
+vmxfile=$(find_vmx_file "$OUTPUT_DIR")
+
+echo "+++ Uploading $vmxfile to vsphere"
+upload_vmx "$vmxfile"
 
 if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
