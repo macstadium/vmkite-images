@@ -26,6 +26,11 @@ get_hash_path() {
   local filehash
   local imagehash
 
+  files=( $(files_from_packer_template "$image") )
+
+  echo "--- Finding files to hash" >&2;
+  printf "%s\n" "${files[@]}"  >&2;
+
   filehash="$(files_from_packer_template "$image")"
   imagehash="$(echo "$filehash $sourcehash" | hash_strings)"
 
