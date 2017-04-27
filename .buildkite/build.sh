@@ -15,6 +15,7 @@ hash_files() {
 }
 
 files_from_packer_template() {
+  echo "$1".json
   jq -r '.provisioners[] | .source, .scripts[]? | select(. != null)' "$1".json \
     | xargs -n1 find
 }
