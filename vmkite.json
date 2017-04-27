@@ -7,7 +7,7 @@
       "ssh_password": "vmkite",
       "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
       "headless": "{{ user `headless` }}",
-      "vm_name": "vmkite-{{user `build_number`}}",
+      "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "0.0.0.0",
       "output_directory": "{{user `output_directory`}}"
     }
