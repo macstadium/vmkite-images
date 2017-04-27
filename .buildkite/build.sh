@@ -70,10 +70,10 @@ make_ramdisk() {
   local sectors="$((size*1024*1024/512))"
   local device
 
-  device=$(hdid -nomount ram://${sectors})
-  newfs_hfs -v 'ram disk' "$device"
-  mkdir -p "$device"
-  mount -o noatime -t hfs "$device" "$mount_point"
+  device=$(sudo hdid -nomount ram://${sectors})
+  sudo newfs_hfs -v 'ram disk' "$device"
+  sudo mkdir -p "$device"
+  sudo mount -o noatime -t hfs "$device" "$mount_point"
 
   trap "remove_ramdisk $mount_point $device" EXIT
 }
@@ -82,8 +82,9 @@ remove_ramdisk() {
   local mount_point="$1"
   local device="$2"
 
-  umount "${mount_point}"
-  diskutil eject "${device}"
+  echo "--- Unmounting ${mount_point}"
+  sudo umount "${mount_point}"
+  sudo diskutil eject "${device}"
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
