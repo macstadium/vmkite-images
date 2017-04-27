@@ -70,8 +70,7 @@ make_ramdisk() {
   local sectors="$((size*1024*1024/512))"
   local device
 
-  set -x
-  device=$(hdid -nomount ram://${sectors})
+  device=$(hdid -nomount ram://${sectors} | awk '{print $1}')
   diskutil erasevolume HFS+ "$label" "$device"
 
   trap "hdiutil detach $device" EXIT
