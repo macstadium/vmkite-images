@@ -95,6 +95,7 @@ make "$image" \
   "source_path=$sourcevmx"
 
 vmxfile=$(find_vmx_file "$OUTPUT_DIR")
+buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
 echo "+++ Uploading $vmxfile to vsphere"
 upload_vmx "$vmxfile"
