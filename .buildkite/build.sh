@@ -43,7 +43,7 @@ find_vmx_file() {
 
 upload_vmx() {
   local vmx_path="$1"
-  local vm_name=$(basename "$(dirname "$vmx_path")")
+  local vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
 
   echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
   ovftool \
