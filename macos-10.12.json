@@ -65,7 +65,7 @@
   ],
   "variables": {
     "cpus": "4",
-    "disk_size": "20480",
+    "disk_size": "15360",
     "memory": "8096",
     "iso_checksum": "d5fd77df525e5e8acf0ed6df52cf39e3f608067124f496a35d07cf99009d03b8",
     "iso_checksum_type": "sha256",
