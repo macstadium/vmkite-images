@@ -44,12 +44,9 @@
     },
     {
       "environment_vars": [
-        "AUTOLOGIN={{user `autologin`}}",
-        "INSTALL_XCODE_CLI_TOOLS=1",
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
-        "PASSWORD=vmkite",
-        "UPDATE_SYSTEM=0"
+        "PASSWORD=vmkite"
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
