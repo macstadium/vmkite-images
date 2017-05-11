@@ -1,5 +1,5 @@
 
-headless := true
+headless := false
 packer_args := -force
 output_directory := "output"
 source_path := false
@@ -8,13 +8,13 @@ source_path := false
 # ------------------------------
 
 macos-10.12:
-	time env packer build $(packer_args) \
+	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var output_directory="$(output_directory)" \
 		macos-10.12.json
 
 ubuntu-16.04:
-	time env packer build $(packer_args) \
+	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var output_directory="$(output_directory)" \
 		ubuntu-16.04.json
