@@ -11,7 +11,7 @@
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
       "vnc_disable_password": true,
       "output_directory": "{{user `output_directory`}}",
-      "vmx_data": {
+      "vmx_data_post": {
         "guestinfo.vmkite-buildkite-agent-token": "xxx",
         "guestinfo.vmkite-buildkite-api-token": "xxx",
         "guestinfo.vmkite-buildkite-org": "xxx",
