@@ -10,23 +10,7 @@
       "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
       "vnc_disable_password": true,
-      "output_directory": "{{user `output_directory`}}",
-      "vmx_data_post": {
-        "guestinfo.vmkite-buildkite-agent-token": "xxx",
-        "guestinfo.vmkite-buildkite-api-token": "xxx",
-        "guestinfo.vmkite-buildkite-org": "xxx",
-        "guestinfo.vmkite-source-datastore": "1TB - SSD",
-        "guestinfo.vmkite-target-datastore": "1TB - SSD",
-        "guestinfo.vmkite-cluster-path": "",
-        "guestinfo.vmkite-vm-memory": "4096",
-        "guestinfo.vmkite-vm-network-label": "VMNetwork",
-        "guestinfo.vmkite-vm-num-cpus": "2",
-        "guestinfo.vmkite-vm-path": "",
-        "guestinfo.vmkite-vsphere-host": "",
-        "guestinfo.vmkite-vsphere-user": "",
-        "guestinfo.vmkite-vsphere-pass": "",
-        "guestinfo.vmkite-vsphere-insecure": "true"
-      }
+      "output_directory": "{{user `output_directory`}}"
     }
   ],
   "provisioners": [
