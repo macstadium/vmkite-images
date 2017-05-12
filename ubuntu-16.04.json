@@ -45,7 +45,8 @@
       "tools_upload_flavor": "linux",
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}",
-      "vnc_bind_address": "0.0.0.0",
+      "vnc_bind_address": "{{user `vnc_bind_address`}}",
+      "vnc_disable_password": true,
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "ethernet0.pciSlotNumber": "32",
@@ -88,7 +89,8 @@
     "preseed_path": "ubuntu-16.04/preseed.cfg",
     "version": "16.04.2",
     "vm_name": "ubuntu-base-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
-    "output_directory": "output"
+    "output_directory": "output",
+    "vnc_bind_address": "127.0.0.1"
   }
 }
 

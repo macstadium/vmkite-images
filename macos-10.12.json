@@ -20,7 +20,8 @@
       "tools_upload_path": "/tmp/vmtools.iso",
       "type": "vmware-iso",
       "vm_name": "{{user `vm_name`}}",
-      "vnc_bind_address": "0.0.0.0",
+      "vnc_bind_address": "{{user `vnc_bind_address`}}",
+      "vnc_disable_password": true,
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "ehci.present": "TRUE",
@@ -69,6 +70,7 @@
     "iso_url": "https://s3.amazonaws.com/vmkite-osx-images/OSX_InstallESD_10.12.3_16D32.dmg",
     "version": "10.12.3",
     "vm_name": "macos-base-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
-    "output_directory": "output"
+    "output_directory": "output",
+    "vnc_bind_address": "127.0.0.1"
   }
 }
