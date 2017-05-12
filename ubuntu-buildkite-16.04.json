@@ -47,7 +47,7 @@
     "source_path": "",
     "vm_name": "ubuntu-buildkite-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "127.0.0.1"
+    "vnc_bind_address": "0.0.0.0"
   }
 }
 

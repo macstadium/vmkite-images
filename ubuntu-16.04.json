@@ -90,7 +90,7 @@
     "version": "16.04.2",
     "vm_name": "ubuntu-base-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "127.0.0.1"
+    "vnc_bind_address": "0.0.0.0"
   }
 }
 
