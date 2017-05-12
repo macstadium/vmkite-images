@@ -9,23 +9,7 @@
       "headless": "{{ user `headless` }}",
       "vm_name": "{{ user `vm_name` }}",
       "vnc_bind_address": "{{ user `vnc_bind_address` }}",
-      "output_directory": "{{ user `output_directory` }}",
-      "vmx_data_post": {
-        "guestinfo.vmkite-buildkite-agent-token": "{{ user `vmkite-buildkite-agent-token` }}",
-        "guestinfo.vmkite-buildkite-api-token": "{{ user `vmkite-buildkite-api-token` }}",
-        "guestinfo.vmkite-buildkite-org": "{{ user `vmkite-buildkite-org` }}",
-        "guestinfo.vmkite-source-datastore": "{{ user `vmkite-source-datastore` }}",
-        "guestinfo.vmkite-target-datastore": "{{ user `vmkite-target-datastore` }}",
-        "guestinfo.vmkite-cluster-path": "{{ user `vmkite-cluster-path` }}",
-        "guestinfo.vmkite-vm-memory": "{{ user `vmkite-vm-memory` }}",
-        "guestinfo.vmkite-vm-network-label": "{{ user `vmkite-vm-network-label` }}",
-        "guestinfo.vmkite-vm-num-cpus": "{{ user `vmkite-vm-num-cpus` }}",
-        "guestinfo.vmkite-vm-path": "{{ user `vmkite-vm-path` }}",
-        "guestinfo.vmkite-vsphere-host": "{{ user `vmkite-vsphere-host` }}",
-        "guestinfo.vmkite-vsphere-user": "{{ user `vmkite-vsphere-user` }}",
-        "guestinfo.vmkite-vsphere-pass": "{{ user `vmkite-vsphere-pass` }}",
-        "guestinfo.vmkite-vsphere-insecure": "{{ user `vmkite-vsphere-insecure` }}"
-      }
+      "output_directory": "{{ user `output_directory` }}"
     }
   ],
   "provisioners": [
@@ -57,20 +41,6 @@
     "source_path": "",
     "vm_name": "vmkite-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "127.0.0.1",
-    "vmkite_buildkite_agent_token": "{{env `BK_AGENT_TOKEN`}}",
-    "vmkite_buildkite_api_token": "{{env `BK_API_TOKEN`}}",
-    "vmkite_buildkite_org": "{{env `BUILDKITE_ORGANIZATION_SLUG`}}",
-    "vmkite_source_datastore": "{{env `VSPHERE_DATASTORE`}}",
-    "vmkite_target_datastore": "{{env `VSPHERE_DATASTORE`}}",
-    "vmkite_cluster_path": "/{{env `VSPHERE_DATACENTER`}}/host/{{env `VSPHERE_CLUSTER`}}",
-    "vmkite_vm_memory": "4096",
-    "vmkite_vm_network_label": "{{env `VSPHERE_NETWORK`}}",
-    "vmkite_vm_num_cpus": "2",
-    "vmkite_vm_path": "/{{env `VSPHERE_DATACENTER`}}/vm",
-    "vmkite_vsphere_host": "{{env `VSPHERE_HOST`}}",
-    "vmkite_vsphere_user": "{{env `VSPHERE_USERNAME`}}",
-    "vmkite_vsphere_pass": "{{env `VSPHERE_PASSWORD`}}",
-    "vmkite_vsphere_insecure": "true"
+    "vnc_bind_address": "127.0.0.1"
   }
 }
