@@ -10,7 +10,7 @@
       "vm_name": "{{ user `vm_name` }}",
       "vnc_bind_address": "{{ user `vnc_bind_address` }}",
       "output_directory": "{{ user `output_directory` }}",
-      "vmx_data": {
+      "vmx_data_post": {
         "guestinfo.vmkite-buildkite-agent-token": "{{ user `vmkite-buildkite-agent-token` }}",
         "guestinfo.vmkite-buildkite-api-token": "{{ user `vmkite-buildkite-api-token` }}",
         "guestinfo.vmkite-buildkite-org": "{{ user `vmkite-buildkite-org` }}",
