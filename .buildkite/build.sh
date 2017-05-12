@@ -62,8 +62,6 @@ upload_vmx() {
   local vmx_path="$1"
   local vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
 
-  vmkite_vmx_params
-
   echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
   ovftool \
     --acceptAllEulas \
@@ -90,6 +88,8 @@ image="$1"
 sourceimage="${2:-}"
 sourcevmx=
 sourcehash=
+
+vmkite_vmx_params
 
 if [[ -n "$sourceimage" ]] ; then
   echo "--- Finding source image for $sourceimage"
