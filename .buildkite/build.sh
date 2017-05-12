@@ -1,21 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-handle_int() {
-  echo "Received INT.";
-  echo "Finished.";
-  exit 0
-}
-
-handle_term() {
-  echo "Received TERM.";
-  echo "Finished.";
-  exit 0
-}
-
-trap handle_int INT
-trap handle_term TERM
-
 hash_strings() {
   sort \
     | sha1sum \

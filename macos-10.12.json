@@ -71,6 +71,6 @@
     "version": "10.12.3",
     "vm_name": "macos-base-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "127.0.0.1"
+    "vnc_bind_address": "0.0.0.0"
   }
 }
