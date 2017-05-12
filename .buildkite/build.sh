@@ -41,23 +41,6 @@ find_vmx_file() {
   find "$1" -iname '*.vmx' | head -n1
 }
 
-vmkite_vmx_params() {
-  echo "--prop:guestinfo.vmkite-buildkite-agent-token=${BK_AGENT_TOKEN}"
-  echo "--prop:guestinfo.vmkite-buildkite-api-token=${BK_API_TOKEN}"
-  echo "--prop:guestinfo.vmkite-buildkite-org=${BUILDKITE_ORGANIZATION_SLUG}"
-  echo "--prop:guestinfo.vmkite-source-datastore=${VSPHERE_DATASTORE}"
-  echo "--prop:guestinfo.vmkite-target-datastore=${VSPHERE_DATASTORE}"
-  echo "--prop:guestinfo.vmkite-cluster-path=/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
-  echo "--prop:guestinfo.vmkite-vm-memory=4096"
-  echo "--prop:guestinfo.vmkite-vm-network-label=${VSPHERE_NETWORK}"
-  echo "--prop:guestinfo.vmkite-vm-num-cpus=2"
-  echo "--prop:guestinfo.vmkite-vm-path=/${VSPHERE_DATACENTER}/vm"
-  echo "--prop:guestinfo.vmkite-vsphere-host=${VSPHERE_HOST}"
-  echo "--prop:guestinfo.vmkite-vsphere-user=${VSPHERE_USERNAME}"
-  echo "--prop:guestinfo.vmkite-vsphere-pass=${VSPHERE_PASSWORD}"
-  echo "--prop:guestinfo.vmkite-vsphere-insecure=true"
-}
-
 upload_vmx() {
   local vmx_path="$1"
   local vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
@@ -73,6 +56,20 @@ upload_vmx() {
     --network="$VSPHERE_NETWORK" \
     --X:logLevel=verbose \
     --allowExtraConfig \
+    "--prop:guestinfo.vmkite-buildkite-agent-token=${BK_AGENT_TOKEN}" \
+    "--prop:guestinfo.vmkite-buildkite-api-token=${BK_API_TOKEN}" \
+    "--prop:guestinfo.vmkite-buildkite-org=${BUILDKITE_ORGANIZATION_SLUG}" \
+    "--prop:guestinfo.vmkite-source-datastore=${VSPHERE_DATASTORE}" \
+    "--prop:guestinfo.vmkite-target-datastore=${VSPHERE_DATASTORE}" \
+    "--prop:guestinfo.vmkite-cluster-path=/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}" \
+    "--prop:guestinfo.vmkite-vm-memory=4096" \
+    "--prop:guestinfo.vmkite-vm-network-label=${VSPHERE_NETWORK}" \
+    "--prop:guestinfo.vmkite-vm-num-cpus=2" \
+    "--prop:guestinfo.vmkite-vm-path=/${VSPHERE_DATACENTER}/vm" \
+    "--prop:guestinfo.vmkite-vsphere-host=${VSPHERE_HOST}" \
+    "--prop:guestinfo.vmkite-vsphere-user=${VSPHERE_USERNAME}" \
+    "--prop:guestinfo.vmkite-vsphere-pass=${VSPHERE_PASSWORD}" \
+    "--prop:guestinfo.vmkite-vsphere-insecure=true" \
     --machineOutput \
     --overwrite \
     "$vmx_path" \
@@ -88,8 +85,6 @@ image="$1"
 sourceimage="${2:-}"
 sourcevmx=
 sourcehash=
-
-vmkite_vmx_params
 
 if [[ -n "$sourceimage" ]] ; then
   echo "--- Finding source image for $sourceimage"
