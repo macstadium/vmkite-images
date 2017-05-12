@@ -15,10 +15,18 @@ brew cask install vmware-fusion
 brew install packer
 ```
 
-Configuring Base Images
------------------------
 
-All of the images provided read configuration from VMWare via the guestinfo keys. The following keys are read currently in the form of `guestinfo.{key}`:
+Images
+------
+
+_Base images_ are built for macOS and Ubuntu Linux with packer's `vmware-iso` builder.
+
+These are then customized into _Agent images_ using the `vmware-vmx` builder to produce images with the `buildkite-agent` on them, along with customizations for `vmkite`.
+
+Configuring Agent Images
+------------------------
+
+Agent images read from VMWare via the [guestinfo](https://www.vmware.com/support/developer/converter-sdk/conv55_apireference/vim.vm.GuestInfo.html) keys. The following keys are read currently in the form of `guestinfo.{key}`:
 
 | Key                          | Description                             |
 |------------------------------|-----------------------------------------|
@@ -28,10 +36,10 @@ All of the images provided read configuration from VMWare via the guestinfo keys
 
 These keys are currently passed to the buildkite-agent which starts up on image boot.
 
-Supported Images
-----------------
+Image Contents
+--------------
 
-### macOS 
+### macOS 10.12
 
 The macOS images are for testing darwin and ios. They include:
 
@@ -44,11 +52,9 @@ A vmkite user is created and used, with a password of `vmkite`.
 
 ```bash
 make macos-10.12
-make macos-10.11
-make macos-10.10
 ```
 
-### Linux
+### Ubuntu Linux 16.04
 
 Currently Ubuntu images are provided, with the following extras installed:
 
@@ -66,7 +72,7 @@ make ubuntu-16.04
 This provides a ubuntu image to run [vmkite][vmkite], which listens for builds from buildkite.com and spawns the above images.
 
 ```
-make vmkite-agent
+make vmkite
 ```
 
 This image also reads the following params from VMWare's `guestinfo` for configuration:
