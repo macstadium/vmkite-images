@@ -60,41 +60,6 @@ upload_vmx() {
     "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 }
 
-upload_vmkite_vmx() {
-  local vmx_path="$1"
-  local vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
-
-  echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
-  ovftool \
-    --acceptAllEulas \
-    --name="$vm_name" \
-    --datastore="$VSPHERE_DATASTORE" \
-    --noSSLVerify=true \
-    --diskMode=thin \
-    --vmFolder=/ \
-    --network="$VSPHERE_NETWORK" \
-    --X:logLevel=verbose \
-    --allowExtraConfig \
-    "--prop:guestinfo.vmkite-buildkite-agent-token=${BK_AGENT_TOKEN}" \
-    "--prop:guestinfo.vmkite-buildkite-api-token=${BK_API_TOKEN}" \
-    "--prop:guestinfo.vmkite-buildkite-org=${BUILDKITE_ORGANIZATION_SLUG}" \
-    "--prop:guestinfo.vmkite-source-datastore=${VSPHERE_DATASTORE}" \
-    "--prop:guestinfo.vmkite-target-datastore=${VSPHERE_DATASTORE}" \
-    "--prop:guestinfo.vmkite-cluster-path=/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}" \
-    "--prop:guestinfo.vmkite-vm-memory=4096" \
-    "--prop:guestinfo.vmkite-vm-network-label=${VSPHERE_NETWORK}" \
-    "--prop:guestinfo.vmkite-vm-num-cpus=2" \
-    "--prop:guestinfo.vmkite-vm-path=/${VSPHERE_DATACENTER}/vm" \
-    "--prop:guestinfo.vmkite-vsphere-host=${VSPHERE_HOST}" \
-    "--prop:guestinfo.vmkite-vsphere-user=${VSPHERE_USERNAME}" \
-    "--prop:guestinfo.vmkite-vsphere-pass=${VSPHERE_PASSWORD}" \
-    "--prop:guestinfo.vmkite-vsphere-insecure=true" \
-    --machineOutput \
-    --overwrite \
-    "$vmx_path" \
-    "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
-}
-
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
@@ -117,7 +82,7 @@ fi
 echo "--- Checking if image has been built already"
 hashfile="$(get_hash_path "$image" "$sourcehash")"
 
-if [[ -e $hashfile ]] ; then
+if [[ -e $hashfile && $image != "vmkite" ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
   buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
   echo "Image is already built at $vmxfile"
@@ -133,12 +98,7 @@ vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
 echo "+++ Uploading $vmxfile to vsphere"
-
-if [[ $image == "vmkite" ]] ; then
-  upload_vmkite_vmx "$vmxfile"
-else
-  upload_vmx "$vmxfile"
-fi
+upload_vmx "$vmxfile"
 
 if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
