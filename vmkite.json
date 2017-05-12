@@ -25,7 +25,8 @@
     },
     {
       "environment_vars": [
-        "HOME_DIR=/home/vmkite"
+        "HOME_DIR=/home/vmkite",
+        "BUMP=1"
       ],
       "execute_command": "echo 'vmkite' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [

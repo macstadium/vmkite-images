@@ -119,7 +119,8 @@ upload_vmx "$vmxfile"
 
 if [[ "$image" == "vmkite" ]] ; then
   echo "+++ Adding vmkite properties to vmx file"
-  vmkite_guestinfo
+  vmkite_guestinfo >> "$vmxfile"
+  cat "$vmxfile"
 fi
 
 if [[ -n "$hashfile" ]] ; then
