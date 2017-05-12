@@ -55,6 +55,25 @@ upload_vmx() {
     --vmFolder=/ \
     --network="$VSPHERE_NETWORK" \
     --X:logLevel=verbose \
+    --overwrite \
+    "$vmx_path" \
+    "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
+}
+
+upload_vmkite_vmx() {
+  local vmx_path="$1"
+  local vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
+
+  echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+  ovftool \
+    --acceptAllEulas \
+    --name="$vm_name" \
+    --datastore="$VSPHERE_DATASTORE" \
+    --noSSLVerify=true \
+    --diskMode=thin \
+    --vmFolder=/ \
+    --network="$VSPHERE_NETWORK" \
+    --X:logLevel=verbose \
     --allowExtraConfig \
     "--prop:guestinfo.vmkite-buildkite-agent-token=${BK_AGENT_TOKEN}" \
     "--prop:guestinfo.vmkite-buildkite-api-token=${BK_API_TOKEN}" \
@@ -114,7 +133,12 @@ vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
 echo "+++ Uploading $vmxfile to vsphere"
-upload_vmx "$vmxfile"
+
+if [[ $image == "vmkite" ]] ; then
+  upload_vmkite_vmx "$vmxfile"
+else
+  upload_vmx "$vmxfile"
+fi
 
 if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
