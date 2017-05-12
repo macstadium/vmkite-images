@@ -1,7 +1,7 @@
 
-headless := false
+headless := true
 packer_args := -force
-output_directory := "output"
+output_directory := output
 source_path := false
 
 # Base images - Minimal installs
