@@ -81,6 +81,7 @@ fi
 
 echo "--- Checking if image has been built already"
 hashfile="$(get_hash_path "$image" "$sourcehash")"
+echo "$hashfile"
 
 if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
