@@ -31,8 +31,8 @@ get_hash_path() {
   echo "--- Finding files to hash" >&2;
   printf "%s\n" "${files[@]}"  >&2;
 
-  filehash="$(hash_files "${files[@]}")"
-  imagehash="$(echo "$filehash $sourcehash" | hash_strings)"
+  filehash=$(hash_files "${files[@]}")
+  imagehash=$(hash_strings <<< "$filehash $sourcehash")
 
   echo "$HASHES_DIR/$image/${imagehash}"
 }
@@ -43,7 +43,7 @@ find_vmx_file() {
 
 upload_vmx() {
   local vmx_path="$1"
-  local vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
+  local vm_name; vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
 
   echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
   ovftool \

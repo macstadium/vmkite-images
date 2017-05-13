@@ -46,7 +46,6 @@
       "type": "vmware-iso",
       "vm_name": "{{ user `vm_name` }}",
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
-      "vnc_disable_password": true,
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "ethernet0.pciSlotNumber": "32",
@@ -59,10 +58,7 @@
   "provisioners": [
     {
       "environment_vars": [
-        "HOME_DIR=/home/vmkite",
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
+        "HOME_DIR=/home/vmkite"
       ],
       "execute_command": "echo 'vmkite' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
