@@ -51,7 +51,8 @@
         "cpuid.coresPerSocket": "1",
         "ethernet0.pciSlotNumber": "32",
         "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}"
+        "numvcpus": "{{ user `cpus` }}",
+        "ethernet0.virtualDev": "e1000e"
       }
     }
   ],

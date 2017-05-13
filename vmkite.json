@@ -9,7 +9,10 @@
       "headless": "{{ user `headless` }}",
       "vm_name": "{{ user `vm_name` }}",
       "vnc_bind_address": "{{ user `vnc_bind_address` }}",
-      "output_directory": "{{ user `output_directory` }}"
+      "output_directory": "{{ user `output_directory` }}",
+      "vmx_data": {
+        "ethernet0.virtualDev": "e1000e"
+      }
     }
   ],
   "provisioners": [
