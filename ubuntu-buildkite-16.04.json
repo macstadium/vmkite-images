@@ -9,13 +9,7 @@
       "headless": "{{ user `headless` }}",
       "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
-      "vnc_disable_password": true,
-      "output_directory": "{{user `output_directory`}}",
-      "vmx_data": {
-        "guestinfo.vmkite-buildkite-agent-token": "",
-        "guestinfo.vmkite-vmdk": "",
-        "vmkite-name ": ""
-      }
+      "output_directory": "{{user `output_directory`}}"
     }
   ],
   "provisioners": [

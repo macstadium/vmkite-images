@@ -21,7 +21,6 @@
       "type": "vmware-iso",
       "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
-      "vnc_disable_password": true,
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "ehci.present": "TRUE",
@@ -33,7 +32,7 @@
         "numvcpus": "{{ user `cpus` }}",
         "smc.present": "TRUE",
         "usb.present": "TRUE",
-        "ethernet0.virtualDev": "e1000"
+        "ethernet0.virtualDev": "e1000e"
       }
     }
   ],
@@ -62,9 +61,9 @@
     }
   ],
   "variables": {
-    "cpus": "4",
+    "cpus": "1",
     "disk_size": "20480",
-    "memory": "8096",
+    "memory": "4096",
     "iso_checksum": "d5fd77df525e5e8acf0ed6df52cf39e3f608067124f496a35d07cf99009d03b8",
     "iso_checksum_type": "sha256",
     "iso_url": "https://s3.amazonaws.com/vmkite-osx-images/OSX_InstallESD_10.12.3_16D32.dmg",

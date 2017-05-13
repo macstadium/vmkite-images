@@ -6,15 +6,23 @@
       "ssh_username": "vmkite",
       "ssh_password": "vmkite",
       "shutdown_command": "echo 'vmkite'| sudo -S shutdown -h now",
+      "skip_compaction": true,
       "headless": "{{ user `headless` }}",
       "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
-      "vnc_disable_password": true,
       "output_directory": "{{user `output_directory`}}",
       "vmx_data": {
-        "guestinfo.vmkite-buildkite-agent-token": "",
-        "guestinfo.vmkite-vmdk": "",
-        "vmkite-name ": ""
+        "cpuid.coresPerSocket": "1",
+        "ehci.present": "TRUE",
+        "firmware": "efi",
+        "hpet0.present": "TRUE",
+        "ich7m.present": "TRUE",
+        "keyboardAndMouseProfile": "macProfile",
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
+        "smc.present": "TRUE",
+        "usb.present": "TRUE",
+        "ethernet0.virtualDev": "e1000e"
       }
     }
   ],
@@ -43,6 +51,9 @@
     }
   ],
   "variables": {
+    "cpus": "1",
+    "disk_size": "20480",
+    "memory": "4096",
     "headless": "",
     "source_path": "",
     "vm_name": "macos-buildkite-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",

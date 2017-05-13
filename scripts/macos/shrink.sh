@@ -1,5 +1,7 @@
 #!/bin/bash
 
+du -d 1 /Applications
+
 OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
 
 # Turn off hibernation and get rid of the sleepimage
