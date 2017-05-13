@@ -22,7 +22,10 @@
         "numvcpus": "{{ user `cpus` }}",
         "smc.present": "TRUE",
         "usb.present": "TRUE",
-        "ethernet0.virtualDev": "e1000e"
+        "ethernet0.present": "TRUE",
+        "ethernet0.startConnected": "TRUE",
+        "ethernet0.virtualDev": "vmxnet",
+        "ethernet0.connectionType": "bridged"
       }
     }
   ],
