@@ -99,7 +99,7 @@ fi
 echo "--- Checking if image has been built already"
 hashfile="$(get_hash_path "$image" "$sourcehash")"
 
-if [[ -e $hashfile && $image != "vmkite" ]] ; then
+if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
   buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
   echo "Image is already built at $vmxfile"
