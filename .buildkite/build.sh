@@ -60,25 +60,8 @@ upload_vmx() {
     "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 }
 
-vmkite_guestinfo() {
-  printf 'guestinfo.vmkite-buildkite-agent-token = "%s"\n' "${BK_AGENT_TOKEN}"
-  printf 'guestinfo.vmkite-buildkite-api-token = "%s"\n' "${BK_API_TOKEN}"
-  printf 'guestinfo.vmkite-buildkite-org = "%s"\n' "${BUILDKITE_ORGANIZATION_SLUG}"
-  printf 'guestinfo.vmkite-source-datastore = "%s"\n' "${VSPHERE_DATASTORE}"
-  printf 'guestinfo.vmkite-target-datastore = "%s"\n' "${VSPHERE_DATASTORE}"
-  printf 'guestinfo.vmkite-cluster-path = "/%s/host/%s"\n' "${VSPHERE_DATACENTER}" "${VSPHERE_CLUSTER}"
-  printf 'guestinfo.vmkite-vm-memory = "%s"\n' "4096"
-  printf 'guestinfo.vmkite-vm-network-label = "%s"\n' "${VSPHERE_NETWORK}"
-  printf 'guestinfo.vmkite-vm-num-cpus = "%s"\n' "2"
-  printf 'guestinfo.vmkite-vm-path = "/%s/vm"\n' "${VSPHERE_DATACENTER}"
-  printf 'guestinfo.vmkite-vsphere-host = "%s"\n' "${VSPHERE_HOST}"
-  printf 'guestinfo.vmkite-vsphere-user = "%s"\n' "${VSPHERE_USERNAME}"
-  printf 'guestinfo.vmkite-vsphere-pass = "%s"\n' "${VSPHERE_PASSWORD}"
-  printf 'guestinfo.vmkite-vsphere-insecure = "%s"\n' "true"
-}
-
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
-export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
+export HASHES_DIR=${BUILD_DIR}/hashes
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
 export PACKER_CACHE_DIR=$HOME/.packer_cache
 
@@ -114,11 +97,6 @@ make "$image" \
 ls -alh "$OUTPUT_DIR"
 vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
-
-if [[ "$image" == "vmkite" ]] ; then
-  echo "+++ Adding vmkite properties to vmx file"
-  vmkite_guestinfo >> "$vmxfile"
-fi
 
 echo "+++ Uploading $vmxfile to vsphere"
 upload_vmx "$vmxfile"
