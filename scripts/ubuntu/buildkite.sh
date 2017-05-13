@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eux
 
-BUILDKITE_VERSION=3.0-beta.19
+BUILDKITE_VERSION=3.0-beta.23
 
 install_buildkite() {
   echo "Installing buildkite-agent"
