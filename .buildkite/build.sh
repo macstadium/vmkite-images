@@ -111,6 +111,7 @@ make "$image" \
   "output_directory=$OUTPUT_DIR" \
   "source_path=$sourcevmx"
 
+ls -alh "$OUTPUT_DIR"
 vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
