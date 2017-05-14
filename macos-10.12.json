@@ -65,7 +65,8 @@
       "type": "shell"
     },
     {
-      "script": "sudo scripts/macos/shrink.sh",
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "script": "scripts/macos/shrink.sh",
       "type": "shell"
     }
   ],
