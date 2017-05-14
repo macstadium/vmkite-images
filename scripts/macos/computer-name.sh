@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+set -eux
+
 OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
 
 # Set computer/hostname

@@ -1,6 +1,7 @@
 #!/bin/bash
+set -eux
 
-du -d 1 /Applications
+du -d 2 -h /Applications
 
 OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
 
