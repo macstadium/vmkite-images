@@ -43,12 +43,6 @@
       "type": "file"
     },
     {
-      "scripts": [
-        "scripts/macos/homebrew.sh"
-      ],
-      "type": "shell"
-    },
-    {
       "environment_vars": [
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
@@ -60,10 +54,20 @@
         "scripts/macos/vmware.sh",
         "scripts/macos/add-network-interface-detection.sh",
         "scripts/macos/autologin.sh",
-        "scripts/macos/shrink.sh"
+        "scripts/macos/xcode-cli-tools.sh"
       ],
       "type": "shell"
-    }
+    },
+    {
+      "scripts": [
+        "scripts/macos/homebrew.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "script": "sudo scripts/macos/shrink.sh",
+      "type": "shell"
+    },
   ],
   "variables": {
     "cpus": "1",
