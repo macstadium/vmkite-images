@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
 
+gem env
 gem install xcode-install
-xcversion install "$XCODE_VERSION"
+/usr/local/bin/xcversion install "$XCODE_VERSION"

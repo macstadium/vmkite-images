@@ -53,7 +53,7 @@
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/macos/buildkite.sh",
-        "scripts/macos/fastlane.sh",
+        "scripts/macos/xcode.sh",
         "scripts/macos/shrink.sh"
       ],
       "type": "shell"
