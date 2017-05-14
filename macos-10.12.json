@@ -67,7 +67,7 @@
     {
       "script": "sudo scripts/macos/shrink.sh",
       "type": "shell"
-    },
+    }
   ],
   "variables": {
     "cpus": "1",
