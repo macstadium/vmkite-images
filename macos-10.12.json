@@ -52,7 +52,7 @@
       "scripts": [
         "scripts/macos/computer-name.sh",
         "scripts/macos/vmware.sh",
-        "scripts/macos/xcode-cli-tools.sh",
+        "scripts/macos/homebrew.sh",
         "scripts/macos/add-network-interface-detection.sh",
         "scripts/macos/autologin.sh",
         "scripts/macos/shrink.sh"
