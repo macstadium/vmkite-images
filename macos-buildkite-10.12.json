@@ -38,10 +38,6 @@
       "type": "file"
     },
     {
-      "script": "scripts/macos/homebrew.sh",
-      "type": "shell"
-    },
-    {
       "environment_vars": [
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
