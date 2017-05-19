@@ -50,7 +50,8 @@
       "scripts": [
         "scripts/macos/buildkite.sh",
         "scripts/macos/xcode.sh",
-        "scripts/macos/shrink.sh"
+        "scripts/macos/shrink.sh",
+        "scripts/macos/sleep.sh"
       ],
       "type": "shell"
     }
