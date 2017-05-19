@@ -38,6 +38,11 @@
       "type": "file"
     },
     {
+      "type": "file",
+      "source": "/Applications/Xcode-{{user `xcode_version`}}.app/",
+      "destination": "/Applications/Xcode-{{user `xcode_version`}}.app/"
+    },
+    {
       "environment_vars": [
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
@@ -50,8 +55,7 @@
       "scripts": [
         "scripts/macos/buildkite.sh",
         "scripts/macos/xcode.sh",
-        "scripts/macos/shrink.sh",
-        "scripts/macos/sleep.sh"
+        "scripts/macos/shrink.sh"
       ],
       "type": "shell"
     }
