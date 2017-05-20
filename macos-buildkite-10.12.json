@@ -38,9 +38,20 @@
       "type": "file"
     },
     {
-      "type": "file",
-      "source": "/Applications/Xcode-{{user `xcode_version`}}.app/",
-      "destination": "/Applications/Xcode-{{user `xcode_version`}}.app/"
+      "type": "shell-local",
+      "command": "tar cf xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
+    },
+    {
+      "destination": "/tmp/",
+      "source": "./xcode.tar",
+      "type": "file"
+    },
+    {
+      "inline": [
+        "tar xf toupload/xcode.tar -C /Applications/Xcode-{{user `xcode_version`}}.app",
+        "rm xcode.tar"
+      ],
+      "type": "shell"
     },
     {
       "environment_vars": [
