@@ -39,19 +39,7 @@
     },
     {
       "type": "shell-local",
-      "command": "mkdir -p toupload; tar cvf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
-    },
-    {
-      "destination": "/tmp/",
-      "source": "./toupload",
-      "type": "file"
-    },
-    {
-      "inline": [
-        "cd /tmp && tar xvf toupload/xcode.tar -C /Applications/Xcode-{{user `xcode_version`}}.app",
-        "rm -rf toupload/xcode.tar"
-      ],
-      "type": "shell"
+      "command": "echo llamas; set -x; mkdir -p toupload; echo tar cvf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app; ls -al"
     },
     {
       "environment_vars": [

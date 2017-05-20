@@ -23,7 +23,7 @@ ubuntu-16.04:
 # -------------------------------------------------------------
 
 macos-buildkite-10.12:
-	PACKER_LOG=INFO packer build $(packer_args) \
+	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
