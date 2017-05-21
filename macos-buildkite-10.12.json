@@ -77,6 +77,6 @@
     "fastlane_user": "{{env `FASTLANE_USER`}}",
     "fastlane_password": "{{env `FASTLANE_PASSWORD`}}",
     "xcode_version": "8.3.2",
-    "xcode_tar_file": "",
+    "xcode_tar_file": ""
   }
 }
