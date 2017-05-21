@@ -12,12 +12,12 @@ echo "--- Deleting broken hashed builds"
 find -L "${HASHES_DIR}" -type l -delete
 
 echo "--- Deleting dangling VMs"
-for vmx in $($VMRUN list | tail -n +2) ; do
+for vmx in $("$VMRUN" list | tail -n +2) ; do
   if [[ -f $vmx ]] ; then
     echo "Stopping $vmx"
-    $VMRUN stop "$vmx"
+    "$VMRUN" stop "$vmx"
     echp "Deleting $vmx"
-    $VMRUN deleteVM "$vmx"
+    "$VMRUN" deleteVM "$vmx"
   else
     echo "$vmx is listed as running,  but doesn't exist"
   fi
