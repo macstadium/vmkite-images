@@ -10,6 +10,7 @@ if [ ! -d "$app_dir" ] ; then
 fi
 
 if [ ! -f "$tar_file" ] ; then
+  mkdir -p "$(dirname "$tar_file")"
   tar cf "$tar_file" "$app_dir"
 fi
 
