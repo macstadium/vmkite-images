@@ -39,7 +39,7 @@
     },
     {
       "type": "shell-local",
-      "command": "echo testing; set -x; mkdir -p toupload; echo tar cvf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app; ls -al"
+      "command": "mkdir -p toupload; tar cvf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
     },
     {
       "environment_vars": [
