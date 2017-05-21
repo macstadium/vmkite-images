@@ -3,6 +3,7 @@
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
+export VMRUN=/Applications/VMware\ Fusion.app/Contents/Library/vmrun
 
 echo "--- Deleting old cached builds"
 find "${OUTPUT_DIR}" -mtime +1 -exec rm {} \;
@@ -11,12 +12,12 @@ echo "--- Deleting broken hashed builds"
 find -L "${HASHES_DIR}" -type l -delete
 
 echo "--- Deleting dangling VMs"
-for vmx in $(vmrun list | tail -n +2) ; do
+for vmx in $($VMRUN list | tail -n +2) ; do
   if [[ -f $vmx ]] ; then
     echo "Stopping $vmx"
-    vmrun stop "$vmx"
+    $VMRUN stop "$vmx"
     echp "Deleting $vmx"
-    vmrun deleteVM "$vmx"
+    $VMRUN deleteVM "$vmx"
   else
     echo "$vmx is listed as running,  but doesn't exist"
   fi
