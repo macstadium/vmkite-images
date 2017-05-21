@@ -63,7 +63,7 @@
   ],
   "variables": {
     "cpus": "1",
-    "disk_size": "20480",
+    "disk_size": "40960",
     "memory": "4096",
     "headless": "",
     "source_path": "",
