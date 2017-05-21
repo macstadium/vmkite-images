@@ -4,6 +4,14 @@ packer_args := -force
 output_directory := output
 source_path := false
 
+validate:
+	packer version
+	packer validate -syntax-only macos-10.12.json
+	packer validate -syntax-only ubuntu-16.04.json
+	packer validate -syntax-only macos-buildkite-10.12.json
+	packer validate -syntax-only ubuntu-buildkite-16.04.json
+	packer validate -syntax-only vmkite.json
+
 # Base images - Minimal installs
 # ------------------------------
 

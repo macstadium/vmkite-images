@@ -3,6 +3,12 @@ env:
 
 steps:
   - wait
+  - name: ":hammer_and_wrench: :packer: validate"
+    command: make validate
+    agents:
+      queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
+
+  - wait
   - name: ":package: :ubuntu: 16.04"
     command: .buildkite/build.sh ubuntu-16.04
     agents:
