@@ -14,4 +14,4 @@ if [ ! -f "$tar_file" ] ; then
   tar cf "$tar_file" "$app_dir"
 fi
 
-ls -al "$tar_file"
+ls -alh "$tar_file"

@@ -6,5 +6,5 @@ if [ -z "${XCODE_VERSION:-}" ] ; then
   exit 1
 fi
 
-tar xf "/tmp/${XCODE_VERSION}.tar" -C /Applications
+tar xf "/tmp/xcode-${XCODE_VERSION}.tar" -C /Applications
 ls -al /Applications
