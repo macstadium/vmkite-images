@@ -33,6 +33,10 @@
       "type": "file"
     },
     {
+      "type": "shell",
+      "inline": "df -h"
+    },
+    {
       "destination": "/Users/vmkite/vmkite-buildkite-agent.sh",
       "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
       "type": "file"

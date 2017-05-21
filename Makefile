@@ -5,7 +5,7 @@ output_directory := output
 source_path := false
 xcode_cache_directory := /tmp/xcode_cache
 xcode_version := 8.3.2
-xcode_tar_file := $(xcode_cache_directory)/xcode-$(xcode_version).tar
+xcode_tar_file := "$(xcode_cache_directory)/xcode-$(xcode_version).tar"
 
 validate:
 	packer version
