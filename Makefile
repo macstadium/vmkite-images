@@ -66,4 +66,4 @@ clean:
 # -------------------------------------------------------------
 
 $(xcode_cache_directory)/xcode-$(xcode_version).tar:
-	scripts/macos/support/install-xcode $(xcode_version)
+	scripts/macos/support/install-xcode.sh $(xcode_version)
