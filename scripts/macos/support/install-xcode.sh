@@ -1,14 +1,9 @@
 #!/bin/bash
 set -euxo pipefail
 
-if [ -z "${XCODE_CACHE_DIR:-}" ] ; then
-  echo "Must set \$XCODE_CACHE_DIR"
-  exit 1
-fi
-
 version="$1"
+tar_file="$2"
 app_dir="/Applications/Xcode-${version}.app"
-tar_file="${XCODE_CACHE_DIR}/${version}.tar"
 
 if [ ! -d "$app_dir" ] ; then
   xcversion install "$version"
