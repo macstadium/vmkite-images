@@ -39,7 +39,7 @@
     },
     {
       "type": "shell-local",
-      "command": "mkdir -p toupload; tar cvf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
+      "command": "mkdir -p toupload; tar cf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
     },
     {
       "destination": "/tmp/",
