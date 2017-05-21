@@ -42,6 +42,11 @@
       "command": "mkdir -p toupload; tar cvf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
     },
     {
+      "destination": "/tmp/",
+      "source": "toupload",
+      "type": "file"
+    },
+    {
       "environment_vars": [
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
