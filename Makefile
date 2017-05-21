@@ -31,6 +31,7 @@ ubuntu-16.04:
 # -------------------------------------------------------------
 
 macos-buildkite-10.12:
+	mkdir -p toupload/
 	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
