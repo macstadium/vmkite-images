@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-if [ -z "${XCODE_CACHE_DIR}" ] ; then
+if [ -z "${XCODE_CACHE_DIR:-}" ] ; then
   echo "Must set \$XCODE_CACHE_DIR"
   exit 1
 fi

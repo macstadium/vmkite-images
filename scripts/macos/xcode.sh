@@ -1,15 +1,10 @@
 #!/bin/bash
 set -euxo pipefail
 
-export XCODE_INSTALL_USER=$FASTLANE_USER
-export XCODE_INSTALL_PASSWORD=$FASTLANE_PASSWORD
-export XCODE_INSTALL_CACHE=$HOME/Library/Caches/XcodeInstall
+if [ -z "${XCODE_VERSION:-}" ] ; then
+  echo "Must set \$XCODE_VERSION"
+  exit 1
+fi
 
-ls -alR /tmp
-
-# /usr/local/bin/xcversion list
-# /usr/local/bin/xcversion install "$XCODE_VERSION"
-
-# rm -rf "$XCODE_INSTALL_CACHE"
-
+tar xf "/tmp/${XCODE_VERSION}.tar" -C /Applications
 ls -al /Applications

@@ -38,12 +38,8 @@
       "type": "file"
     },
     {
-      "type": "shell-local",
-      "command": "test -f tar cf toupload/xcode.tar /Applications/Xcode-{{user `xcode_version`}}.app"
-    },
-    {
       "destination": "/tmp/",
-      "source": "toupload",
+      "source": "{{user `xcode_tar_file`}}",
       "type": "file"
     },
     {
