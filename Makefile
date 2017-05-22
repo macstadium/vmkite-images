@@ -34,8 +34,8 @@ ubuntu-16.04:
 # -------------------------------------------------------------
 
 macos-buildkite-10.12: $(xcode_tar_file)
-	packer build $(packer_args) \
-		-var headless=$(headless) \
+	PACKER_LOG=info packer build $(packer_args) \
+		-var headless=false \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
 		-var xcode_version="$(xcode_version)" \
