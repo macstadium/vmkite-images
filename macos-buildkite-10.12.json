@@ -66,9 +66,9 @@
     }
   ],
   "variables": {
-    "cpus": "1",
-    "disk_size": "40960",
-    "memory": "4096",
+    "cpus": "4",
+    "disk_size": "60960",
+    "memory": "8096",
     "headless": "",
     "source_path": "",
     "vm_name": "macos-buildkite-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
