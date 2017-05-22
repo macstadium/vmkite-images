@@ -42,7 +42,7 @@
       "type": "file"
     },
     {
-      "destination": "/tmp/",
+      "destination": "/Users/vmkite/xcode-{{user `xcode_version`}}.tar",
       "source": "{{user `xcode_tar_file`}}",
       "type": "file"
     },
