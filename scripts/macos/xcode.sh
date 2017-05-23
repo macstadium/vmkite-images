@@ -6,5 +6,4 @@ if [ -z "${XCODE_VERSION:-}" ] ; then
   exit 1
 fi
 
-tar xf "/Users/vmkite/xcode-${XCODE_VERSION}.tar" -C /Applications
-ls -al /Applications
+xcversion install "$XCODE_VERSION"

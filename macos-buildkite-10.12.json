@@ -33,17 +33,8 @@
       "type": "file"
     },
     {
-      "type": "shell",
-      "inline": "df -h"
-    },
-    {
       "destination": "/Users/vmkite/vmkite-buildkite-agent.sh",
       "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
-      "type": "file"
-    },
-    {
-      "destination": "/Users/vmkite/xcode-{{user `xcode_version`}}.tar",
-      "source": "{{user `xcode_tar_file`}}",
       "type": "file"
     },
     {
