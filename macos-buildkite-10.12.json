@@ -41,24 +41,31 @@
       "environment_vars": [
         "HOME_DIR=/Users/vmkite",
         "USERNAME=vmkite",
-        "PASSWORD=vmkite"
+        "PASSWORD=vmkite",
+        "FASTLANE_USER={{user `fastlane_user`}}",
+        "FASTLANE_PASSWORD={{user `fastlane_password`}}",
+        "XCODE_VERSION={{user `xcode_version`}}"
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/macos/buildkite.sh",
+        "scripts/macos/xcode.sh",
         "scripts/macos/shrink.sh"
       ],
       "type": "shell"
     }
   ],
   "variables": {
-    "cpus": "1",
-    "disk_size": "20480",
-    "memory": "4096",
+    "cpus": "4",
+    "disk_size": "60960",
+    "memory": "8096",
     "headless": "",
     "source_path": "",
     "vm_name": "macos-buildkite-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "0.0.0.0"
+    "vnc_bind_address": "0.0.0.0",
+    "fastlane_user": "{{env `FASTLANE_USER`}}",
+    "fastlane_password": "{{env `FASTLANE_PASSWORD`}}",
+    "xcode_version": "8.3.2"
   }
 }

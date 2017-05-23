@@ -3,6 +3,9 @@ set -eux
 
 du -d 2 -h /Applications
 
+# Disable diskspaced
+launchctl unload -w /System/Library/LaunchAgents/com.apple.diskspaced.plist
+
 # Turn off hibernation and get rid of the sleepimage
 pmset hibernatemode 0
 rm -f /var/vm/sleepimage
@@ -15,5 +18,7 @@ if csrutil status | grep -q disabled; then
 fi
 rm -rf /private/var/vm/swap*
 
+df -h
+
 # Shrink the disk
-/Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
+# /Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /

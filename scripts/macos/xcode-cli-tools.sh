@@ -1,13 +1,11 @@
 #!/bin/bash
 set -eux
 
-# create the placeholder file that's checked by CLI updates' .dist code
-# in Apple's SUS catalog
-touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+# https://github.com/KrauseFx/xcode-install#installation
+curl -sL -O https://github.com/neonichu/ruby-domain_name/releases/download/v0.5.99999999/domain_name-0.5.99999999.gem
+gem install domain_name-0.5.99999999.gem
+gem install --conservative xcode-install
+rm -f domain_name-0.5.99999999.gem
 
-# find the CLI Tools update
-PROD=$(softwareupdate -l | grep "\*.*Command Line" | head -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
-
-# install it
-softwareupdate -i "$PROD" --verbose
-rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+# Install cli tools
+/usr/local/bin/xcversion install-cli-tools
