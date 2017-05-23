@@ -3,9 +3,6 @@ headless := true
 packer_args := -force
 output_directory := output
 source_path := false
-xcode_cache_directory := /tmp/xcode_cache
-xcode_version := 8.3.2
-xcode_tar_file := $(xcode_cache_directory)/xcode-$(xcode_version).tar
 
 validate:
 	packer version
@@ -33,13 +30,11 @@ ubuntu-16.04:
 # Buildkite images - Base images with buildkite and build tools
 # -------------------------------------------------------------
 
-macos-buildkite-10.12: $(xcode_tar_file)
-	PACKER_LOG=info packer build $(packer_args) \
+macos-buildkite-10.12:
+	packer build $(packer_args) \
 		-var headless=false \
 		-var source_path="$(source_path)" \
-		-var output_directory="$(output_directory)" \
-		-var xcode_version="$(xcode_version)" \
-		-var xcode_tar_file="$(xcode_tar_file)" \
+		-var output_directory="$(output_directory)"
 		macos-buildkite-10.12.json
 
 ubuntu-buildkite-16.04:
@@ -62,9 +57,3 @@ vmkite:
 clean:
 	-rm -rf output/
 	-rm -rf installers/
-
-# XCode versions
-# -------------------------------------------------------------
-
-$(xcode_tar_file):
-	scripts/macos/support/install-xcode.sh "$(xcode_version)" "$(xcode_tar_file)"

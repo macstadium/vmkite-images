@@ -44,8 +44,7 @@
         "PASSWORD=vmkite",
         "FASTLANE_USER={{user `fastlane_user`}}",
         "FASTLANE_PASSWORD={{user `fastlane_password`}}",
-        "XCODE_VERSION={{user `xcode_version`}}",
-        "XCODE_TAR_FILE={{user `xcode_tar_file` }}"
+        "XCODE_VERSION={{user `xcode_version`}}"
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
@@ -67,7 +66,6 @@
     "vnc_bind_address": "0.0.0.0",
     "fastlane_user": "{{env `FASTLANE_USER`}}",
     "fastlane_password": "{{env `FASTLANE_PASSWORD`}}",
-    "xcode_version": "8.3.2",
-    "xcode_tar_file": ""
+    "xcode_version": "8.3.2"
   }
 }
