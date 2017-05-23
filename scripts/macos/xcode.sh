@@ -6,4 +6,4 @@ if [ -z "${XCODE_VERSION:-}" ] ; then
   exit 1
 fi
 
-xcversion install "$XCODE_VERSION"
+/usr/local/bin/xcversion install "$XCODE_VERSION"
