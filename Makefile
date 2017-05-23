@@ -34,7 +34,7 @@ macos-buildkite-10.12:
 	packer build $(packer_args) \
 		-var headless=false \
 		-var source_path="$(source_path)" \
-		-var output_directory="$(output_directory)"
+		-var output_directory="$(output_directory)" \
 		macos-buildkite-10.12.json
 
 ubuntu-buildkite-16.04:
