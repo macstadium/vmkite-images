@@ -8,12 +8,17 @@ validate:
 	packer version
 	packer validate -syntax-only macos-10.12.json
 	packer validate -syntax-only ubuntu-16.04.json
+	packer validate -syntax-only macos-xcode-10.12.json
 	packer validate -syntax-only macos-buildkite-10.12.json
 	packer validate -syntax-only ubuntu-buildkite-16.04.json
 	packer validate -syntax-only vmkite.json
 
-# Base images - Minimal installs
-# ------------------------------
+clean:
+	-rm -rf output/
+	-rm -rf installers/
+
+# macOS images
+# -------------------------------------------------------------
 
 macos-10.12:
 	packer build $(packer_args) \
@@ -21,14 +26,12 @@ macos-10.12:
 		-var output_directory="$(output_directory)" \
 		macos-10.12.json
 
-ubuntu-16.04:
+macos-xcode-10.12:
 	packer build $(packer_args) \
-		-var headless=$(headless) \
+		-var headless=false \
+		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
-		ubuntu-16.04.json
-
-# Buildkite images - Base images with buildkite and build tools
-# -------------------------------------------------------------
+		macos-xcode-10.12.json
 
 macos-buildkite-10.12:
 	packer build $(packer_args) \
@@ -37,15 +40,14 @@ macos-buildkite-10.12:
 		-var output_directory="$(output_directory)" \
 		macos-buildkite-10.12.json
 
-ubuntu-buildkite-16.04:
+# ubuntu images
+# -------------------------------------------------------------
+
+ubuntu-16.04:
 	packer build $(packer_args) \
 		-var headless=$(headless) \
-		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
-		ubuntu-buildkite-16.04.json
-
-# Other images
-# -------------------------------------------------------------
+		ubuntu-16.04.json
 
 vmkite:
 	packer build $(packer_args) \
@@ -54,6 +56,9 @@ vmkite:
 		-var output_directory="$(output_directory)" \
 		vmkite.json
 
-clean:
-	-rm -rf output/
-	-rm -rf installers/
+ubuntu-buildkite-16.04:
+	packer build $(packer_args) \
+		-var headless=$(headless) \
+		-var source_path="$(source_path)" \
+		-var output_directory="$(output_directory)" \
+		ubuntu-buildkite-16.04.json

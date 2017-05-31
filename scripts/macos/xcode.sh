@@ -7,3 +7,4 @@ if [ -z "${XCODE_VERSION:-}" ] ; then
 fi
 
 /usr/local/bin/xcversion install "$XCODE_VERSION"
+/usr/local/bin/xcversion cleanup
