@@ -3,6 +3,8 @@ set -eux
 
 PROVISION_DIR="$HOME"
 
+ls -al /usr/local/bin
+
 install_buildkite() {
   echo "Installing buildkite-agent"
   brew tap buildkite/buildkite
