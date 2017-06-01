@@ -49,6 +49,7 @@ The macOS images are for testing darwin and ios. They include:
 * XCode Commandline Tools
 * Buildkite Agent (v3)
 * SSH
+* aws-cli (for downloading hooks and secrets)
 
 A vmkite user is created and used, with a password of `vmkite`.
 
@@ -63,6 +64,7 @@ Currently Ubuntu images are provided, with the following extras installed:
 
 * Buildkite Agent (v3)
 * SSH
+* aws-cli (for downloading hooks and secrets)
 
 A vmkite user is created and used, with a password of `vmkite`.
 

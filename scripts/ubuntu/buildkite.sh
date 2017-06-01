@@ -1,16 +1,14 @@
 #!/bin/bash
 set -eux
 
-BUILDKITE_VERSION=3.0-beta.23
-
 install_buildkite() {
   echo "Installing buildkite-agent"
-  curl -Lfs -o buildkite.tar.gz "https://github.com/buildkite/agent/releases/download/v${BUILDKITE_VERSION}/buildkite-agent-linux-amd64-${BUILDKITE_VERSION}.tar.gz"
-  mkdir -p "$HOME/buildkite-agent"
-  tar -xzf buildkite.tar.gz -C "$HOME/buildkite-agent"
-  sudo mkdir -p /usr/local/bin
-  sudo chmod +x "$HOME/buildkite-agent/buildkite-agent"
-  sudo ln -snf "$HOME/buildkite-agent/buildkite-agent" /usr/local/bin/
+  echo deb https://apt.buildkite.com/buildkite-agent unstable main > /etc/apt/sources.list.d/buildkite-agent.list
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
+  apt-get update
+  apt-get install -y buildkite-agent
+  mv /tmp/buildkite-hooks/* /etc/buildkite-agent/hooks/
+  chown -R buildkite-agent: /etc/buildkite-agent/hooks/
 }
 
 install_service() {
