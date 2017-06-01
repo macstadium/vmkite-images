@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eux
 
-apt-get install awscli jq
+apt-get install -y awscli jq
