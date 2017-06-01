@@ -33,6 +33,9 @@ Agent images read from VMWare via the [guestinfo](https://www.vmware.com/support
 | vmkite-vmdk                  | The vmdk file this VM was lauched with  |
 | vmkite-name                  | The name for the buildkite agent        |
 | vmkite-buildkite-agent-token | The agent token for buildkite           |
+| vmkite-buildkite-debug       | Whether to enable debug mode            |
+| aws-access-key-id            | An AWS Access Key ID                    |
+| aws-secret-access-key        | An AWS Secret Access Key                |
 
 These keys are currently passed to the buildkite-agent which starts up on image boot.
 
@@ -80,13 +83,14 @@ This image also reads the following params from VMWare's `guestinfo` for configu
  * `guestinfo.vmkite-buildkite-agent-token`
  * `guestinfo.vmkite-buildkite-api-token`
  * `guestinfo.vmkite-buildkite-org`
- * `guestinfo.vmkite-source-datastore` (default PURE1-1)
- * `guestinfo.vmkite-target-datastore` (default PURE1-1)
- * `guestinfo.vmkite-cluster-path` (default '/MacStadium - Vegas/host/XSERVE_Cluster')
+ * `guestinfo.vmkite-buildkite-debug`
+ * `guestinfo.vmkite-source-datastore` 
+ * `guestinfo.vmkite-target-datastore` 
+ * `guestinfo.vmkite-cluster-path` 
  * `guestinfo.vmkite-vm-memory` (default 4096)
- * `guestinfo.vmkite-vm-network-label` (default dvPortGroup-Private-1)
- * `guestinfo.vmkite-vm-num-cpus` (default 2)
- * `guestinfo.vmkite-vm-path` (default '/MacStadium - Vegas/vm')
+ * `guestinfo.vmkite-vm-network-label` 
+ * `guestinfo.vmkite-vm-num-cpus` 
+ * `guestinfo.vmkite-vm-path` 
  * `guestinfo.vmkite-vsphere-host`
  * `guestinfo.vmkite-vsphere-user`
  * `guestinfo.vmkite-vsphere-pass`

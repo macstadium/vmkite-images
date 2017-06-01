@@ -19,6 +19,7 @@ echo "--- Querying VMware guestinfo"
 vmdk=$(guestinfo vmkite-vmdk)
 name=$(guestinfo vmkite-name)
 token=$(guestinfo vmkite-buildkite-agent-token)
+token=$(guestinfo vmkite-buildkite-agent-token)
 
 [[ -n $vmdk && -n $name && -n $token ]] || exit 10
 

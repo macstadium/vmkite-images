@@ -31,11 +31,20 @@
       "type": "file"
     },
     {
+      "destination": "/tmp/buildkite-hooks",
+      "source": "hooks",
+      "type": "file"
+    },
+    {
       "environment_vars": [
-        "HOME_DIR=/home/vmkite"
+        "HOME_DIR=/home/vmkite",
+        "BUILDKITE_BUILD_NUMBER={{user `buildkite_build_number`}}",
+        "BUILDKITE_BRANCH={{user `buildkite_branch`}}",
+        "BUILDKITE_COMMIT={{user `buildkite_commit`}}"
       ],
       "execute_command": "echo 'vmkite' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
+        "scripts/ubuntu/utils.sh",
         "scripts/ubuntu/buildkite.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
@@ -51,7 +60,10 @@
     "source_path": "",
     "vm_name": "ubuntu-buildkite-16.04.2-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "0.0.0.0"
+    "vnc_bind_address": "0.0.0.0",
+    "buildkite_build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
+    "buildkite_branch": "{{env `BUILDKITE_BRANCH`}}",
+    "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}"
   }
 }
 

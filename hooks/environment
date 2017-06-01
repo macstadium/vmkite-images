@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+set -u
+
+echo "--- Buildkite / VMKite Info"
+cat /etc/vmkite-info
+
+echo this is the env hook
+env
