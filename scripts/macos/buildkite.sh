@@ -14,6 +14,7 @@ install_buildkite() {
   sudo mkdir -p /usr/local/bin
   sudo chmod +x "$HOME/buildkite-agent/buildkite-agent"
   sudo ln -snf "$HOME/buildkite-agent/buildkite-agent" /usr/local/bin/
+  mv /tmp/buildkite-hooks/* /etc/buildkite-agent/hooks/
 }
 
 install_launchd_daemon() {
