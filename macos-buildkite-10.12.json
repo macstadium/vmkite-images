@@ -37,6 +37,11 @@
       "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
       "type": "file"
     },
+   {
+      "destination": "/Users/vmkite/buildkite-hooks",
+      "source": "hooks/",
+      "type": "file"
+    },
     {
       "environment_vars": [
         "HOME_DIR=/Users/vmkite",
