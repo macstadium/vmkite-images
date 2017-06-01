@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
-set -u
+set -euo pipefail
 
-echo "--- Buildkite / VMKite Info"
+echo "~~~ VMKite Stack Information"
 cat /etc/vmkite-info
 
-echo this is the env hook
-env
+echo "$BUILDKITE_PLUGINS"
+
+export BUILDKITE_PLUGINS='[{"github.com/buildkite-plugins/s3-secrets-buildkite-plugin":{"s3_bucket":"lox-vmkite-test-secrets"}}]'
+
+echo "$BUILDKITE_PLUGINS"
