@@ -27,7 +27,7 @@ echo "--- Starting buildkite-agent"
 export BUILDKITE_AGENT_TOKEN="$token"
 export BUILDKITE_AGENT_NAME="$name"
 export BUILDKITE_AGENT_META_DATA="vmkite-vmdk=$vmdk,vmkite-guestid=darwin13_64Guest"
-export BUILDKITE_BUILD_PATH="/Users/vmkite/buildkite-builds"
+export BUILDKITE_BUILD_PATH="/usr/local/var/buildkite-agent/builds"
 
 su vmkite -c "/usr/local/bin/buildkite-agent start --disconnect-after-job"
 
