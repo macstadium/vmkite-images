@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
-export HASHES_DIR=${BUILD_DIR}/hashes/${BUILDKITE_BRANCH}
+export HASHES_DIR=${BUILD_DIR}/hashes
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
 export VMRUN=/Applications/VMware\ Fusion.app/Contents/Library/vmrun
 
