@@ -76,7 +76,7 @@ if [[ -n "$sourceimage" ]] ; then
     echo "+++ Failed to find source vmx for $sourceimage"
   fi
   sourcehash=$(hash_files "$sourcevmx")
-  echo "Found $sourcevmx, $sourcehash"
+  echo "--- Found pre-built source $sourcevmx, $sourcehash"
 fi
 
 echo "--- Checking if image has been built already"
@@ -86,7 +86,7 @@ echo "$hashfile"
 if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
   buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
-  echo "Image is already built at $vmxfile"
+  echo "--- Found pre-build image at $vmxfile"
   ls -alh "$(dirname "$vmxfile")"
   exit 0
 fi
