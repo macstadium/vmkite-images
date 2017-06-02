@@ -17,14 +17,14 @@ steps:
   - wait
   - name: ":package: :ubuntu: :buildkite: 16.04"
     command: .buildkite/build.sh ubuntu-buildkite-16.04 ubuntu-16.04
-    environment:
+    env:
       - VSPHERE_UPLOAD=1
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
 
   - name: ":package: vmkite"
     command: .buildkite/build.sh vmkite ubuntu-16.04
-    environment:
+    env:
       - VSPHERE_UPLOAD=1
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
@@ -44,7 +44,7 @@ steps:
   - wait
   - name: ":package: :mac: :buildkite: 10.12"
     command: .buildkite/build.sh macos-buildkite-10.12 macos-xcode-10.12
-    environment:
+    env:
       - VSPHERE_UPLOAD=1
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
