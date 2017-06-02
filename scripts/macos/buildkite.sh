@@ -3,11 +3,12 @@ set -eux
 
 PROVISION_DIR="$HOME"
 export HOMEBREW_NO_AUTO_UPDATE=1
+export PATH=/usr/local/bin:$PATH
 
 install_buildkite() {
   echo "Installing buildkite-agent"
-  /usr/local/bin/brew tap buildkite/buildkite
-  /usr/local/bin/brew install --devel buildkite-agent
+  brew tap buildkite/buildkite
+  brew install --devel buildkite-agent
   cp /tmp/buildkite-hooks/* /usr/local/etc/buildkite-agent/hooks/
   rm -rf /tmp/buildkite-hooks
 }
@@ -23,7 +24,7 @@ install_launchd_daemon() {
 }
 
 install_utils() {
-  /usr/local/bin/brew install awscli jq
+  brew install awscli jq
 }
 
 install_utils
