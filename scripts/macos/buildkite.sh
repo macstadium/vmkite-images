@@ -2,6 +2,7 @@
 set -eux
 
 PROVISION_DIR="$HOME"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 install_buildkite() {
   echo "Installing buildkite-agent"
