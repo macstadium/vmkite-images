@@ -4,7 +4,6 @@ set -e
 set -o pipefail
 set -u
 
-
 guestinfo() {
   local key="guestinfo.$1"
   local value
@@ -15,11 +14,21 @@ guestinfo() {
   fi
 }
 
+cleanup() {
+  echo "--- Buildkite exited, shutting down machine"
+  shutdown -h now
+}
+
 echo "--- Querying VMware guestinfo"
 vmdk=$(guestinfo vmkite-vmdk)
 name=$(guestinfo vmkite-name)
 token=$(guestinfo vmkite-buildkite-agent-token)
 debug=$(guestinfo vmkite-buildkite-debug)
+autoshutdown=$(guestinfo vmkite-buildkite-auto-shutdown)
+
+if [[ -z $autoshutdown || $autoshutdown =~ (true|1) ]] ; then
+  trap cleanup EXIT
+fi
 
 [[ -n $vmdk && -n $name && -n $token ]] || exit 10
 
@@ -36,5 +45,3 @@ export BUILDKITE_AGENT_META_DATA="vmkite-vmdk=$vmdk,vmkite-guestid=ubuntu64Guest
 export BUILDKITE_AGENT_DEBUG="$debug"
 
 su buildkite-agent -c "/usr/bin/buildkite-agent start --disconnect-after-job"
-echo "--- Buildkite exited with $?, shutting down machine"
-shutdown -h now
