@@ -6,7 +6,10 @@ export HASHES_DIR=${BUILD_DIR}/hashes
 export OUTPUT_DIR=${BUILD_DIR}/output
 export VMRUN=/Applications/VMware\ Fusion.app/Contents/Library/vmrun
 
-if [[ -d "${OUTPUT_DIR}" ]] ; then
+export MIN_FREE_SPACE_GB=30
+export MIN_FREE_SPACE_KB=$(( MIN_FREE_SPACE_GB * 1024 * 1024 ))
+
+if [[ $(df -k / | tail -n1 | awk '{print $4}') -lt $MIN_FREE_SPACE_KB ]] && [[ -d "${OUTPUT_DIR}" ]] ; then
   echo "--- Cleaning up old builds to free up space"
   find "${OUTPUT_DIR}" -type d -mtime +1 -print -exec rm -rf {} \;
   find -L "${HASHES_DIR}" -type l -print -delete
