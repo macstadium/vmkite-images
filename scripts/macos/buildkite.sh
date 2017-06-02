@@ -28,3 +28,11 @@ install_utils() {
 install_utils
 install_buildkite
 install_launchd_daemon
+
+# Write a version file so we can track which build this refers to
+cat << EOF > /etc/vmkite-info
+BUILDKITE_VERSION=$(buildkite-agent --version)
+BUILDKITE_BUILD_NUMBER=$BUILDKITE_BUILD_NUMBER
+BUILDKITE_BRANCH=$BUILDKITE_BRANCH
+BUILDKITE_COMMIT=$BUILDKITE_COMMIT
+EOF
