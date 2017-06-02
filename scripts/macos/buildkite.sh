@@ -7,11 +7,6 @@ install_buildkite() {
   echo "Installing buildkite-agent"
   /usr/local/bin/brew tap buildkite/buildkite
   /usr/local/bin/brew install --devel buildkite-agent
-
-  ls -al /tmp/buildkite-hooks
-  ls -al /usr/local/etc/buildkite-agent
-  ls -al /usr/local/etc/buildkite-agent/hooks/
-
   cp /tmp/buildkite-hooks/* /usr/local/etc/buildkite-agent/hooks/
   rm -rf /tmp/buildkite-hooks
 }

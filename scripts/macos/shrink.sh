@@ -1,11 +1,6 @@
 #!/bin/bash
 set -eux
 
-du -d 2 -h /Applications
-
-# Disable diskspaced
-launchctl unload -w /System/Library/LaunchAgents/com.apple.diskspaced.plist
-
 # Turn off hibernation and get rid of the sleepimage
 pmset hibernatemode 0
 rm -f /var/vm/sleepimage
@@ -18,6 +13,7 @@ if csrutil status | grep -q disabled; then
 fi
 rm -rf /private/var/vm/swap*
 
+sudo find -x / -type f -size +1G
 df -h
 
 # Shrink the disk

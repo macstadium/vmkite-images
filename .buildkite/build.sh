@@ -100,8 +100,10 @@ ls -alh "$OUTPUT_DIR"
 vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
-echo "+++ Uploading $vmxfile to vsphere"
-upload_vmx "$vmxfile"
+if [[ -n "${VSPHERE_UPLOAD:-}" ]] ; then
+  echo "+++ Uploading $vmxfile to vsphere"
+  upload_vmx "$vmxfile"
+fi
 
 if [[ -n "$hashfile" ]] ; then
   echo "--- Linking $OUTPUT_DIR to $hashfile"
