@@ -66,4 +66,3 @@
     "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}"
   }
 }
-

@@ -43,6 +43,11 @@
       "type": "file"
     },
     {
+      "environment_vars": [
+        "BUILDKITE_BUILD_NUMBER={{user `buildkite_build_number`}}",
+        "BUILDKITE_BRANCH={{user `buildkite_branch`}}",
+        "BUILDKITE_COMMIT={{user `buildkite_commit`}}"
+      ],
       "scripts": [
         "scripts/macos/buildkite.sh"
       ],
@@ -69,6 +74,9 @@
     "source_path": "",
     "vm_name": "macos-buildkite-10.12.3-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "0.0.0.0"
+    "vnc_bind_address": "0.0.0.0",
+    "buildkite_build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
+    "buildkite_branch": "{{env `BUILDKITE_BRANCH`}}",
+    "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}"
   }
 }
