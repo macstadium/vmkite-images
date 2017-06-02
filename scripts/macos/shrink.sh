@@ -13,8 +13,5 @@ if csrutil status | grep -q disabled; then
 fi
 rm -rf /private/var/vm/swap*
 
-sudo find -x / -type f -size +1G
-df -h
-
 # Shrink the disk
 # /Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
