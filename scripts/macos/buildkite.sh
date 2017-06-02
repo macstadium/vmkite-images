@@ -3,12 +3,14 @@ set -eux
 
 PROVISION_DIR="$HOME"
 
-ls -al /usr/local/bin
+echo $PATH
+
+# echo export PATH="/usr/local/bin:$PATH" >> ~/.bash_profile
 
 install_buildkite() {
   echo "Installing buildkite-agent"
-  brew tap buildkite/buildkite
-  brew install --devel buildkite-agent
+  /usr/local/bin/brew tap buildkite/buildkite
+  /usr/local/bin/brew install --devel buildkite-agent
   mv /tmp/buildkite-hooks/* /usr/local/etc/buildkite-agent/hooks/
 }
 
