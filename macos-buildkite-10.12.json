@@ -37,9 +37,9 @@
       "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
       "type": "file"
     },
-   {
-      "destination": "/Users/vmkite/buildkite-hooks",
-      "source": "hooks/",
+    {
+      "destination": "/tmp/buildkite-hooks",
+      "source": "hooks",
       "type": "file"
     },
     {
