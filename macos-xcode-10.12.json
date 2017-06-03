@@ -39,8 +39,15 @@
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/macos/xcode.sh",
+      ],
+      "type": "shell"
+    },
+    {
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
         "scripts/macos/shrink.sh"
       ],
+      "start_retry_timeout": "10m",
       "type": "shell"
     }
   ],
