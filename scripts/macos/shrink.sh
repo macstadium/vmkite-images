@@ -1,6 +1,14 @@
 #!/bin/bash
 set -eux
 
+# Disable spotlight
+mdutil -a -i off
+
+# Remove stuff
+rm -rf "/Library/Screen Savers"
+rm -rf "/Library/Updates"
+rm -rf "/Library/Desktop Pictures"
+
 # Turn off hibernation and get rid of the sleepimage
 pmset hibernatemode 0
 rm -f /var/vm/sleepimage
@@ -14,4 +22,4 @@ fi
 rm -rf /private/var/vm/swap*
 
 # Shrink the disk
-# /Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
+/Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
