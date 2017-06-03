@@ -60,6 +60,8 @@ upload_vmx() {
     "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 }
 
+echo "VSPHERE_UPLOAD=${VSPHERE_UPLOAD:-}"
+
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
