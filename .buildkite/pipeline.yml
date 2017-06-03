@@ -1,6 +1,5 @@
 env:
   OUTPUT_DIR: "/tmp/output/${BUILDKITE_BUILD_ID}"
-  SKIP_CACHE_FOR: "(macos-buildkite-10.12|vmkite|ubuntu-buildkite-16.04)"
 
 steps:
   - wait

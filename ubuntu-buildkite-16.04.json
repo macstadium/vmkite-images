@@ -63,6 +63,7 @@
     "vnc_bind_address": "0.0.0.0",
     "buildkite_build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "buildkite_branch": "{{env `BUILDKITE_BRANCH`}}",
-    "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}"
+    "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}",
+    "bump": "1"
   }
 }

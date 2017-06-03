@@ -66,7 +66,6 @@ export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
 export HASHES_DIR=${BUILD_DIR}/hashes
 export OUTPUT_DIR=${BUILD_DIR}/output/${BUILDKITE_JOB_ID}
 export PACKER_CACHE_DIR=$HOME/.packer_cache
-export SKIP_CACHE_FOR=${SKIP_CACHE_FOR:-}
 
 image="$1"
 sourceimage="${2:-}"
@@ -82,20 +81,16 @@ if [[ -n "$sourceimage" ]] ; then
   echo "--- Found pre-built source $sourcevmx, $sourcehash"
 fi
 
-if [[ -z "$SKIP_CACHE_FOR" ]] || grep -qE "$SKIP_CACHE_FOR" <<< "$image" ; then
-  echo "--- Checking if image has been built already"
-  hashfile="$(get_hash_path "$image" "$sourcehash")"
-  echo "$hashfile"
+echo "--- Checking if image has been built already"
+hashfile="$(get_hash_path "$image" "$sourcehash")"
+echo "$hashfile"
 
-  if [[ -e $hashfile ]] ; then
-    vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
-    buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
-    echo "--- Found pre-build image at $vmxfile"
-    ls -alh "$(dirname "$vmxfile")"
-    exit 0
-  fi
-else
-  echo "--- Ignoring cache, matched SKIP_CACHE_FOR"
+if [[ -e $hashfile ]] ; then
+  vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
+  buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
+  echo "--- Found pre-build image at $vmxfile"
+  ls -alh "$(dirname "$vmxfile")"
+  exit 0
 fi
 
 echo "+++ Building $image"
