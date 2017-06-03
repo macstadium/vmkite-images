@@ -38,7 +38,7 @@
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/macos/xcode.sh",
+        "scripts/macos/xcode.sh"
       ],
       "type": "shell"
     },
