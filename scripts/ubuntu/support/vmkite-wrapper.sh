@@ -57,7 +57,7 @@ export VMKITE_VM_PATH
 export VMKITE_VM_AWS_ACCESS_KEY_ID
 export VMKITE_VM_AWS_SECRET_ACCESS_KEY
 
-exec /usr/local/bin/vmkite \
+exec /usr/local/bin/vmkite run \
   --vm-guest-info "vmkite-buildkite-debug=${VMKITE_BUILDKITE_DEBUG}" \
   --vm-guest-info "aws-access-key-id=${VMKITE_VM_AWS_ACCESS_KEY_ID}" \
   --vm-guest-info "aws-secret-access-key=${VMKITE_VM_AWS_SECRET_ACCESS_KEY}" \
