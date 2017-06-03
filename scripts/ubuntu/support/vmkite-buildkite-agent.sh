@@ -26,11 +26,11 @@ token=$(guestinfo vmkite-buildkite-agent-token)
 debug=$(guestinfo vmkite-buildkite-debug)
 autoshutdown=$(guestinfo vmkite-buildkite-auto-shutdown)
 
+[[ -n $vmdk && -n $name && -n $token ]] || exit 10
+
 if [[ -z $autoshutdown || $autoshutdown =~ (true|1) ]] ; then
   trap cleanup EXIT
 fi
-
-[[ -n $vmdk && -n $name && -n $token ]] || exit 10
 
 aws_access_key_id=$(guestinfo aws-access-key-id)
 aws_secret_access_key=$(guestinfo aws-secret-access-key)
