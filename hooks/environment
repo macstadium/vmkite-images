@@ -4,11 +4,3 @@ set -euo pipefail
 
 echo "~~~ VMKite Stack Information"
 cat /etc/vmkite-info
-
-
-if [[ -n "${BUILDKITE_PLUGINS:-}" ]] ; then
-  echo "Already have $BUILDKITE_PLUGINS"
-fi
-
-export BUILDKITE_PLUGINS='[{"github.com/buildkite-plugins/s3-secrets-buildkite-plugin":{"s3_bucket":"lox-vmkite-test-secrets"}}]'
-echo "$BUILDKITE_PLUGINS"
