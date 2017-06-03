@@ -1,9 +1,6 @@
 #!/bin/bash
 set -eux
 
-# Disable spotlight
-mdutil -a -i off
-
 # Remove stuff
 rm -rf "/Library/Screen Savers"
 rm -rf "/Library/Updates"
