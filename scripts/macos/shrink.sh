@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eux
 
-# Remove stuff
+# Remove un-used stuff
 rm -rf "/Library/Screen Savers"
 rm -rf "/Library/Updates"
 rm -rf "/Library/Desktop Pictures"
@@ -17,6 +17,11 @@ if csrutil status | grep -q disabled; then
     sleep 5
 fi
 rm -rf /private/var/vm/swap*
+
+# Zero out empty space
+slash="$(df -h / | tail -n 1 | awk '{print $1}')"
+echo Zeroing out free space
+diskutil secureErase freespace 0 ${slash}
 
 # Shrink the disk
 /Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
