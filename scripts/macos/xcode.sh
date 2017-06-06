@@ -1,10 +1,12 @@
 #!/bin/bash
 set -euxo pipefail
 
+gem install xcode-install
+
 if [ -z "${XCODE_VERSION:-}" ] ; then
   echo "Must set \$XCODE_VERSION"
   exit 1
 fi
 
-/usr/local/bin/xcversion install "$XCODE_VERSION"
-/usr/local/bin/xcversion cleanup
+xcversion install "$XCODE_VERSION"
+xcversion cleanup

@@ -59,7 +59,6 @@
     },
     {
       "scripts": [
-        "scripts/macos/xcode-cli-tools.sh",
         "scripts/macos/homebrew.sh"
       ],
       "type": "shell"
