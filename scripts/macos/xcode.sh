@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euxo pipefail
 
+echo $PATH
+rbenv versions
+
 gem install xcode-install
 
 if [ -z "${XCODE_VERSION:-}" ] ; then
