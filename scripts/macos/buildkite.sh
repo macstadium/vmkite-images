@@ -24,7 +24,8 @@ install_launchd_daemon() {
 }
 
 install_utils() {
-  brew install awscli jq
+  brew install awscli jq git-lfs
+  git lfs install
 }
 
 install_utils
