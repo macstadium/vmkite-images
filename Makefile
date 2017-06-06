@@ -28,14 +28,14 @@ macos-10.12:
 
 macos-xcode-10.12:
 	packer build $(packer_args) \
-		-var headless=false \
+		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
 		macos-xcode-10.12.json
 
 macos-buildkite-10.12:
 	packer build $(packer_args) \
-		-var headless=false \
+		-var headless=$(headless) \
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
 		macos-buildkite-10.12.json
