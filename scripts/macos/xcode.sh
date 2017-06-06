@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euxo pipefail
 
+export PATH=/usr/local/bin:$PATH
+
 echo $PATH
 rbenv versions
 
