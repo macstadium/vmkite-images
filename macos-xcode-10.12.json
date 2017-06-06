@@ -34,6 +34,7 @@
         "XCODE_VERSION={{user `xcode_version`}}"
       ],
       "scripts": [
+        "scripts/macos/ruby.sh",
         "scripts/macos/xcode.sh"
       ],
       "type": "shell"
