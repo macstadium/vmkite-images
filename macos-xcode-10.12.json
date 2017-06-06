@@ -29,14 +29,10 @@
   "provisioners": [
     {
       "environment_vars": [
-        "HOME_DIR=/Users/vmkite",
-        "USERNAME=vmkite",
-        "PASSWORD=vmkite",
         "FASTLANE_USER={{user `fastlane_user`}}",
         "FASTLANE_PASSWORD={{user `fastlane_password`}}",
         "XCODE_VERSION={{user `xcode_version`}}"
       ],
-      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
         "scripts/macos/xcode.sh"
       ],
