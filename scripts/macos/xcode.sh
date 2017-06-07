@@ -17,5 +17,8 @@ gem env
 gem install xcode-install
 rbenv rehash
 
+ls -alR /Users/vmkite/Library/Caches
+sudo chown -R vmkite: /Users/vmkite/Library/Caches
+
 xcversion install "$XCODE_VERSION"
 xcversion cleanup
