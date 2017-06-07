@@ -3,7 +3,7 @@ set -euo pipefail
 
 export RBENV_ROOT="$HOME/.rbenv"
 export RBENV_PLUGINS="$RBENV_ROOT/plugins"
-export PATH="$RBENV_ROOT/bin:/usr/local/bin/$PATH"
+export PATH="$RBENV_ROOT/bin:/usr/local/bin:$PATH"
 
 echo 'export PATH="~/.rbenv/bin:$PATH"' >> ~/.bash_profile
 echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
