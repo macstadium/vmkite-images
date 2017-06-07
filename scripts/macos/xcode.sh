@@ -1,7 +1,6 @@
 #!/bin/bash
-set -euxo pipefail
-
-export PATH=/usr/local/bin:$PATH
+set -euo pipefail
+source ~/.bash_profile
 
 gem install xcode-install
 
