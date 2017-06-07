@@ -27,9 +27,7 @@ git clone https://github.com/nicknovitski/rbenv-gem-update      $RBENV_PLUGINS/r
 
 /usr/local/bin/brew install openssl libyaml libffi
 
-rbenv update
 rbenv install 2.3.1
 rbenv alias --auto
 rbenv use 2.3.1 --global
 rbenv communize --all
-gem regenerate_binstubs
