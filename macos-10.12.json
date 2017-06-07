@@ -73,9 +73,9 @@
     }
   ],
   "variables": {
-    "cpus": "1",
+    "cpus": "8",
     "disk_size": "40960",
-    "memory": "4096",
+    "memory": "16384",
     "iso_checksum": "d5fd77df525e5e8acf0ed6df52cf39e3f608067124f496a35d07cf99009d03b8",
     "iso_checksum_type": "sha256",
     "iso_url": "https://s3.amazonaws.com/vmkite-osx-images/OSX_InstallESD_10.12.3_16D32.dmg",
