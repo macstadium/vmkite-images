@@ -94,8 +94,9 @@ fi
 
 echo "+++ Building $image"
 make "$image" \
+  "packer_args=-color=false -force" \
   "output_directory=$OUTPUT_DIR" \
-  "source_path=$sourcevmx"
+  "source_path=$sourcevmx" | .buildkite/format-packer.sh
 
 ls -alh "$OUTPUT_DIR"
 vmxfile=$(find_vmx_file "$OUTPUT_DIR")
