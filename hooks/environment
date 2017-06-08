@@ -1,6 +1,12 @@
 #!/bin/bash
-
 set -euo pipefail
+
+export PATH="$HOME/.rbenv/bin:/usr/local/bin:$PATH"
+eval "$(rbenv init -)"
 
 echo "~~~ VMKite Stack Information"
 cat /etc/vmkite-info
+
+echo "~~~ :ruby: Ruby Information"
+rbenv versions
+gem env
