@@ -11,7 +11,7 @@ MIN_FREE_SPACE_KB=$(( MIN_FREE_SPACE_GB * 1024 * 1024 ))
 FREE_SPACE=$(df -k / | tail -n1 | awk '{print $4}')
 
 echo "--- Cleaning up old builds"
-echo "Free space: ${FREE_SPACE} GB"
+echo "Free space: $((FREE_SPACE / 1024 / 1024)) GB"
 
 if [[ $FREE_SPACE -lt $MIN_FREE_SPACE_KB ]] && [[ -d "${OUTPUT_DIR}" ]] ; then
   echo ">> Cleaning up old builds to free up space"
