@@ -3,6 +3,8 @@ headless := true
 packer_args := -force
 output_directory := output
 source_path := false
+cpus := $(shell expr $(shell sysctl -n hw.ncpu) - 1)
+memory := $(shell expr $(shell sysctl hw.memsize | cut -f2 -d' ') / 2 / 1024 / 1024)
 
 validate:
 	packer version
@@ -23,6 +25,8 @@ clean:
 macos-10.12:
 	packer build $(packer_args) \
 		-var headless=$(headless) \
+		-var cpus="$(cpus)" \
+		-var memory="$(memory)" \
 		-var output_directory="$(output_directory)" \
 		macos-10.12.json
 
@@ -47,6 +51,8 @@ ubuntu-16.04:
 	packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var output_directory="$(output_directory)" \
+		-var cpus="$(cpus)" \
+		-var memory="$(memory)" \
 		ubuntu-16.04.json
 
 vmkite:
