@@ -28,7 +28,7 @@ get_hash_path() {
 
   files=( $(files_from_packer_template "$image") )
 
-  echo "--- Finding files to hash" >&2;
+  echo ">> Finding files to hash" >&2;
   printf "%s\n" "${files[@]}"  >&2;
 
   filehash=$(hash_files "${files[@]}")
@@ -45,7 +45,7 @@ upload_vmx() {
   local vmx_path="$1"
   local vm_name; vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
 
-  echo "+++ Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+  echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
   ovftool \
     --acceptAllEulas \
     --name="$vm_name" \
@@ -71,28 +71,29 @@ sourceimage="${2:-}"
 sourcevmx=
 sourcehash=
 
+echo "--- Checking for already build images"
+
 if [[ -n "$sourceimage" ]] ; then
-  echo "--- Finding source image for $sourceimage"
+  echo ">> Finding source image for $sourceimage"
   if ! sourcevmx=$(buildkite-agent meta-data get "vmx-${sourceimage}" ) ; then
     echo "+++ Failed to find source vmx for $sourceimage"
   fi
   sourcehash=$(hash_files "$sourcevmx")
-  echo "--- Found pre-built source $sourcevmx, $sourcehash"
+  echo "Found pre-built source $sourcevmx, $sourcehash"
 fi
 
-echo "--- Checking if image has been built already"
 hashfile="$(get_hash_path "$image" "$sourcehash")"
 echo "$hashfile"
 
 if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
   buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
-  echo "--- Found pre-build image at $vmxfile"
+  echo "+++ Found pre-build image at $vmxfile"
   ls -alh "$(dirname "$vmxfile")"
   exit 0
 fi
 
-echo "+++ Building $image"
+echo "+++ :packer: Building $image"
 make "$image" \
   "packer_args=-color=false -force" \
   "output_directory=$OUTPUT_DIR" \
@@ -103,7 +104,6 @@ vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
 if [[ -n "${VSPHERE_UPLOAD:-}" ]] ; then
-  echo "+++ Uploading $vmxfile to vsphere"
   upload_vmx "$vmxfile"
 fi
 
