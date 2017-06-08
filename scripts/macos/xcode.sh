@@ -7,14 +7,7 @@ if [ -z "${XCODE_VERSION:-}" ] ; then
   exit 1
 fi
 
-echo $PATH
-cat ~/.bash_profile
-eval "$(rbenv init -)"
-rbenv versions
-rbenv rehash
-gem env
-
-gem install xcode-install
+gem install xcode-install cocoapods
 rbenv rehash
 
 ls -alR /Users/vmkite/Library/Caches
@@ -22,3 +15,6 @@ sudo chown -R vmkite: /Users/vmkite/Library/Caches
 
 xcversion install "$XCODE_VERSION"
 xcversion cleanup
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+brew install carthage
