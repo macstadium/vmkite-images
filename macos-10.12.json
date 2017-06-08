@@ -32,19 +32,7 @@
         "numvcpus": "{{ user `cpus` }}",
         "smc.present": "TRUE",
         "usb.present": "TRUE",
-        "ethernet0.virtualDev": "e1000e",
-        "prefvmx.useRecommendedLockedMemSize": "TRUE",
-        "sched.mem.pshare.enable": "FALSE",
-        "MemTrimRate": "0",
-        "MemAllowAutoScaleDown": "FALSE",
-        "prefvmx.minVmMemPct": "100",
-        "snapshot.disabled": "TRUE",
-        "isolation.tools.unity.disable": "TRUE",
-        "unity.allowCompositingInGuest": "FALSE",
-        "unity.enableLaunchMenu": "FALSE",
-        "unity.showBadges": "FALSE",
-        "unity.showBorders": "FALSE",
-        "unity.wasCapable": "FALSE"
+        "ethernet0.virtualDev": "e1000e"
       }
     }
   ],
