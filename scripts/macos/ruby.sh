@@ -12,6 +12,7 @@ source ~/.bash_profile
 
 cat << EOF > "$RBENV_ROOT/default-gems"
 bundler
+rake
 EOF
 
 mkdir -p "$RBENV_PLUGINS"
@@ -26,3 +27,5 @@ rbenv install 2.3.1
 rbenv global 2.3.1
 rbenv communize --all
 rbenv versions
+rbenv rehash
+gem env
