@@ -91,7 +91,7 @@ if [[ -e $hashfile ]] ; then
   exit 0
 fi
 
-echo "+++ :packer: Building $image"
+echo "--- Building $image"
 make "$image" \
   "packer_args=-color=false -force" \
   "output_directory=$OUTPUT_DIR" \
