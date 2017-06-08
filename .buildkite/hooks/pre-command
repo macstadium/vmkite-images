@@ -8,7 +8,7 @@ export VMRUN=/Applications/VMware\ Fusion.app/Contents/Library/vmrun
 
 MIN_FREE_SPACE_GB=30
 MIN_FREE_SPACE_KB=$(( MIN_FREE_SPACE_GB * 1024 * 1024 ))
-FREE_SPACE=$(df -k / | tail -n1 | awk '{print $4}')
+FREE_SPACE=$(df -k "$BUILD_DIR" | tail -n1 | awk '{print $4}')
 
 echo "--- Cleaning up old builds"
 echo "Free space: $((FREE_SPACE / 1024 / 1024)) GB"
