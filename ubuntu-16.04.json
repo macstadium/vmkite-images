@@ -75,7 +75,7 @@
   ],
   "variables": {
     "cpus": "4",
-    "disk_size": "5120",
+    "disk_size": "40960",
     "memory": "8192",
     "headless": "",
     "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
