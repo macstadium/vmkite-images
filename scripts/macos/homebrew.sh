@@ -8,5 +8,7 @@ chmod +x install-homebrew
 ./install-homebrew
 rm install-homebrew
 
+brew tap Homebrew/bundle
+
 # Add homebrew to path
 echo "export PATH=/usr/local/bin:$PATH" >> ~/.bash_profile

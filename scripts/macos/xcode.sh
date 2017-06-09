@@ -17,4 +17,4 @@ xcversion install "$XCODE_VERSION"
 xcversion cleanup
 
 export HOMEBREW_NO_AUTO_UPDATE=1
-brew install carthage
+brew install carthage swiftlint

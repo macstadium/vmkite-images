@@ -6,7 +6,3 @@ eval "$(rbenv init -)"
 
 echo "~~~ VMKite Stack Information"
 cat /etc/vmkite-info
-
-echo "~~~ :ruby: Ruby Information"
-rbenv versions
-gem env

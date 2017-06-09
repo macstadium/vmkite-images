@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if [[ -f ./Brewfile ]] ; then
+    echo "~~~ Checking homebrew dependencies"
+    brew bundle install
+  fi
+fi
