@@ -3,8 +3,8 @@ headless := true
 packer_args := -force
 output_directory := output
 source_path := false
-cpus := $(shell expr $(shell sysctl -n hw.ncpu) - 1)
-memory := $(shell expr $(shell sysctl hw.memsize | cut -f2 -d' ') / 2 / 1024 / 1024)
+cpus := $(shell expr $(shell sysctl -n hw.ncpu) / 2)
+memory := $(shell expr $(shell sysctl hw.memsize | cut -f2 -d' ') / 4 / 1024 / 1024)
 
 validate:
 	packer version
