@@ -46,6 +46,6 @@
     "vm_name": "vmkite-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
     "vnc_bind_address": "127.0.0.1",
-    "bump": "1"
+    "bump": "2"
   }
 }
