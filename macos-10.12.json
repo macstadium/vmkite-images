@@ -21,18 +21,10 @@
       "type": "vmware-iso",
       "vm_name": "{{user `vm_name`}}",
       "vnc_bind_address": "{{user `vnc_bind_address`}}",
+      "vmx_template_path": "./macos-10.12-defaults.vmx",
       "vmx_data": {
-        "cpuid.coresPerSocket": "1",
-        "ehci.present": "TRUE",
-        "firmware": "efi",
-        "hpet0.present": "TRUE",
-        "ich7m.present": "TRUE",
-        "keyboardAndMouseProfile": "macProfile",
         "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}",
-        "smc.present": "TRUE",
-        "usb.present": "TRUE",
-        "ethernet0.virtualDev": "e1000e"
+        "numvcpus": "{{ user `cpus` }}"
       }
     }
   ],
