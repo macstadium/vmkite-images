@@ -55,29 +55,25 @@ upload_vmx() {
     return
   fi
 
-  echo "+++ Importing $vmdk_file to vSphere"
-  govc import.vmdk -ds="/${VSPHERE_DATACENTER}/datastore/${VSPHERE_DATASTORE}" "$vmdk_file" "$vm_name"
+  echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+  ovftool \
+    --acceptAllEulas \
+    --name="$vm_name" \
+    --datastore="$VSPHERE_DATASTORE" \
+    --noSSLVerify=true \
+    --diskMode=thin \
+    --vmFolder=/ \
+    --network="$VSPHERE_NETWORK" \
+    --X:logLevel=verbose \
+    --overwrite \
+    "$vmx_path" \
+    "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 
-  # echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
-  # ovftool \
-  #   --acceptAllEulas \
-  #   --name="$vm_name" \
-  #   --datastore="$VSPHERE_DATASTORE" \
-  #   --noSSLVerify=true \
-  #   --diskMode=thin \
-  #   --vmFolder=/ \
-  #   --network="$VSPHERE_NETWORK" \
-  #   --X:logLevel=verbose \
-  #   --overwrite \
-  #   "$vmx_path" \
-  #   "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
+  echo "--- Creating an initial snapshot for ${vm_name}"
+  govc snapshot.create -vm "$vm_name" -m=false -q=false initial-state
 
-  # echo "--- Marking ${vm_name} as a template"
-  # sleep 5
-  # govc vm.markastemplate "${vm_name}"
-
-  # echo "--- Creating an initial snapshot for ${vm_name}"
-  # govc snapshot.create -vm "$vm_name" -m=false -q=false initial-state
+  echo "--- Marking ${vm_name} as a template"
+  govc vm.markastemplate "${vm_name}"
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
