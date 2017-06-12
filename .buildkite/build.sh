@@ -44,9 +44,10 @@ find_vmx_file() {
 upload_vmx() {
   local vmx_path="$1"
   local vm_name; vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
+  local vm_path="/${VSPHERE_DATACENTER}/vm"
 
-  if govc find "${VSPHERE_DATACENTER}/vm" -name "vm_name" | grep -q "$vm_name" ; then
-    echo "--- Found existing VM at ${VSPHERE_DATACENTER}:/${vm_name}"
+  echo "--- Searching for existing VM's ${VSPHERE_DATACENTER}:/${vm_name}"
+  if govc find "$vm_path" -name "vm_name" | grep "$vm_name" ; then
     return
   fi
 
@@ -65,7 +66,8 @@ upload_vmx() {
     "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 
   echo "--- Marking ${vm_name} as a template"
-  govc vm.markastemplate "$vm_name"
+  sleep 5
+  govc vm.markastemplate "${vm_name}"
 
   echo "--- Creating an initial snapshot for ${vm_name}"
   govc snapshot.create -vm "$vm_name" -m=false -q=false initial-state
