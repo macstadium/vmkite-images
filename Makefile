@@ -63,10 +63,3 @@ ubuntu-buildkite-16.04:
 		-var output_directory="$(output_directory)" \
 		ubuntu-buildkite-16.04.json
 
-ubuntu-nfs-16.04:
-	packer build $(packer_args) \
-		-var headless=$(headless) \
-		-var source_path="$(source_path)" \
-		-var output_directory="$(output_directory)" \
-		ubuntu-nfs-16.04.json
-

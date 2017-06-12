@@ -33,6 +33,7 @@
       ],
       "execute_command": "echo 'vmkite' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
+        "scripts/ubuntu/nfs.sh",
         "scripts/ubuntu/vmkite.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
