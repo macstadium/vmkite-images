@@ -54,3 +54,10 @@ steps:
       VSPHERE_UPLOAD: "1"
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
+
+  - wait
+  - label: ":package: :windows: 2016"
+    command: .buildkite/build.sh windows-2016
+    timeout_in_minutes: 120
+    agents:
+      queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"

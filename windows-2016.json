@@ -1,0 +1,70 @@
+{
+  "builders": [
+    {
+      "vm_name": "{{user `vm_name`}}",
+      "type": "vmware-iso",
+      "boot_wait": "5s",
+      "disk_size": "{{user `disk_size`}}",
+      "floppy_files": [
+        "scripts/windows/2016/Autounattend.xml",
+        "scripts/windows/2016/update-windows.ps1",
+        "scripts/windows/2016/enable-winrm.ps1"
+      ],
+      "guest_os_type": "windows8srv-64",
+      "headless": "{{ user `headless` }}",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "communicator": "winrm",
+      "winrm_username": "{{user `username`}}",
+      "winrm_password": "{{user `password`}}",
+      "winrm_timeout": "4h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "skip_compaction": false,
+      "vmx_data": {
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}",
+        "virtualHW.version": "10",
+        "scsi0.virtualDev": "lsisas1068"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-restart",
+      "restart_timeout": "30m"
+    },
+    {
+      "type": "powershell",
+      "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
+      "scripts": [
+        "enable-rdp.ps1",
+        "guest-tools.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
+      "scripts": [
+        "install-pkgs.ps1",
+        "final-tweaks.ps1",
+        "compact.ps1"
+      ]
+    }
+  ],
+  "variables": {
+    "vm_name": "windows-base-2016.14393-r{{env `BUILDKITE_BUILD_NUMBER`}}",
+    "cpus": "4",
+    "disk_size": "61440",
+    "memory": "8192",
+    "headless": "",
+    "iso_url": "http://care.dlservice.microsoft.com/dl/download/1/6/F/16FA20E6-4662-482A-920B-1A45CF5AAE3C/14393.0.160715-1616.RS1_RELEASE_SERVER_EVAL_X64FRE_EN-US.ISO",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "3BB1C60417E9AEB3F4CE0EB02189C0C84A1C6691",
+    "username": "vagrant",
+    "password": "vagrant"
+  }
+}

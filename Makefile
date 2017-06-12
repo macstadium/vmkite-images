@@ -68,3 +68,14 @@ ubuntu-buildkite-16.04:
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
 		ubuntu-buildkite-16.04.json
+
+# windows images
+# -------------------------------------------------------------
+
+windows-2016:
+	packer build $(packer_args) \
+		-var headless=$(headless) \
+		-var output_directory="$(output_directory)" \
+		-var cpus="$(cpus)" \
+		-var memory="$(memory)" \
+		windows-2016.json
