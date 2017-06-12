@@ -7,13 +7,7 @@ cpus := $(shell expr $(shell sysctl -n hw.ncpu) / 2)
 memory := $(shell expr $(shell sysctl hw.memsize | cut -f2 -d' ') / 4 / 1024 / 1024)
 
 validate:
-	packer version
-	packer validate -syntax-only macos-10.12.json
-	packer validate -syntax-only ubuntu-16.04.json
-	packer validate -syntax-only macos-xcode-10.12.json
-	packer validate -syntax-only macos-buildkite-10.12.json
-	packer validate -syntax-only ubuntu-buildkite-16.04.json
-	packer validate -syntax-only vmkite.json
+	find . -name '*.json' -exec packer validate -syntax-only {} \;
 
 clean:
 	-rm -rf output/
@@ -68,3 +62,4 @@ ubuntu-buildkite-16.04:
 		-var source_path="$(source_path)" \
 		-var output_directory="$(output_directory)" \
 		ubuntu-buildkite-16.04.json
+

@@ -36,6 +36,8 @@ steps:
   - label: ":package: :mac: 10.12"
     command: .buildkite/build.sh macos-10.12
     timeout_in_minutes: 80
+    env:
+      VSPHERE_UPLOAD: "1"
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
 
