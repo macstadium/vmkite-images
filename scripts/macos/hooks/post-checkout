@@ -14,11 +14,5 @@ fi
 echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
 echo VMKITE_API_HOST "${VMKITE_API_TOKEN:-}"
 
-curl -0 -v -X POST "${VMKITE_API_HOST}/snapshot/create" \
--H 'Content-Type: text/json; charset=utf-8' \
--H "Authorization: Bearer ${VMKITE_API_TOKEN}" \
--d @- << EOF
-{
-  "hook": "post-checkout",
-}
-EOF
+curl -X POST "${VMKITE_API_HOST}/snapshot/create" \
+  -H "Authorization: Bearer ${VMKITE_API_TOKEN}"

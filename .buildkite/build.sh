@@ -58,6 +58,12 @@ upload_vmx() {
     --overwrite \
     "$vmx_path" \
     "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
+
+  echo "--- Marking ${vm_name} as a template"
+  govc vm.markastemplate "$vm_name"
+
+  echo "--- Creating an initial snapshot for ${vm_name}"
+  govc snapshot.create -vm "$vm_name" -m=false -q=false initial-state
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
