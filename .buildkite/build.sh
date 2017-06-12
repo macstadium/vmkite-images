@@ -45,6 +45,11 @@ upload_vmx() {
   local vmx_path="$1"
   local vm_name; vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
 
+  if govc find "${VSPHERE_DATACENTER}/vm" -name "vm_name" | grep -q "$vm_name" ; then
+    echo "--- Found existing VM at ${VSPHERE_DATACENTER}:/${vm_name}"
+    return
+  fi
+
   echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
   ovftool \
     --acceptAllEulas \
@@ -93,7 +98,10 @@ if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
   buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
   echo "+++ Found pre-build image at $vmxfile"
-  ls -alh "$(dirname "$vmxfile")"
+
+  if [[ -n "${VSPHERE_UPLOAD:-}" ]]; then
+    upload_vmx "$vmxfile"
+  fi
   exit 0
 fi
 
