@@ -29,7 +29,7 @@
     },
     {
       "destination": "/tmp/buildkite-hooks",
-      "source": "hooks",
+      "source": "scripts/macos/hooks",
       "type": "file"
     },
     {

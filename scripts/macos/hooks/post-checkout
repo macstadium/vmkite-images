@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+
+echo post checkout!
+
+echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
+echo VMKITE_API_HOST "${VMKITE_API_TOKEN:-}"
