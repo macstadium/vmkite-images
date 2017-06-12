@@ -1,7 +1,24 @@
 #!/bin/bash
 set -euo pipefail
 
-echo post checkout!
+if [[ -z $VMKITE_API_HOST ]] ; then
+  echo "Missing VMKITE_API_HOST env"
+  exit 1
+fi
+
+if [[ -z $VMKITE_API_TOKEN ]] ; then
+  echo "Missing VMKITE_API_TOKEN env"
+  exit 1
+fi
 
 echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
 echo VMKITE_API_HOST "${VMKITE_API_TOKEN:-}"
+
+curl -0 -v -X POST "${VMKITE_API_HOST}/snapshot/create" \
+-H 'Content-Type: text/json; charset=utf-8' \
+-H "Authorization: Bearer ${VMKITE_API_TOKEN}" \
+-d @- << EOF
+{
+  "hook": "post-checkout",
+}
+EOF
