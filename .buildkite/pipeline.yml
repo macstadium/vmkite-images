@@ -32,6 +32,14 @@ steps:
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
 
+  - label: ":package: nfs"
+    command: .buildkite/build.sh ubuntu-nfs-16.04 ubuntu-16.04
+    timeout_in_minutes: 40
+    env:
+      VSPHERE_UPLOAD: "1"
+    agents:
+      queue: "${BUILDKITE_AGENT_META_DATA_QUEUE}"
+
   - wait
   - label: ":package: :mac: 10.12"
     command: .buildkite/build.sh macos-10.12

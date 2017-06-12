@@ -26,11 +26,19 @@ name=$(guestinfo vmkite-name)
 token=$(guestinfo vmkite-buildkite-agent-token)
 debug=$(guestinfo vmkite-buildkite-debug)
 autoshutdown=$(guestinfo vmkite-buildkite-auto-shutdown)
+nfs_host=$(guestinfo vmkite-nfs-host)
+nfs_mount_point=$(guestinfo vmkite-nfs-mount-point "/var/nfs")
 
 [[ -n $vmdk && -n $name && -n $token ]] || exit 10
 
 if [[ -z $autoshutdown || $autoshutdown =~ (true|1) ]] ; then
   trap cleanup EXIT
+fi
+
+if [[ -n "$nfs_host" ]] ; then
+  echo "--- Mounting NFS server at $nfs_host"
+  mkdir -p /mnt/nfs
+  mount_nfs -o resvport "${nfs_host}:${nfs_mount_point}" /mnt/nfs
 fi
 
 aws_access_key_id=$(guestinfo aws-access-key-id)
