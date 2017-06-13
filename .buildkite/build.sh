@@ -61,7 +61,8 @@ upload_vmx() {
     --name="$vm_name" \
     --datastore="$VSPHERE_DATASTORE" \
     --noSSLVerify=true \
-    --diskMode=thin \
+    --diskMode=thick \
+    --compress=9 \
     --vmFolder=/ \
     --network="$VSPHERE_NETWORK" \
     --X:logLevel=verbose \
