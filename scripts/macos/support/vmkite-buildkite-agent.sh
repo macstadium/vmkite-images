@@ -14,14 +14,14 @@ guestinfo() {
     --cmd "info-get $key" 2>/dev/null ) || echo "$default"
 }
 
-vmdk=$(guestinfo vmkite-vmdk)
+template=$(guestinfo vmkite-template)
 name=$(guestinfo vmkite-name)
 token=$(guestinfo vmkite-buildkite-agent-token)
 queue=$(guestinfo vmkite-queue "vmkite")
 debug=$(guestinfo vmkite-buildkite-debug "")
 auto_shutdown=$(guestinfo vmkite-buildkite-auto-shutdown "true")
 
-[[ -n $vmdk && -n $name && -n $token ]] || exit 10
+[[ -n $template && -n $name && -n $token ]] || exit 10
 [[ -z $auto_shutdown || $auto_shutdown =~ (true|1) ]] && trap "shutdown -h now" EXIT
 
 export AWS_ACCESS_KEY_ID=$(guestinfo aws-access-key-id)
@@ -31,7 +31,7 @@ export VMKITE_API_TOKEN=$(guestinfo vmkite-api-token)
 
 export BUILDKITE_AGENT_TOKEN="$token"
 export BUILDKITE_AGENT_NAME="$name"
-export BUILDKITE_AGENT_META_DATA="queue=$queue,vmkite-vmdk=$vmdk,vmkite-guestid=darwin13_64Guest"
+export BUILDKITE_AGENT_META_DATA="queue=$queue,vmkite-template=$template"
 export BUILDKITE_AGENT_DEBUG="$debug"
 
 su vmkite -c "/usr/local/bin/buildkite-agent start --disconnect-after-job"
