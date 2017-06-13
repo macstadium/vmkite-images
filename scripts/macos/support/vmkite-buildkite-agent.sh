@@ -4,8 +4,6 @@ set -e
 set -o pipefail
 set -u
 
-exec > /var/log/vmkite-buildkite-agent.log 2>&1
-
 guestinfo() {
   local key="guestinfo.$1"
   local default="${2:-}"
