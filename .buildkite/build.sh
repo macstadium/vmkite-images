@@ -71,9 +71,6 @@ upload_vmx() {
 
   echo "--- Creating an initial snapshot for ${vm_name}"
   govc snapshot.create -vm "$vm_name" -m=false -q=false initial-state
-
-  echo "--- Marking ${vm_name} as a template"
-  govc vm.markastemplate "${vm_name}"
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
