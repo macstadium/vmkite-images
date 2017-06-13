@@ -4,7 +4,7 @@ packer_args := -force
 output_directory := output
 source_path := false
 cpus := $(shell expr $(shell sysctl -n hw.ncpu) / 2)
-memory := $(shell expr $(shell sysctl hw.memsize | cut -f2 -d' ') / 4 / 1024 / 1024)
+memory := 4096
 
 validate:
 	packer version
