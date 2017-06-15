@@ -1,19 +1,13 @@
 #!/bin/bash
 set -eux
 
-export GOPATH=$HOME/go
-
-install_golang() {
-  sudo add-apt-repository ppa:longsleep/golang-backports
-  sudo apt-get update
-  sudo apt-get install -y golang-go
-}
+VMKITE_VERSION="v1.3.0"
 
 install_vmkite() {
   echo "Installing vmkite"
-  mkdir -p "$HOME/go"
+  curl -Lfs -o vmkite https://github.com/macstadium/vmkite/releases/download/${VMKITE_VERSION}/vmkite_darwin_amd64
   go get -v github.com/macstadium/vmkite
-  sudo ln -snf "$HOME/go/bin/vmkite" /usr/local/bin/
+  sudo mv vmkite /usr/local/bin/vmkite
 }
 
 install_service() {
@@ -23,6 +17,5 @@ install_service() {
   sudo systemctl enable vmkite
 }
 
-install_golang
 install_vmkite
 install_service
