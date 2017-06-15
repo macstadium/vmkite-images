@@ -11,7 +11,11 @@
       "vnc_bind_address": "{{ user `vnc_bind_address` }}",
       "output_directory": "{{ user `output_directory` }}",
       "vmx_data": {
-        "ethernet0.virtualDev": "e1000e",
+        "cpuid.coresPerSocket": "1",
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
+      },
+      "vmx_data_post": {
         "scsi0:0.mode": "independent-nonpersistent"
       }
     }
@@ -41,11 +45,12 @@
     }
   ],
   "variables": {
+    "cpus": "2",
+    "memory": "1024",
     "headless": "",
     "source_path": "",
     "vm_name": "vmkite-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
-    "vnc_bind_address": "127.0.0.1",
-    "bump": "2"
+    "vnc_bind_address": "127.0.0.1"
   }
 }
