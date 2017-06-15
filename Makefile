@@ -6,7 +6,7 @@ source_path := false
 
 validate:
 	packer version
-	find . -name '*.json' -exec packer validate -syntax-only {} \;
+	find . -name '*.json' -print0 | xargs -n1 -0 packer validate -syntax-only
 
 clean:
 	-rm -rf output/

@@ -13,7 +13,7 @@
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
         "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}",
+        "numvcpus": "{{ user `cpus` }}"
       },
       "vmx_data_post": {
         "scsi0:0.mode": "independent-nonpersistent"
