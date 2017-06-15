@@ -6,7 +6,6 @@ VMKITE_VERSION="v1.3.0"
 install_vmkite() {
   echo "Installing vmkite"
   curl -Lfs -o vmkite https://github.com/macstadium/vmkite/releases/download/${VMKITE_VERSION}/vmkite_darwin_amd64
-  go get -v github.com/macstadium/vmkite
   sudo mv vmkite /usr/local/bin/vmkite
 }
 
