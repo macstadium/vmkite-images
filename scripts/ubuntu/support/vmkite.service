@@ -5,11 +5,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-Type=forking
 ExecStart=/usr/local/bin/vmkite-wrapper
-TimeoutSec=0
-RemainAfterExit=yes
-SysVStartPriority=99
 
 [Install]
 WantedBy=multi-user.target
