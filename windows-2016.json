@@ -10,7 +10,8 @@
         "scripts/windows/2016/update-windows.ps1",
         "scripts/windows/2016/enable-winrm.ps1"
       ],
-      "guest_os_type": "windows8srv-64",
+      "guest_os_type": "Windows10_64",
+      "tools_upload_flavor": "windows",
       "headless": "{{ user `headless` }}",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -36,7 +37,6 @@
     },
     {
       "type": "powershell",
-      "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
       "scripts": [
         "scripts/windows/2016/enable-rdp.ps1",
         "scripts/windows/2016/guest-tools.ps1"
@@ -47,7 +47,6 @@
     },
     {
       "type": "powershell",
-      "execute_command": "powershell -ExecutionPolicy Bypass \"& { {{.Vars}}{{.Path}}; exit $LastExitCode}\"",
       "scripts": [
         "scripts/windows/2016/install-pkgs.ps1",
         "scripts/windows/2016/final-tweaks.ps1",

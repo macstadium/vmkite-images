@@ -73,7 +73,7 @@ ubuntu-buildkite-16.04:
 # -------------------------------------------------------------
 
 windows-2016:
-	packer build $(packer_args) \
+	PACKER_LOG=1 packer build $(packer_args) \
 		-var headless=$(headless) \
 		-var output_directory="$(output_directory)" \
 		-var cpus="$(cpus)" \
