@@ -93,6 +93,7 @@ fi
 
 echo "--- Building $image"
 make "$image" \
+  "headless=${HEADLESS:-true}"\
   "packer_args=-color=false -force" \
   "output_directory=$OUTPUT_DIR" \
   "source_path=$sourcevmx" | .buildkite/format-packer.sh
