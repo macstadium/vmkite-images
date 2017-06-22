@@ -37,6 +37,7 @@ VMKITE_VSPHERE_HOST="$(guestinfo vmkite-vsphere-host)"
 VMKITE_VSPHERE_INSECURE="$(guestinfo vmkite-vsphere-insecure 'true')"
 VMKITE_VSPHERE_PASS="$(guestinfo vmkite-vsphere-pass)"
 VMKITE_VSPHERE_USER="$(guestinfo vmkite-vsphere-user)"
+VMKITE_CONCURRENCY="$(guestinfo vmkite-concurrency 6)"
 VMKITE_VERSION="$(/usr/local/bin/vmkite --version)"
 
 export VMKITE_VSPHERE_HOST
@@ -57,6 +58,7 @@ export VMKITE_VM_NUM_CPUS
 export VMKITE_VM_PATH
 export VMKITE_VM_AWS_ACCESS_KEY_ID
 export VMKITE_VM_AWS_SECRET_ACCESS_KEY
+export VMKITE_CONCURRENCY
 
 exec /usr/local/bin/vmkite run \
   --vm-guest-info "vmkite-version=${VMKITE_VERSION}" \
