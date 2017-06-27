@@ -33,10 +33,13 @@
     },
     {
       "environment_vars": [
-        "HOME_DIR=/home/vmkite"
+        "HOME_DIR=/home/vmkite",
+        "PAPERTRAIL_TOKEN={{user `papertrail_token`}}",
+        "PAPERTRAIL_SETUP_SCRIPT={{user `papertrail_setup_script`}}"
       ],
       "execute_command": "echo 'vmkite' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
+        "scripts/ubuntu/papertrail.sh",
         "scripts/ubuntu/vmkite.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
@@ -52,6 +55,7 @@
     "vm_name": "vmkite-r{{env `BUILDKITE_BUILD_NUMBER`}}",
     "output_directory": "output",
     "vnc_bind_address": "127.0.0.1",
-    "bump": ""
+    "papertrail_token": "{{env `PAPERTRAIL_TOKEN`}}",
+    "papertrail_setup_script": "{{env `PAPERTRAIL_SETUP_SCRIPT`}}"
   }
 }
