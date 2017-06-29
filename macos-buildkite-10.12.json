@@ -33,6 +33,11 @@
       "type": "file"
     },
     {
+      "destination": "/Users/vmkite/vmfork-quiesce.sh",
+      "source": "scripts/macos/support/vmfork-quiesce.sh",
+      "type": "file"
+    },
+    {
       "destination": "/tmp/buildkite-hooks",
       "source": "hooks",
       "type": "file"
@@ -48,6 +53,13 @@
       "scripts": [
         "scripts/macos/papertrail.sh",
         "scripts/macos/buildkite.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "scripts/macos/vmfork.sh"
       ],
       "type": "shell"
     }
