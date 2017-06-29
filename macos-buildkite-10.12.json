@@ -55,13 +55,6 @@
         "scripts/macos/buildkite.sh"
       ],
       "type": "shell"
-    },
-    {
-      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
-      "scripts": [
-        "scripts/macos/vmfork.sh"
-      ],
-      "type": "shell"
     }
   ],
   "variables": {
