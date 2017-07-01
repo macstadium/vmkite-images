@@ -36,9 +36,12 @@
       "environment_vars": [
         "BUILDKITE_BUILD_NUMBER={{user `buildkite_build_number`}}",
         "BUILDKITE_BRANCH={{user `buildkite_branch`}}",
-        "BUILDKITE_COMMIT={{user `buildkite_commit`}}"
+        "BUILDKITE_COMMIT={{user `buildkite_commit`}}",
+        "PAPERTRAIL_TOKEN={{user `papertrail_token`}}",
+        "PAPERTRAIL_SETUP_SCRIPT={{user `papertrail_setup_script`}}"
       ],
       "scripts": [
+        "scripts/macos/papertrail.sh",
         "scripts/macos/buildkite.sh"
       ],
       "type": "shell"
@@ -52,6 +55,8 @@
     "vnc_bind_address": "0.0.0.0",
     "buildkite_build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "buildkite_branch": "{{env `BUILDKITE_BRANCH`}}",
-    "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}"
+    "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}",
+    "papertrail_token": "{{env `PAPERTRAIL_TOKEN`}}",
+    "papertrail_setup_script": "{{env `PAPERTRAIL_SETUP_SCRIPT`}}"
   }
 }
