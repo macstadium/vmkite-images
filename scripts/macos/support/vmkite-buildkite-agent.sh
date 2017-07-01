@@ -4,6 +4,9 @@ set -e
 set -o pipefail
 set -u
 
+exec 1> >(logger -s -t "$(basename "$0")" 2>&1)
+exec 2> >(logger -s -t "$(basename "$0")")
+
 guestinfo() {
   local key="guestinfo.$1"
   local tool="/Library/Application Support/VMware Tools/vmware-tools-daemon"
