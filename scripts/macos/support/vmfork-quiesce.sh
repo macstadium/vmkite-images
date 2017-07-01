@@ -1,17 +1,16 @@
 #!/bin/bash
-set -e
+set -ex
+
+exec 1> >(logger -s -t "$(basename "$0")" 2>&1)
+exec 2> >(logger -s -t "$(basename "$0")")
 
 vmware-rpctool() {
   /Library/Application\ Support/VMware\ Tools/vmware-tools-daemon --cmd "$1"
 }
 
-vmware-log() {
-  vmware-rpctool "log ${1}"
-}
-
 customize-child-vm() {
   # We're in the child now. Let's Perform basic customization.
-  vmware-log "End of fork; begin customization"
+  echo "End of fork; begin customization"
   mac_address=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
 
   # Bring back up ethernet
@@ -40,10 +39,10 @@ customize-child-vm() {
   # PS1="[\d \t \u@\h:\w ] $ "
   # sed -i "s/$oldname/$newname/g" /etc/hosts
 
-  vmware-log "End of customization"
+  echo "End of customization"
 }
 
-vmware-log "Downing network"
+echog "Downing network"
 ifconfig en0 down
 
 if vmware-rpctool "vmfork-begin -1 -1" > /dev/null ; then
