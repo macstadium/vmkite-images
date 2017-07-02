@@ -4,6 +4,9 @@ set -e
 set -o pipefail
 set -u
 
+exec 1>>/var/log/vmkite-buildkite-agent.log
+exec 2>>/var/log/vmkite-buildkite-agent.log
+
 exec 1> >(logger -s -t "$(basename "$0")" 2>&1)
 exec 2> >(logger -s -t "$(basename "$0")")
 

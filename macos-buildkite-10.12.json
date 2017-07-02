@@ -23,6 +23,11 @@
       "type": "file"
     },
     {
+      "destination": "/Users/vmkite/com.papertrailapp.remote_syslog.plist",
+      "source": "scripts/macos/support/com.papertrailapp.remote_syslog.plist",
+      "type": "file"
+    },
+    {
       "destination": "/Users/vmkite/vmkite-buildkite-agent.sh",
       "source": "scripts/macos/support/vmkite-buildkite-agent.sh",
       "type": "file"
@@ -37,7 +42,8 @@
         "BUILDKITE_BUILD_NUMBER={{user `buildkite_build_number`}}",
         "BUILDKITE_BRANCH={{user `buildkite_branch`}}",
         "BUILDKITE_COMMIT={{user `buildkite_commit`}}",
-        "PAPERTRAIL_SYSLOG_DESTINATION={{user `papertrail_syslog_destination`}}"
+        "PAPERTRAIL_HOST={{user `papertrail_host`}}",
+        "PAPERTRAIL_PORT={{user `papertrail_port`}}"
       ],
       "scripts": [
         "scripts/macos/papertrail.sh",
@@ -55,6 +61,7 @@
     "buildkite_build_number": "{{env `BUILDKITE_BUILD_NUMBER`}}",
     "buildkite_branch": "{{env `BUILDKITE_BRANCH`}}",
     "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}",
-    "papertrail_syslog_destination": "{{env `PAPERTRAIL_SYSLOG_DESTINATION`}}"
+    "papertrail_host": "{{env `PAPERTRAIL_HOST`}}",
+    "papertrail_port": "{{env `PAPERTRAIL_PORT`}}"
   }
 }
