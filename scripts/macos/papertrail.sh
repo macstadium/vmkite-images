@@ -19,7 +19,7 @@ install_launchd_daemon() {
   sudo launchctl load "/Library/LaunchDaemons/$plist"
 }
 
-cat << EOF > /etc/log_files.yml
+sudo tee /etc/log_files.yml > /dev/null << EOF
 files:
  - /var/log/system.log
  - /usr/local/var/log/buildkite-agent.log
