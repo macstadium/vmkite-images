@@ -50,7 +50,6 @@
       ],
       "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
       "scripts": [
-        "scripts/macos/computer-name.sh",
         "scripts/macos/vmware.sh",
         "scripts/macos/add-network-interface-detection.sh",
         "scripts/macos/autologin.sh"
