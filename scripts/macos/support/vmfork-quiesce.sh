@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ex
 
-exec 1> >(logger -s -t "$(basename "$0")" 2>&1)
-exec 2> >(logger -s -t "$(basename "$0")")
+exec 1>>/var/log/vmfork.log
+exec 2>>/var/log/vmfork.log
 
 vmware-rpctool() {
   /Library/Application\ Support/VMware\ Tools/vmware-tools-daemon --cmd "$1"
@@ -42,7 +42,7 @@ customize-child-vm() {
   echo "End of customization"
 }
 
-echog "Downing network"
+echo "Downing network"
 ifconfig en0 down
 
 if vmware-rpctool "vmfork-begin -1 -1" > /dev/null ; then
