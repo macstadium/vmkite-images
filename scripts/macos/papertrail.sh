@@ -9,7 +9,7 @@ install_remote_syslog2() {
   curl -Lfs -o remote_syslog2.tar.gz https://github.com/papertrail/remote_syslog2/releases/download/${REMOTE_SYSLOG_VERSION}/remote_syslog_darwin_amd64.tar.gz
   tar xzvf remote_syslog2.tar.gz
   chmod +x remote_syslog/remote_syslog
-  sudo mv remote_syslog /usr/local/bin/remote_syslog
+  sudo mv remote_syslog/remote_syslog /usr/local/bin/remote_syslog
   rm -rf remote_syslog
 }
 
