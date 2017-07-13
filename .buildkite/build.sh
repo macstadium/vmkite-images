@@ -51,7 +51,7 @@ upload_vmx() {
     --name="$vm_name" \
     --datastore="$VSPHERE_DATASTORE" \
     --noSSLVerify=true \
-    --diskMode=thin \
+    --diskMode=thick \
     --vmFolder=/ \
     --network="$VSPHERE_NETWORK" \
     --X:logLevel=verbose \
@@ -85,7 +85,7 @@ echo "$hashfile"
 
 if [[ -e $hashfile ]] ; then
   vmxfile=$(find_vmx_file "$(readlink "$hashfile")")
-  if [[ -n "$vmxfile" ]] ; then 
+  if [[ -n "$vmxfile" ]] ; then
     buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
     echo "+++ Found pre-build image at $vmxfile"
     ls -alh "$(dirname "$vmxfile")"
