@@ -52,6 +52,7 @@
       "scripts": [
         "scripts/macos/vmware.sh",
         "scripts/macos/add-network-interface-detection.sh",
+        "scripts/macos/hostname.sh",
         "scripts/macos/autologin.sh"
       ],
       "type": "shell"
