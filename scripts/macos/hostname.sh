@@ -23,5 +23,5 @@ EOF
 mkdir -p /usr/local/bin
 cp /private/tmp/set-random-hostname.sh /usr/local/bin/set-random-hostname
 
-/bin/chmod 644 "${PLIST}" /usr/local/bin/set-random-hostname
-/usr/sbin/chown root:wheel "${PLIST}" /usr/local/bin/set-random-hostname
+/bin/chmod 644 "${PLIST}"
+/bin/chmod 755 /usr/local/bin/set-random-hostname
