@@ -22,11 +22,10 @@ cat <<EOF > "${PLIST}"
 EOF
 
 # This script sets a random hostname
-cat <<EOF > /usr/local/bin/set-random-hostname
+cat <<-EOF > /usr/local/bin/set-random-hostname
 #!/bin/bash
 set -eu
-RANDOMWORDS=$(sed "$(perl -e "print int rand(99999)")q;d" /usr/share/dict/words | awk '{print tolower($0)}')
-scutil –-set HostName "vmkite-${RANDOMWORDS}"
+scutil –-set HostName "$(sed "$(perl -e "print int rand(99999)")q;d" /usr/share/dict/words | awk '{print tolower($0)}')"
 EOF
 
 /bin/chmod 644 "${PLIST}" "/usr/local/bin/set-random-hostname"
