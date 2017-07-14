@@ -21,7 +21,7 @@ cat << EOF > "${PLIST}"
 EOF
 
 # This script sets a random hostname
-SCRIPT=/usr/local/bin/set-random-hostname
+SCRIPT=/usr/bin/set-random-hostname
 cat << 'SCRIPT_EOF' > "${SCRIPT}"
 #!/bin/bash
 set -eu
