@@ -44,7 +44,6 @@ find_vmx_file() {
 upload_to_vsphere() {
   local vmx_path="$1"
   local vm_name; vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
-  local vmx_dir; vmx_dir=$(dirname "$vmx_path")
 
   export GOVC_URL=${VSPHERE_HOST}
   export GOVC_USERNAME=${VSPHERE_USERNAME}
@@ -53,21 +52,23 @@ upload_to_vsphere() {
   export GOVC_DEBUG=1
   export GOVC_DATASTORE=${VSPHERE_DATASTORE}
 
-  echo "--- Uploading to ${VSPHERE_DATACENTER}:/${VSPHERE_DATASTORE}/${vm_name}"
-  govc datastore.upload "${vmx_dir}"/*.vmdk "${vm_name}/disk.vmdk"
+  echo "--- Uploading ${vmx_path} to ${VSPHERE_DATACENTER}:/${vm_name}"
+  ovftool \
+    --acceptAllEulas \
+    --name="$vm_name" \
+    --datastore="$VSPHERE_DATASTORE" \
+    --noSSLVerify=true \
+    --diskMode=thick \
+    --vmFolder=/ \
+    --network="$VSPHERE_NETWORK" \
+    --X:logLevel=verbose \
+    --overwrite \
+    "$vmx_path" \
+    "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 
-  # ovftool \
-  #   --acceptAllEulas \
-  #   --name="$vm_name" \
-  #   --datastore="$VSPHERE_DATASTORE" \
-  #   --noSSLVerify=true \
-  #   --diskMode=thick \
-  #   --vmFolder=/ \
-  #   --network="$VSPHERE_NETWORK" \
-  #   --X:logLevel=verbose \
-  #   --overwrite \
-  #   "$vmx_path" \
-  #   "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
+  echo "--- Marking ${vm_name} as a template"
+  govc vm.markastemplate "$vm_name"
+
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
