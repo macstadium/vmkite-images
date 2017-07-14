@@ -53,8 +53,9 @@ upload_to_vsphere() {
   export GOVC_DEBUG=1
   export GOVC_DATASTORE=${VSPHERE_DATASTORE}
 
+  echo "--- Uploading to ${VSPHERE_DATACENTER}:/${VSPHERE_DATASTORE}/${vm_name}"
   govc datastore.upload "${vmx_dir}"/*.vmdk "${vm_name}/disk.vmdk"
-  # echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+
   # ovftool \
   #   --acceptAllEulas \
   #   --name="$vm_name" \
