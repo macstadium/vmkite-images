@@ -41,23 +41,32 @@ find_vmx_file() {
   find "$1" -iname '*.vmx' | head -n1
 }
 
-upload_vmx() {
+upload_to_vsphere() {
   local vmx_path="$1"
   local vm_name; vm_name=$(basename "$vmx_path" | sed 's/\.vmx//')
+  local vmx_dir; vmx_dir=$(dirname "$vmx_path")
 
-  echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
-  ovftool \
-    --acceptAllEulas \
-    --name="$vm_name" \
-    --datastore="$VSPHERE_DATASTORE" \
-    --noSSLVerify=true \
-    --diskMode=thick \
-    --vmFolder=/ \
-    --network="$VSPHERE_NETWORK" \
-    --X:logLevel=verbose \
-    --overwrite \
-    "$vmx_path" \
-    "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
+  export GOVC_URL=${VSPHERE_HOST}
+  export GOVC_USERNAME=${VSPHERE_USERNAME}
+  export GOVC_PASSWORD=${VSPHERE_PASSWORD}
+  export GOVC_INSECURE=1
+  export GOVC_DEBUG=1
+  export GOVC_DATASTORE=${VSPHERE_DATASTORE}
+
+  govc datastore.upload "${vmx_dir}"/*.vmdk "${vm_name}/disk.vmdk"
+  # echo "--- Uploading $vmx_path to ${VSPHERE_DATACENTER}:/${vm_name}"
+  # ovftool \
+  #   --acceptAllEulas \
+  #   --name="$vm_name" \
+  #   --datastore="$VSPHERE_DATASTORE" \
+  #   --noSSLVerify=true \
+  #   --diskMode=thick \
+  #   --vmFolder=/ \
+  #   --network="$VSPHERE_NETWORK" \
+  #   --X:logLevel=verbose \
+  #   --overwrite \
+  #   "$vmx_path" \
+  #   "vi://${VSPHERE_USERNAME}:${VSPHERE_PASSWORD}@${VSPHERE_HOST}/${VSPHERE_DATACENTER}/host/${VSPHERE_CLUSTER}"
 }
 
 export BUILD_DIR=${BUILD_DIR:-/tmp/vmkite-images}
@@ -105,7 +114,7 @@ vmxfile=$(find_vmx_file "$OUTPUT_DIR")
 buildkite-agent meta-data set "vmx-${image}" "$vmxfile"
 
 if [[ -n "${VSPHERE_UPLOAD:-}" ]] ; then
-  upload_vmx "$vmxfile"
+  upload_to_vsphere "$vmxfile"
 fi
 
 if [[ -n "$hashfile" ]] ; then
