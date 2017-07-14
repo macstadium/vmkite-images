@@ -62,6 +62,7 @@
     "buildkite_branch": "{{env `BUILDKITE_BRANCH`}}",
     "buildkite_commit": "{{env `BUILDKITE_COMMIT`}}",
     "papertrail_host": "{{env `PAPERTRAIL_HOST`}}",
-    "papertrail_port": "{{env `PAPERTRAIL_PORT`}}"
+    "papertrail_port": "{{env `PAPERTRAIL_PORT`}}",
+    "bump": ""
   }
 }
