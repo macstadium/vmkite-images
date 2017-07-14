@@ -56,6 +56,7 @@
     "output_directory": "output",
     "vnc_bind_address": "127.0.0.1",
     "papertrail_token": "{{env `PAPERTRAIL_TOKEN`}}",
-    "papertrail_setup_script": "{{env `PAPERTRAIL_SETUP_SCRIPT`}}"
+    "papertrail_setup_script": "{{env `PAPERTRAIL_SETUP_SCRIPT`}}",
+    "bump": ""
   }
 }
