@@ -38,6 +38,11 @@
   ],
   "provisioners": [
     {
+      "destination": "/private/tmp/set-random-hostname.sh",
+      "source": "scripts/macos/support/set-random-hostname.sh",
+      "type": "file"
+    },
+    {
       "destination": "/private/tmp/set_kcpassword.py",
       "source": "scripts/macos/support/set_kcpassword.py",
       "type": "file"
