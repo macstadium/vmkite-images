@@ -32,6 +32,7 @@ destination:
   protocol: tls
 EOF
 
+sudo mkdir -p /usr/local/bin
 sudo mv /private/tmp/start-papertrail.sh /usr/local/bin/start-papertrail
 sudo chmod 755 /usr/local/bin/start-papertrail
 
