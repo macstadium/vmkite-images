@@ -32,6 +32,9 @@ destination:
   protocol: tls
 EOF
 
+sudo mv /private/tmp/start-papertrail.sh /usr/local/bin/start-papertrail
+sudo chmod 755 /usr/local/bin/start-papertrail
+
 if [ -n "${PAPERTRAIL_HOST}" ] || [ -n "${PAPERTRAIL_HOST}" ] ; then
   install_remote_syslog2
   install_launchd_daemon

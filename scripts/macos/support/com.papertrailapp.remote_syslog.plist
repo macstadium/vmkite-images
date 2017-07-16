@@ -13,8 +13,7 @@
     <string>root</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/usr/local/bin/remote_syslog</string>
-      <string>-D</string>
+      <string>/usr/local/bin/start-papertrail</string>
     </array>
   </dict>
 </plist>
