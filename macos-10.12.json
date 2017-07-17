@@ -38,11 +38,6 @@
   ],
   "provisioners": [
     {
-      "destination": "/private/tmp/start-papertrail.sh",
-      "source": "scripts/macos/support/start-papertrail.sh",
-      "type": "file"
-    },
-    {
       "destination": "/private/tmp/set_kcpassword.py",
       "source": "scripts/macos/support/set_kcpassword.py",
       "type": "file"

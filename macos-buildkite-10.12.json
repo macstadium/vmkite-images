@@ -18,6 +18,11 @@
   ],
   "provisioners": [
     {
+      "destination": "/private/tmp/start-papertrail.sh",
+      "source": "scripts/macos/support/start-papertrail.sh",
+      "type": "file"
+    },
+    {
       "destination": "/Users/vmkite/com.macstadium.vmkite-buildkite-agent.plist",
       "source": "scripts/macos/support/com.macstadium.vmkite-buildkite-agent.plist",
       "type": "file"
