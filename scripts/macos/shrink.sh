@@ -24,4 +24,4 @@ echo Zeroing out free space
 diskutil secureErase freespace 0 ${slash}
 
 # Shrink the disk
-/Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
+#/Library/Application\ Support/VMware\ Tools/vmware-tools-cli disk shrink /
