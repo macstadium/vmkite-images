@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 
 # Remove un-used stuff
 rm -rf "/Library/Screen Savers"
