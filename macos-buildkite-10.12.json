@@ -55,6 +55,13 @@
         "scripts/macos/buildkite.sh"
       ],
       "type": "shell"
+    },
+    {
+      "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}",
+      "scripts": [
+        "scripts/macos/disable-spotlight.sh"
+      ],
+      "type": "shell"
     }
   ],
   "variables": {
