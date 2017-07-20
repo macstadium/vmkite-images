@@ -8,22 +8,32 @@ export VMRUN=/Applications/VMware\ Fusion.app/Contents/Library/vmrun
 
 MIN_FREE_SPACE_GB=30
 MIN_FREE_SPACE_KB=$(( MIN_FREE_SPACE_GB * 1024 * 1024 ))
-FREE_SPACE=$(df -k "$BUILD_DIR" | tail -n1 | awk '{print $4}')
+
+free_space() {
+  df -k "$BUILD_DIR" | tail -n1 | awk '{print $4}'
+}
+
+is_enough_free_space() {
+  [[ $(free_space) -lt $MIN_FREE_SPACE_KB ]]
+}
 
 echo "--- Cleaning up old builds"
-echo "Free space: $((FREE_SPACE / 1024 / 1024)) GB"
+echo "Free space: $(($(free_space) / 1024 / 1024)) GB"
 
-if [[ $FREE_SPACE -lt $MIN_FREE_SPACE_KB ]] && [[ -d "${OUTPUT_DIR}" ]] ; then
+if ! is_enough_free_space && [[ -d "${OUTPUT_DIR}" ]] ; then
   echo ">> Cleaning up old builds to free up space"
   for f in $(find "${OUTPUT_DIR}" -type f -print0 | xargs -0 ls -lt -1) ; do
-    dirname "$f"
+    [[ -f "$f" ]] && rm -rf "$(dirname "$f")"
   done
 
-  # find "${OUTPUT_DIR}" -type d -mtime +1 -print -exec rm -rf {} \;
-  # find -L "${HASHES_DIR}" -type l -print -delete
+  echo ">> Cleaning up broken hashes"
+  find -L "${HASHES_DIR}" -type l -print -delete
 fi
 
-exit 1
+if ! is_enough_free_space ; then
+  echo "+++ :warning: Not enough free disk space to proceed!"
+  exit 2
+fi
 
 for vmx in $("$VMRUN" list | tail -n +2) ; do
   echo ">> Deleting running VM ($vmx)"
