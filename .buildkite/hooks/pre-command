@@ -20,20 +20,6 @@ is_enough_free_space() {
 echo "--- Cleaning up old builds"
 echo "Free space: $(($(free_space) / 1024 / 1024)) GB"
 
-if ! is_enough_free_space && [[ -d "${OUTPUT_DIR}" ]] ; then
-  echo ">> Cleaning up old builds to free up space"
-  for f in $(find "${OUTPUT_DIR}" -type f -print0 | xargs -0 ls -lt -1) ; do
-    [[ -f "$f" ]] && rm -rf "$(dirname "$f")"
-
-    if is_enough_free_space ; then
-      break
-    fi
-  done
-
-  echo ">> Cleaning up broken hashes"
-  find -L "${HASHES_DIR}" -name . -o -type d -prune -o -type l -exec rm {} +
-fi
-
 for vmx in $("$VMRUN" list | tail -n +2) ; do
   echo ">> Deleting running VM ($vmx)"
   if [[ -f $vmx ]] ; then
@@ -48,6 +34,20 @@ for vmx in $("$VMRUN" list | tail -n +2) ; do
     pkill -f "$vmx"
   fi
 done
+
+if ! is_enough_free_space && [[ -d "${OUTPUT_DIR}" ]] ; then
+  echo ">> Cleaning up old builds to free up space"
+  for f in $(find "${OUTPUT_DIR}" -type f -print0 | xargs -0 ls -lt -1) ; do
+    [[ -f "$f" ]] && rm -rf "$(dirname "$f")"
+
+    if is_enough_free_space ; then
+      break
+    fi
+  done
+
+  echo ">> Cleaning up broken hashes"
+  find -L "${HASHES_DIR}" -name . -o -type d -prune -o -type l -exec rm {} +
+fi
 
 if ! is_enough_free_space ; then
   echo "+++ :warning: Not enough free disk space to proceed!"
