@@ -28,7 +28,7 @@
     },
     {
       "destination": "/tmp/buildkite-hooks",
-      "source": "hooks",
+      "source": "scripts/ubuntu/hooks",
       "type": "file"
     },
     {

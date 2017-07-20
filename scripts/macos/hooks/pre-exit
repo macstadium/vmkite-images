@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ -z $VMKITE_API_HOST ]] ; then
+  echo "Missing VMKITE_API_HOST env"
+  exit 1
+fi
+
+if [[ -z $VMKITE_API_TOKEN ]] ; then
+  echo "Missing VMKITE_API_TOKEN env"
+  exit 1
+fi
+
+echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
+echo VMKITE_API_TOKEN "${VMKITE_API_TOKEN:-}"
+
+curl -X POST "${VMKITE_API_HOST}/notify/hook/pre-exit" \
+  -H "Authorization: Bearer ${VMKITE_API_TOKEN}"

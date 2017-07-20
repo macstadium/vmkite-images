@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+export PATH="$HOME/.rbenv/bin:/usr/local/bin:$PATH"
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+eval "$(rbenv init -)"
+
+echo "~~~ :llama: VMKite Stack Information"
+cat /etc/vmkite-info
+
+echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
+echo VMKITE_API_TOKEN "${VMKITE_API_TOKEN:-}"
+
+if [[ -z $VMKITE_API_HOST ]] ; then
+  echo "+++ Missing VMKITE_API_HOST env"
+  exit 1
+fi
+
+if [[ -z $VMKITE_API_TOKEN ]] ; then
+  echo "+++ Missing VMKITE_API_TOKEN env"
+  exit 1
+fi
+
+curl -X POST "${VMKITE_API_HOST}/notify/hook/environment" \
+  -H "Authorization: Bearer ${VMKITE_API_TOKEN}"

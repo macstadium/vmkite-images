@@ -12,43 +12,30 @@ exec 2> >(logger -s -t "$(basename "$0")")
 
 guestinfo() {
   local key="guestinfo.$1"
-  local tool="/Library/Application Support/VMware Tools/vmware-tools-daemon"
-  local value; value=$("$tool" --cmd "info-get $key")
-  if [[ -n $value ]]; then
-    echo "$value"
-  else
-    echo >&2 "Missing $key"
-  fi
+  local default="${2:-}"
+
+  ("/Library/Application Support/VMware Tools/vmware-tools-daemon" \
+    --cmd "info-get $key" 2>/dev/null ) || echo "$default"
 }
 
-cleanup() {
-  echo "--- Buildkite exited, shutting down machine"
-  shutdown -h now
-}
-
-echo "--- Querying VMware guestinfo"
 vmdk=$(guestinfo vmkite-vmdk)
 name=$(guestinfo vmkite-name)
 token=$(guestinfo vmkite-buildkite-agent-token)
-debug=$(guestinfo vmkite-buildkite-debug)
-autoshutdown=$(guestinfo vmkite-buildkite-auto-shutdown)
+queue=$(guestinfo vmkite-queue "default")
+debug=$(guestinfo vmkite-buildkite-debug "")
+auto_shutdown=$(guestinfo vmkite-buildkite-auto-shutdown "true")
 
 [[ -n $vmdk && -n $name && -n $token ]] || exit 10
+[[ -z $auto_shutdown || $auto_shutdown =~ (true|1) ]] && trap "shutdown -h now" EXIT
 
-if [[ -z $autoshutdown || $autoshutdown =~ (true|1) ]] ; then
-  trap cleanup EXIT
-fi
+export AWS_ACCESS_KEY_ID=$(guestinfo aws-access-key-id)
+export AWS_SECRET_ACCESS_KEY=$(guestinfo aws-secret-access-key)
+export VMKITE_API_HOST=$(guestinfo vmkite-api)
+export VMKITE_API_TOKEN=$(guestinfo vmkite-api-token)
 
-aws_access_key_id=$(guestinfo aws-access-key-id)
-aws_secret_access_key=$(guestinfo aws-secret-access-key)
-
-export AWS_ACCESS_KEY_ID="$aws_access_key_id"
-export AWS_SECRET_ACCESS_KEY="$aws_secret_access_key"
-
-echo "--- Starting buildkite-agent"
 export BUILDKITE_AGENT_TOKEN="$token"
 export BUILDKITE_AGENT_NAME="$name"
-export BUILDKITE_AGENT_META_DATA="vmkite-vmdk=$vmdk,vmkite-guestid=darwin13_64Guest"
+export BUILDKITE_AGENT_META_DATA="queue=$queue,vmkite-vmdk=$vmdk,vmkite-guestid=darwin13_64Guest"
 export BUILDKITE_AGENT_DEBUG="$debug"
 
 su vmkite -c "/usr/local/bin/buildkite-agent start --disconnect-after-job"
