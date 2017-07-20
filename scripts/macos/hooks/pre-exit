@@ -14,5 +14,5 @@ fi
 echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
 echo VMKITE_API_TOKEN "${VMKITE_API_TOKEN:-}"
 
-curl -X POST "${VMKITE_API_HOST}/notify/hook/post-checkout" \
+curl -X POST "${VMKITE_API_HOST}/notify/hook/pre-exit" \
   -H "Authorization: Bearer ${VMKITE_API_TOKEN}"

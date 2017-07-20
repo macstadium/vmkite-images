@@ -10,7 +10,7 @@ echo "~~~ :llama: VMKite Stack Information"
 cat /etc/vmkite-info
 
 echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
-echo VMKITE_API_HOST "${VMKITE_API_TOKEN:-}"
+echo VMKITE_API_TOKEN "${VMKITE_API_TOKEN:-}"
 
 if [[ -z $VMKITE_API_HOST ]] ; then
   echo "+++ Missing VMKITE_API_HOST env"

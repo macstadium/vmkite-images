@@ -31,7 +31,7 @@ if [[ -f Gemfile ]] ; then
 fi
 
 echo VMKITE_API_HOST "${VMKITE_API_HOST:-}"
-echo VMKITE_API_HOST "${VMKITE_API_TOKEN:-}"
+echo VMKITE_API_TOKEN "${VMKITE_API_TOKEN:-}"
 
 curl -X POST "${VMKITE_API_HOST}/notify/hook/pre-command" \
   -H "Authorization: Bearer ${VMKITE_API_TOKEN}"
